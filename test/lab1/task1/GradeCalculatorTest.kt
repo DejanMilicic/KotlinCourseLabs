@@ -8,7 +8,7 @@ import org.junit.jupiter.api.assertThrows
 class GradeCalculatorTest : TestCase() {
 
     @Test
-    fun `test - calculate Grade with valid scores`() {
+    fun `test calculate Grade with valid scores`() {
         assertEquals(10, calculateGrade(100))
         assertEquals(10, calculateGrade(91))
         assertEquals(9, calculateGrade(90))
