@@ -48,5 +48,6 @@ fun main() {
     val scanner = Scanner(System.`in`)
     val score = scanner.nextInt()
 
-    calculateGrade(score)
+    val grade = calculateGrade(score)
+    println("Student grade is $grade")
 }
