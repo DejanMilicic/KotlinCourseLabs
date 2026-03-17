@@ -14,7 +14,7 @@ import java.util.Scanner
  * - Grade 7: 61-70 points
  * - Grade 6: 51-60 points
  *
- * The program should prompt the user to enter the student's score as an Integer.
+ * The program should prompt the user to enter the student's score as an Int.
  * Then, it should use `if` or `when` statements
  * to determine the corresponding grade based on the score and print the grade to the console.
  *
