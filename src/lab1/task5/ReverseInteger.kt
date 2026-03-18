@@ -1,5 +1,7 @@
 package lab1.task5
 
+import kotlin.math.abs
+
 /**
  * Task 5: Given an integer x, return x with its digits reversed.
  *
