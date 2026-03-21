@@ -1,1 +1,1 @@
-# KotlinCourseLabs
+# Kotlin Course Labs
