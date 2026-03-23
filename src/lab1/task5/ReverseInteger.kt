@@ -29,7 +29,13 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    var n = x
+    var result = 0
+    while (n > 0) {
+        result = 10 * result + n % 10
+        n = n / 10
+    }
+    return result
 }
 
 fun main() {
