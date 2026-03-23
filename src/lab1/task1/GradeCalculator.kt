@@ -2,6 +2,9 @@ package lab1.task1
 
 import java.util.Scanner
 
+
+
+
 /**
  * Task 1: Grade Calculator
  *
@@ -40,7 +43,16 @@ import java.util.Scanner
  */
 
 internal fun calculateGrade(score: Int): Int {
-    TODO("Implement me!!!")
+
+    when{
+        score < 1 || score > 100 -> return -1
+        score in 51..60  -> return 6
+        score in 61..70 -> return 7
+        score in 71 .. 80 -> return 8
+        score in 81 .. 90 -> return 9
+        score in 91..100 -> return 10
+        else -> return -2
+    }
 }
 
 fun main() {
@@ -49,5 +61,13 @@ fun main() {
     val score = scanner.nextInt()
 
     val grade = calculateGrade(score)
-    println("Student grade is $grade")
+    if(grade == -1){
+        println("Invalid input")
+    }
+    else if (grade == -2){
+        println("Failed class")
+    }
+    else{
+        println("Student grade is $grade")
+    }
 }
