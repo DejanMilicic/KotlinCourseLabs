@@ -57,7 +57,15 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+    if (level <= 0 || level>15) { throw Exception("Level is out of range!") }
+    var stars = 1;
+    for (i in level-1 downTo 0) {
+        repeat(i){ print(' ')}
+        repeat(stars) { print('*') }
+        repeat(i){ print(' ')}
+        println()
+        stars += 2
+    }
 }
 
 fun main() {
