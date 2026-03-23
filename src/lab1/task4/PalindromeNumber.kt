@@ -29,7 +29,9 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    var s=x.toString()
+    var s2=x.toString().reversed()
+    return s==s2
 }
 
 fun main() {

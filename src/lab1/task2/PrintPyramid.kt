@@ -57,7 +57,16 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+
+    for(i in 1..level) {
+        for(j in 1..level-i) {
+            print(" ")
+        }
+        for(j in 1..(2*i-1)) {
+            print("*")
+        }
+        println()
+    }
 }
 
 fun main() {

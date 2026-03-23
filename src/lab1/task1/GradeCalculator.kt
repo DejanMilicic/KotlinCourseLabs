@@ -40,7 +40,20 @@ import java.util.Scanner
  */
 
 internal fun calculateGrade(score: Int): Int {
-    TODO("Implement me!!!")
+    if(score<0 || score > 100)
+        return -1
+    else if(score<=60 && score >= 51)
+        return 6
+    else if(score<=70 && score >= 61)
+        return 7
+    else if(score<=80 && score >= 71)
+        return 8
+    else if(score<=90 && score >= 81)
+        return 9
+    else if(score<=90 && score >= 81)
+        return 10
+    else
+        return -1
 }
 
 fun main() {
@@ -49,5 +62,10 @@ fun main() {
     val score = scanner.nextInt()
 
     val grade = calculateGrade(score)
-    println("Student grade is $grade")
+    if(grade ==-1){
+        println("You don't have the required grade yet!")
+    }else{
+        println("Student grade is $grade")
+    }
+
 }

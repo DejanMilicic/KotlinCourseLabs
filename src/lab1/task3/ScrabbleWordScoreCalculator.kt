@@ -32,7 +32,23 @@ package lab1.task3
  */
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    TODO("Implement me!!!")
+    var sum = 0
+    var n=0
+    while (n<word.length){
+
+        when(word[n].lowercase()){
+            "d","g"-> sum += 2
+            "b","c","m","p"-> sum += 3
+            "f","h","v","w","y"-> sum += 4
+            "k"-> sum += 5
+            "j","x"-> sum += 8
+            "q","z"-> sum += 10
+            "a", "e", "i", "o", "u", "l", "n", "r", "s", "t"->sum += 1
+        }
+        n++
+    }
+
+    return sum;
 }
 
 fun main() {
