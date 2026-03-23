@@ -41,7 +41,9 @@ import java.util.Scanner
 
 internal fun calculateGrade(score: Int): Int {
 
-    require(score >= 0 && score <= 100)
+    require(score >= 0 && score <= 100) {
+        "Rezultat je van opsega."
+    }
 
     return when(score) {
         // tj. return 10
