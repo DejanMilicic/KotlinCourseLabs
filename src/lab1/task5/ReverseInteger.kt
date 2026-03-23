@@ -29,7 +29,14 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    if (x < -1000000 || x > 1000000) throw IllegalArgumentException("x can't be < -1 000 000 or > 1 000 000 ")
+    var datBroj = x
+    var noviBroj = 0
+    while(datBroj != 0){
+        noviBroj = datBroj % 10 + (noviBroj * 10)
+        datBroj /= 10
+    }
+    return noviBroj
 }
 
 fun main() {

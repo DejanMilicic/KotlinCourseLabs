@@ -32,7 +32,31 @@ package lab1.task3
  */
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    TODO("Implement me!!!")
+    val jedanPoen = listOf<Char>('A','E','I','O','U','L','N','R','S','T')
+    val dvaPoena = listOf<Char>('D','G')
+    val triPoena = listOf<Char>('B', 'C', 'M', 'P')
+    val cetiriPoena = listOf<Char>('F', 'H', 'V', 'W', 'Y')
+    val petPoena = listOf<Char>('K')
+    val osamPoena = listOf<Char>('J', 'X')
+    val desetPoena = listOf<Char>('Q', 'Z')
+
+    val duzinaStringa = word.length
+    var poeni = 0;
+
+    for( i in 0..duzinaStringa-1){
+        val slovo : Char = word[i].uppercaseChar()
+        when(slovo){
+            in jedanPoen -> poeni += 1;
+            in dvaPoena -> poeni += 2;
+            in triPoena -> poeni += 3;
+            in cetiriPoena -> poeni += 4;
+            in petPoena -> poeni += 5;
+            in osamPoena -> poeni += 8;
+            in desetPoena -> poeni += 10;
+        }
+    }
+
+    return poeni;
 }
 
 fun main() {

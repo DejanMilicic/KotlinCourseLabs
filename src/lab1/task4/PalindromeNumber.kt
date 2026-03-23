@@ -1,5 +1,7 @@
 package lab1.task4
 
+import java.security.KeyStore
+
 /**
  * Task 4: Given an integer x, return true if x is a palindrome, and false otherwise.
  *
@@ -29,7 +31,18 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    val brojKaoString = x.toString()
+    val duzinaStringa = brojKaoString.length
+    var pozicija = 0;
+    var rezultat = true ;
+
+    while(pozicija != ((brojKaoString.length)/2 + 1)){
+        if(brojKaoString[pozicija] != brojKaoString[duzinaStringa - pozicija - 1]) {
+            rezultat = false
+        }
+        pozicija = pozicija+1
+    }
+    return rezultat;
 }
 
 fun main() {
