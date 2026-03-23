@@ -55,7 +55,6 @@ internal fun calculateWordScrabbleScore(word: String): Int {
             in desetPoena -> poeni += 10;
         }
     }
-
     return poeni;
 }
 
