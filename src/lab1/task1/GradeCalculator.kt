@@ -44,12 +44,13 @@ internal fun calculateGrade(score: Int): Int {
     when
     {
 
-        score<51 -> grade = 5
-        score>51  && score <61 -> grade = 6
-       score >61 && score < 71 -> grade = 7
-       score >71 && score <81  -> grade = 8
-       score >81 && score< 91 -> grade = 9
-       score >91 && score<= 100 -> grade = 10
+        score<=51 -> grade = 5
+        score>=51  && score <61 -> grade = 6
+       score >=61 && score < 71 -> grade = 7
+       score >=71 && score <81  -> grade = 8
+       score >=81 && score< 91 -> grade = 9
+       score >=91 && score<= 100 -> grade = 10
+        else -> throw IllegalArgumentException("Bodovi mogu biti samo od 0 do 100: $score")
     }
     return grade
 }
