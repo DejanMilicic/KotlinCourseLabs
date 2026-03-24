@@ -40,12 +40,12 @@ internal fun calculateWordScrabbleScore(word: String): Int {
     val charsWorthEightPoints = listOf<Char>('J', 'X')
     val charsWorthTenPoints = listOf<Char>('Q', 'Z')
 
-    val duzinaStringa = word.length
+    val wordLength = word.length
     var points = 0
 
-    for( i in 0..duzinaStringa-1){
-        val slovo : Char = word[i].uppercaseChar()
-        when(slovo){
+    for( i in 0..wordLength-1){
+        val character : Char = word[i].uppercaseChar()
+        when(character){
             in charsWorthOnePoint -> points += 1
             in charsWorthTwoPoints -> points += 2
             in charsWorthThreePoints -> points += 3
