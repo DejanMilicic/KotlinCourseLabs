@@ -41,7 +41,7 @@ import java.util.Scanner
 
 internal fun calculateGrade(score: Int): Int {
     return when{
-        score >= 101 -> throw IllegalArgumentException("Score can not be more than 101")
+        score > 100 -> throw IllegalArgumentException("Score can not be more than 100")
         score >= 91 -> 10
         score >= 81 -> 9
         score >= 71 -> 8
