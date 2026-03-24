@@ -47,7 +47,8 @@ internal fun calculateGrade(score: Int): Int {
         score >= 71 -> 8
         score >= 61 -> 7
         score >= 51 -> 6
-        else -> throw IllegalArgumentException("Score can not be less than 51")
+        score >= 0 -> 5
+        else -> throw IllegalArgumentException("Score can not be more less than 0")
     }
 }
 
