@@ -32,30 +32,30 @@ package lab1.task3
  */
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    val jedanPoen = listOf<Char>('A','E','I','O','U','L','N','R','S','T')
-    val dvaPoena = listOf<Char>('D','G')
-    val triPoena = listOf<Char>('B', 'C', 'M', 'P')
-    val cetiriPoena = listOf<Char>('F', 'H', 'V', 'W', 'Y')
-    val petPoena = listOf<Char>('K')
-    val osamPoena = listOf<Char>('J', 'X')
-    val desetPoena = listOf<Char>('Q', 'Z')
+    val charsWorthOnePoint = listOf<Char>('A','E','I','O','U','L','N','R','S','T')
+    val charsWorthTwoPoints = listOf<Char>('D','G')
+    val charsWorthThreePoints = listOf<Char>('B', 'C', 'M', 'P')
+    val charsWorthFourPoints = listOf<Char>('F', 'H', 'V', 'W', 'Y')
+    val charsWorthFivePoints = listOf<Char>('K')
+    val charsWorthEightPoints = listOf<Char>('J', 'X')
+    val charsWorthTenPoints = listOf<Char>('Q', 'Z')
 
     val duzinaStringa = word.length
-    var poeni = 0;
+    var points = 0;
 
     for( i in 0..duzinaStringa-1){
         val slovo : Char = word[i].uppercaseChar()
         when(slovo){
-            in jedanPoen -> poeni += 1;
-            in dvaPoena -> poeni += 2;
-            in triPoena -> poeni += 3;
-            in cetiriPoena -> poeni += 4;
-            in petPoena -> poeni += 5;
-            in osamPoena -> poeni += 8;
-            in desetPoena -> poeni += 10;
+            in charsWorthOnePoint -> points += 1;
+            in charsWorthTwoPoints -> points += 2;
+            in charsWorthThreePoints -> points += 3;
+            in charsWorthFourPoints -> points += 4;
+            in charsWorthFivePoints -> points += 5;
+            in charsWorthEightPoints -> points += 8;
+            in charsWorthTenPoints -> points += 10;
         }
     }
-    return poeni;
+    return points;
 }
 
 fun main() {
