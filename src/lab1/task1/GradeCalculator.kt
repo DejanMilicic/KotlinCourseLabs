@@ -42,11 +42,11 @@ import java.util.Scanner
 internal fun calculateGrade(score: Int): Int {
 
     require(score >= 0 && score <= 100) {
-        "Rezultat je van opsega."
+        "Given result is out of range."
     }
 
     return when(score) {
-        // tj. return 10
+        // return not needed here
         in 91..100 -> 10
         in 81..90 -> 9
         in 71..80 -> 8

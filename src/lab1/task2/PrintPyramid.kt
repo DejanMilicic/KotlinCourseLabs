@@ -83,8 +83,8 @@ internal fun printPyramid(level: Int) {
 
     for (i in 1..level) {
         val spaces = " ".repeat(level - i)
-        val asteriks = "*".repeat(i*2-1)
-        println(spaces + asteriks + spaces)
+        val asterisk = "*".repeat(i*2-1)
+        println(spaces + asterisk + spaces)
     }
 }
 

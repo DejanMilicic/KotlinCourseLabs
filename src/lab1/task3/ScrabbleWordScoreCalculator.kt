@@ -32,12 +32,12 @@ package lab1.task3
  */
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    var suma = 0
+    var sum = 0
     for (ch in word) {
-        suma += skrablMapa[ch.uppercaseChar()] ?: error("$ch nije validna skrabl rec")
+        sum += skrablMapa[ch.uppercaseChar()] ?: error("$ch not valid scrable score")
     }
 
-    return suma
+    return sum
 }
 
 private val skrablMapa = mapOf(
