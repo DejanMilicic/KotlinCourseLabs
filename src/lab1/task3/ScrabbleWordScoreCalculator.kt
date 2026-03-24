@@ -46,16 +46,16 @@ internal fun calculateWordScrabbleScore(word: String): Int {
     for( i in 0..duzinaStringa-1){
         val slovo : Char = word[i].uppercaseChar()
         when(slovo){
-            in charsWorthOnePoint -> points += 1;
-            in charsWorthTwoPoints -> points += 2;
-            in charsWorthThreePoints -> points += 3;
-            in charsWorthFourPoints -> points += 4;
-            in charsWorthFivePoints -> points += 5;
-            in charsWorthEightPoints -> points += 8;
-            in charsWorthTenPoints -> points += 10;
+            in charsWorthOnePoint -> points += 1
+            in charsWorthTwoPoints -> points += 2
+            in charsWorthThreePoints -> points += 3
+            in charsWorthFourPoints -> points += 4
+            in charsWorthFivePoints -> points += 5
+            in charsWorthEightPoints -> points += 8
+            in charsWorthTenPoints -> points += 10
         }
     }
-    return points;
+    return points
 }
 
 fun main() {
