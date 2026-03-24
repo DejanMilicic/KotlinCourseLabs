@@ -41,7 +41,7 @@ internal fun calculateWordScrabbleScore(word: String): Int {
     val charsWorthTenPoints = listOf<Char>('Q', 'Z')
 
     val duzinaStringa = word.length
-    var points = 0;
+    var points = 0
 
     for( i in 0..duzinaStringa-1){
         val slovo : Char = word[i].uppercaseChar()
