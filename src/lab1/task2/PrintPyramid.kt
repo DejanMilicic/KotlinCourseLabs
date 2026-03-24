@@ -57,7 +57,16 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+    require(level in 1..15) { "Invalid Pyramid level: $level" }
+    for(i in 1..level) {
+        val numberOfSpaces = level - i
+        val numberOfStars = 2 * i - 1
+        repeat(numberOfSpaces, { print(" ") })
+        repeat(numberOfStars, { print('*') })
+        repeat(numberOfSpaces, { print(" ") })
+        println()
+    }
+
 }
 
 fun main() {
