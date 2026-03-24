@@ -57,9 +57,27 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+    if (level !in 1..15) {
+        throw IllegalArgumentException("Invalid level $level")
+    }
+
+    for (i in 1..level) {
+        for (j in 1..(level - i)) {
+            print(" ")
+        }
+
+        for (j in 1..(2 * i - 1)) {
+            print("*")
+        }
+
+        for (j in 1..(level - i)) {
+            print(" ")
+        }
+
+        println()
+    }
 }
 
 fun main() {
-    printPyramid(5)
+    printPyramid(3)
 }
