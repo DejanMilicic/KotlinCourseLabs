@@ -38,28 +38,39 @@ import java.util.Scanner
  * Invalid score. Please enter a score between 0 and 100.
  * ```
  */
-
 internal fun calculateGrade(score: Int): Int {
     var grade = 0
     when
     {
 
-        score<=51 -> grade = 5
+
         score>=51  && score <61 -> grade = 6
-       score >=61 && score < 71 -> grade = 7
-       score >=71 && score <81  -> grade = 8
-       score >=81 && score< 91 -> grade = 9
-       score >=91 && score<= 100 -> grade = 10
-        else -> throw IllegalArgumentException("Bodovi mogu biti samo od 0 do 100: $score")
+        score >=61 && score < 71 -> grade = 7
+        score >=71 && score <81  -> grade = 8
+        score >=81 && score< 91 -> grade = 9
+        score >=91 && score<= 100 -> grade = 10
+        else -> throw IllegalArgumentException("Bodovi mogu biti samo od 0 do 100 ")
+
     }
     return grade
 }
 
-fun main() {
-    print("Enter student score: ")
-    val scanner = Scanner(System.`in`)
-    val score = scanner.nextInt()
 
-    val grade = calculateGrade(score)
-    println("Student grade is $grade")
+fun main() {
+    val scanner = Scanner(System.`in`)
+
+    while (true) {
+        print("Enter student score: ")
+        val score = scanner.nextInt()
+
+        try {
+            val grade = calculateGrade(score)
+            println("Grade: $grade")
+            break
+        } catch (e: IllegalArgumentException) {
+            println("Invalid score. Please enter a score between 51 and 100.")
+        }
+    }
 }
+
+
