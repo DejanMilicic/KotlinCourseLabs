@@ -35,7 +35,7 @@ internal fun reverseInteger(x: Int): Int {
 
     var n = x
     val reverse = ArrayList<Int>()
-    var isPositive = true;
+    var isPositive = true
 
     if (n < 0) {
         isPositive = false
@@ -44,7 +44,7 @@ internal fun reverseInteger(x: Int): Int {
     n = abs(x)
 
     while (n > 0) {
-        val remainder = n % 10;
+        val remainder = n % 10
         reverse.add(remainder)
         n /= 10
     }
