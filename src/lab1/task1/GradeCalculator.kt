@@ -40,17 +40,18 @@ import java.util.Scanner
  */
 
 internal fun calculateGrade(score: Int): Int {
-    if (score < 0 || score > 100)
-        return -1
-    else if (score <= 60 && score >= 51)
+    if (score < 0 || score > 100) {
+        throw IllegalArgumentException("Score must be between 0 and 100")
+    }
+    else if (score >= 51 && score <= 60)
         return 6
-    else if (score <= 70 && score >= 61)
+    else if (score >= 61 && score <= 70)
         return 7
-    else if (score <= 80 && score >= 71)
+    else if (score >= 71 && score <= 80)
         return 8
-    else if (score <= 90 && score >= 81)
+    else if (score >= 81 && score <= 90)
         return 9
-    else if (score <= 90 && score >= 81)
+    else if (score >= 91 && score <= 100)
         return 10
     else
         return -1

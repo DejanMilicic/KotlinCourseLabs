@@ -57,7 +57,9 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-
+    if(level<=0 || level>15){
+        throw IllegalArgumentException("Score must be between 0 and 100")
+    }
     for (i in 1..level) {
         for (j in 1..level - i) {
             print(" ")

@@ -29,6 +29,9 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
+    if (x < -1_000_000 || x > 1_000_000) {
+        throw IllegalArgumentException("Input is out of valid range")
+    }
     var sign = 1
     if (x < 0) {
         sign = -1
