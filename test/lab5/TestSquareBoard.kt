@@ -166,8 +166,8 @@ class TestSquareBoard {
         Assertions.assertTrue(
             first === second,
             "'getCell' and 'getCellOrNull' should return the same 'Cell' instances.\n" +
-                "Create only 'width * width' cells; all the functions working with cells " +
-                "should return existing cells instead of creating new ones.")
+                    "Create only 'width * width' cells; all the functions working with cells " +
+                    "should return existing cells instead of creating new ones.")
     }
 
     @Test
@@ -178,8 +178,8 @@ class TestSquareBoard {
         Assertions.assertTrue(
             first === second,
             "'getAllCells' and 'getCell' should return the same 'Cell' instances.\n" +
-                "Create only 'width * width' cells; all the functions working with cells " +
-                "should return existing cells instead of creating new ones.")
+                    "Create only 'width * width' cells; all the functions working with cells " +
+                    "should return existing cells instead of creating new ones.")
     }
 
     @Test
@@ -191,8 +191,8 @@ class TestSquareBoard {
         Assertions.assertTrue(
             first === second,
             "'getNeighbour' shouldn't recreate the 'Cell' instance.\n" +
-                "Create only 'width * width' cells; all the functions working with cells " +
-                "should return existing cells instead of creating new ones.")
+                    "Create only 'width * width' cells; all the functions working with cells " +
+                    "should return existing cells instead of creating new ones.")
     }
 
     @Test
@@ -204,8 +204,8 @@ class TestSquareBoard {
         Assertions.assertTrue(
             first === second,
             "'getRow' shouldn't recreate the 'Cell' instances.\n" +
-                "Create only 'width * width' cells; all the functions working with cells " +
-                "should return existing cells instead of creating new ones.")
+                    "Create only 'width * width' cells; all the functions working with cells " +
+                    "should return existing cells instead of creating new ones.")
     }
 
     @Test
@@ -217,7 +217,7 @@ class TestSquareBoard {
         Assertions.assertTrue(
             first === second,
             "'getColumn' shouldn't recreate the 'Cell' instances.\n" +
-                "Create only 'width * width' cells; all the functions working with cells " +
-                "should return existing cells instead of creating new ones.")
+                    "Create only 'width * width' cells; all the functions working with cells " +
+                    "should return existing cells instead of creating new ones.")
     }
 }

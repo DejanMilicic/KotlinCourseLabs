@@ -4,7 +4,7 @@ package lab5
 fun createSquareBoard(width: Int): SquareBoard = TODO("SquareBoardImpl(width)")
 
 // TODO Instantiate GameBoard
-fun <T> createGameBoard(width: Int): GameBoard = TODO("GameBoardImpl(width)")
+fun createGameBoard(width: Int): GameBoard = TODO("GameBoardImpl(width)")
 
 // TODO Implement SquareBoard Interface
 class SquareBoardImpl(size: Int)

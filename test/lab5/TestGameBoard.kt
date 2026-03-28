@@ -12,14 +12,14 @@ class TestGameBoard {
 
     @Test
     fun test01GetAndSetElement() {
-        val gameBoard = createGameBoard<Char>(2)
+        val gameBoard = createGameBoard(2)
         gameBoard[1, 1] = "a"
         Assertions.assertEquals("a", gameBoard[1, 1])
     }
 
     @Test
     fun test02Filter() {
-        val gameBoard = createGameBoard<Char>(2)
+        val gameBoard = createGameBoard(2)
         gameBoard[1, 1] = "a"
         gameBoard[1, 2] = "b"
         val cells = gameBoard.filter { it == "a" }
@@ -31,7 +31,7 @@ class TestGameBoard {
 
     @Test
     fun test03All() {
-        val gameBoard = createGameBoard<Char>(2)
+        val gameBoard = createGameBoard(2)
         gameBoard[1, 1] = "a"
         gameBoard[1, 2] = "a"
         Assertions.assertFalse(gameBoard.all { it == "a" })
@@ -42,7 +42,7 @@ class TestGameBoard {
 
     @Test
     fun test04Any() {
-        val gameBoard = createGameBoard<Char>(2)
+        val gameBoard = createGameBoard(2)
         gameBoard[1, 1] = "a"
         gameBoard[1, 2] = "b"
         Assertions.assertTrue(gameBoard.any { it?.toCharArray()?.firstOrNull() in 'a'..'b' })
@@ -51,7 +51,7 @@ class TestGameBoard {
 
     @Test
     fun test05TheSameCell() {
-        val gameBoard = createGameBoard<Char>(2)
+        val gameBoard = createGameBoard(2)
         gameBoard[1, 1] = "a"
         val cell1 = gameBoard.find { it == "a" }
         gameBoard[1, 1] = "b"
@@ -61,7 +61,7 @@ class TestGameBoard {
 
     @Test
     fun test06FindReturnsTheSameCell() {
-        val gameBoard = createGameBoard<Char>(2)
+        val gameBoard = createGameBoard(2)
         gameBoard[1, 1] = "a"
         val first = gameBoard.find { it == "a" }
         val second = gameBoard.getCell(1, 1)
@@ -75,7 +75,7 @@ class TestGameBoard {
 
     @Test
     fun test07FilterTheSameCell() {
-        val gameBoard = createGameBoard<Char>(2)
+        val gameBoard = createGameBoard(2)
         gameBoard[1, 1] = "a"
         val cells = gameBoard.filter { it == "a" }
         val first = cells.first()
