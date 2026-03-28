@@ -29,15 +29,15 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    print(x.toString()[0])
-
-    if(x.toString()[0].equals("-")){
-        return -1*x.toString().reversed().toInt()
+    var sign = 1
+    if (x < 0) {
+        sign = -1
+    } else {
+        sign = 1
     }
+    val reverseStr = abs(x).toString().reversed()
+    return reverseStr.toInt() * sign
 
-    else{
-        return x.toString().reversed().toInt()
-    }
 }
 
 fun main() {
