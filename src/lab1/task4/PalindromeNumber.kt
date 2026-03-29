@@ -29,7 +29,15 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    if (x < 0) return false
+    var original = x
+    var reversed = 0
+    while (original != 0) {
+        val digit = original % 10
+        reversed = reversed * 10 + digit
+        original /= 10
+    }
+    return x==reversed
 }
 
 fun main() {
