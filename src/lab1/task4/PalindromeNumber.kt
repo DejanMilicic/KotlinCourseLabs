@@ -29,6 +29,9 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
+    if(x !in -1000000..1000000){
+        throw IllegalArgumentException("Invalid number. The number must be between -1000000 and 1000000.")
+    }
     if (x < 0) return false
     var original = x
     var reversed = 0
