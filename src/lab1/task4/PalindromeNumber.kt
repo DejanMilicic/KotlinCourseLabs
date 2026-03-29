@@ -29,7 +29,16 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    val word = x.toString();
+    var pointL = 0;
+    var pointR = word.length - 1;
+    while (pointL != pointR) {
+        if(word[pointL] != word[pointR])
+            return false;
+        pointL++;
+        pointR--;
+    }
+    return true;
 }
 
 fun main() {

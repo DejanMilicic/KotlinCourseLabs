@@ -1,5 +1,6 @@
 package lab1.task1
 
+import java.lang.IllegalArgumentException
 import java.util.Scanner
 
 /**
@@ -40,14 +41,35 @@ import java.util.Scanner
  */
 
 internal fun calculateGrade(score: Int): Int {
-    TODO("Implement me!!!")
+    return when {
+        score < 0 || score > 100 -> throw IllegalArgumentException()
+        score >= 91 -> 10
+        score >= 81 -> 9
+        score >= 71 -> 8
+        score >= 61 -> 7
+        score >= 51 -> 6
+        else -> 5
+    }
 }
 
 fun main() {
-    print("Enter student score: ")
+
+    /*
+    var score = -1;
+    while (score < 0 || score > 100) {
+        print("Enter student score: ")
+        val scanner = Scanner(System.`in`)
+        score = scanner.nextInt()
+        if(score > 100 || score < 0){
+            println("Enter a valid score, between 0-100")
+        }
+    }
+    */
+
     val scanner = Scanner(System.`in`)
     val score = scanner.nextInt()
 
     val grade = calculateGrade(score)
+
     println("Student grade is $grade")
 }

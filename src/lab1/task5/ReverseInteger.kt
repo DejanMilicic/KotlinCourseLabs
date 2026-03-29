@@ -1,6 +1,7 @@
 package lab1.task5
 
 import kotlin.math.abs
+import kotlin.require
 
 /**
  * Task 5: Given an integer x, return x with its digits reversed.
@@ -29,7 +30,13 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    require(x <= 1000000 && x >= -1000000);
+    var word = x.toString();
+    if(word[0] == '-'){
+        word = word.substring(1);
+        return ("-" + word.reversed()).toInt();
+    }
+    return word.reversed().toInt();
 }
 
 fun main() {
