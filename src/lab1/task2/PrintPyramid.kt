@@ -57,8 +57,9 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    if (level <= 0 || level>15) { throw Exception("Level is out of range!") }
-    var stars = 1;
+    if (level <= 0 || level>15)
+        throw Exception("Level is out of range!")
+    var stars = 1
     for (i in level-1 downTo 0) {
         repeat(i){ print(' ')}
         repeat(stars) { print('*') }

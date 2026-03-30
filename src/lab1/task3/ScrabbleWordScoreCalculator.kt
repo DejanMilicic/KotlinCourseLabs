@@ -32,10 +32,11 @@ package lab1.task3
  */
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    var score = 0;
+    var score = 0
+    val helperWord = word.lowercase()
 
     for(i in  word.length - 1 downTo 0) {
-        when (word[i]) {
+        when (helperWord[i]) {
             'a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't' -> score += 1
             'd', 'g' -> score += 2
             'b','c','m','p' -> score += 3
@@ -46,7 +47,7 @@ internal fun calculateWordScrabbleScore(word: String): Int {
         }
     }
 
-    return score;
+    return score
 }
 
 fun main() {

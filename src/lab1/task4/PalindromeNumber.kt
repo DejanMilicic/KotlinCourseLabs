@@ -29,7 +29,15 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    val xs = x.toString()
+    var lastIndex = xs.length - 1
+    for (i in 0..xs.length/2){
+        if(!xs[i].equals(xs[lastIndex]))
+            return false
+        lastIndex--
+    }
+
+    return true
 }
 
 fun main() {

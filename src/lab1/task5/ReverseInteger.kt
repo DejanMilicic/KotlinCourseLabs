@@ -1,6 +1,7 @@
 package lab1.task5
 
-import kotlin.math.abs
+import kotlin.Exception
+
 
 /**
  * Task 5: Given an integer x, return x with its digits reversed.
@@ -29,7 +30,20 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    if (x !in -1_000_000..1_000_000)
+        throw Exception("X is not in range")
+
+    var xx = x
+    var result = 0
+    while (xx != 0){
+        result *= 10
+        val helper = xx % 10
+        result += helper
+        xx /= 10
+    }
+
+    return result
+
 }
 
 fun main() {
