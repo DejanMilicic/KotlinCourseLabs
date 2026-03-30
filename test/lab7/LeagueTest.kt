@@ -24,7 +24,7 @@ class LeagueTest : TestCase() {
         }
     }
 
-    private val testData = getTestData("goals-scored.csv")
+    private val testData = getTestData("lab7/goals-scored.csv")
         .readLines()
     private val expectedGoalsScoredConcededEntries = ExpectedGoalsScoredConcededEntries(testData)
 
