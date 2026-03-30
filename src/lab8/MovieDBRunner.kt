@@ -8,7 +8,7 @@ private fun parseMovies(moviesLines: List<String>): List<Movie> {
 }
 
 fun main() {
-    val moviesCSVFile = FileReader.readFileInResources("exercise8/movies.csv")
+    val moviesCSVFile = FileReader.readFileInResources("lab8/movies.csv")
     val movies = parseMovies(moviesCSVFile)
 
     val movieDBApi : MovieDBApi = TODO("Instantiate MovieDB")
