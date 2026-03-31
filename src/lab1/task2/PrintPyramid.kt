@@ -56,8 +56,36 @@ package lab1.task2
  *
  */
 
+internal fun printPyramidOld(level: Int) {
+    require(level in 1..15)
+
+    for (i in 1..level) {
+
+        for (s in 1..level - i) {
+            print(" ")
+        }
+
+        for (j in 1..i*2-1) {
+            print("*")
+        }
+
+        for (s in 1..level - i) {
+            print(" ")
+        }
+
+        println()
+    }
+
+}
+
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+    require(level in 1..15)
+
+    for (i in 1..level) {
+        val spaces = " ".repeat(level - i)
+        val asterisk = "*".repeat(i*2-1)
+        println(spaces + asterisk + spaces)
+    }
 }
 
 fun main() {
