@@ -29,7 +29,18 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    if (x <0) return false
+
+    var br=x
+    var ostatakBr=0
+
+    while (br>0)
+    {
+        ostatakBr=ostatakBr*10+br%10
+        br=br/10
+    }
+
+    return x==ostatakBr
 }
 
 fun main() {
