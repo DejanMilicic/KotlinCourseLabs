@@ -30,7 +30,6 @@ package lab1.task2
  *  ***
  * *****
  * ```
- *
  * Example:
  * For `level = 4`, the output should be:
  * ```

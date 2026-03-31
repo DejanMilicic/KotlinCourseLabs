@@ -30,7 +30,6 @@ package lab1.task3
  * [word]. It is guaranteed that the [word] contains only characters in the range from 'a' to 'z'.
  *
  */
-
 internal fun calculateWordScrabbleScore(word: String): Int {
     val score=mapOf(
         'a' to 1,'e' to 1,'i' to 1,'o' to 1,'u' to 1,

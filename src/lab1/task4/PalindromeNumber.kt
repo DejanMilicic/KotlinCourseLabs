@@ -27,7 +27,6 @@ package lab1.task4
  * x in -1_000_000..1_000_000
  * ```
  */
-
 internal fun isPalindrome(x: Int): Boolean {
     if (x <0) return false
 

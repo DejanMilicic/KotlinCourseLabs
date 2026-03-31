@@ -27,7 +27,6 @@ import kotlin.math.abs
  *```
  *
  */
-
 internal fun reverseInteger(x: Int): Int {
     val znak=if(x<0) -1 else 1
     var br=abs(x)
