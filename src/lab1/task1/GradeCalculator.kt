@@ -59,7 +59,7 @@ fun main() {
 
     val grade = calculateGrade(score)
     if(grade==0){
-        println("Invalid score. Please enter a score between 1 and 100")
+        println("Invalid score. Please enter a score between 1 and 100 ")
     }else
     {println("Student grade is $grade")}
 
