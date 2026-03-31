@@ -57,12 +57,17 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
+    if (level !in 1..15)
+        throw IllegalArgumentException("Level must be non-negative")
    for (i in 1..level) {
        for (j in 1 .. (level - i)) {
            print(" ")
        }
        for (k in 1..(2 * i -1)) {
            print("*")
+       }
+       for (j in 1 .. (level - i)) {
+           print(" ")
        }
        println()
    }
