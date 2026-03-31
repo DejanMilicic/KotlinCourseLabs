@@ -33,13 +33,12 @@ internal fun reverseInteger(x: Int): Int {
     if (x !in -1_000_000..1_000_000)
         throw Exception("X is not in range")
 
-    var xx = x
+    var temp = x
     var result = 0
-    while (xx != 0){
+    while (temp != 0) {
         result *= 10
-        val helper = xx % 10
-        result += helper
-        xx /= 10
+        result += temp % 10
+        temp /= 10
     }
 
     return result

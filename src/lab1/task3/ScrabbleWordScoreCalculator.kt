@@ -35,12 +35,12 @@ internal fun calculateWordScrabbleScore(word: String): Int {
     var score = 0
     val helperWord = word.lowercase()
 
-    for(i in  word.length - 1 downTo 0) {
+    for (i in word.length - 1 downTo 0) {
         when (helperWord[i]) {
             'a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't' -> score += 1
             'd', 'g' -> score += 2
-            'b','c','m','p' -> score += 3
-            'f','h', 'v', 'w', 'y' -> score += 4
+            'b', 'c', 'm', 'p' -> score += 3
+            'f', 'h', 'v', 'w', 'y' -> score += 4
             'k' -> score += 5
             'j', 'x' -> score += 8
             'q', 'z' -> score += 10

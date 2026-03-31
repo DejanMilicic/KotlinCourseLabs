@@ -31,8 +31,8 @@ package lab1.task4
 internal fun isPalindrome(x: Int): Boolean {
     val xs = x.toString()
     var lastIndex = xs.length - 1
-    for (i in 0..xs.length/2){
-        if(!xs[i].equals(xs[lastIndex]))
+    for (i in 0..xs.length / 2) {
+        if (xs[i] != (xs[lastIndex]))
             return false
         lastIndex--
     }

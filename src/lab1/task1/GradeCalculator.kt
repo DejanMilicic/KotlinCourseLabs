@@ -40,7 +40,7 @@ import java.util.Scanner
  */
 
 internal fun calculateGrade(score: Int): Int {
-    when(score) {
+    when (score) {
         in 91..100 -> return 10
         in 81..90 -> return 9
         in 71..80 -> return 8
