@@ -39,21 +39,18 @@ import java.util.Scanner
  * ```
  */
 
-internal fun calculateGrade(score: Int): Any {
-
-    if (score in 51..60) {
-        return 6
-    }else if(score in 61..70) {
-        return 7
-    }else if(score in 71..80) {
-        return 8
-    }else if(score in 81..90) {
-        return 9
-    }else if(score in 91..100) {
-        return 10
+internal fun calculateGrade(score: Int): Int {
+    return when (score) {
+        in 1..50 ->1
+        in 51..60 -> 6
+        in 61..70 -> 7
+        in 71..80 -> 8
+        in 81..90 -> 9
+        in 91..100 -> 10
+        else -> 0
     }
-    return "Invalid input"
 }
+
 
 fun main() {
     print("Enter student score: ")
@@ -61,5 +58,9 @@ fun main() {
     val score = scanner.nextInt()
 
     val grade = calculateGrade(score)
-    println("Student grade is $grade")
+    if(grade==0){
+        println("Invalid score. Please enter a score between 1 and 100")
+    }else
+    {println("Student grade is $grade")}
+
 }
