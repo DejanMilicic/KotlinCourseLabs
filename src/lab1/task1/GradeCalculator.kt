@@ -43,15 +43,16 @@ import java.util.Scanner
  */
 
 internal fun calculateGrade(score: Int): Int {
-
+    if(score < 1 || score > 100 )
+        throw IllegalArgumentException("Score must be between 1 and 100")
     when{
-        score < 1 || score > 100 -> return -1
+
         score in 51..60  -> return 6
         score in 61..70 -> return 7
         score in 71 .. 80 -> return 8
         score in 81 .. 90 -> return 9
         score in 91..100 -> return 10
-        else -> return -2
+        else -> return -1
     }
 }
 
@@ -61,10 +62,7 @@ fun main() {
     val score = scanner.nextInt()
 
     val grade = calculateGrade(score)
-    if(grade == -1){
-        println("Invalid input")
-    }
-    else if (grade == -2){
+    if (grade == -1){
         println("Failed class")
     }
     else{
