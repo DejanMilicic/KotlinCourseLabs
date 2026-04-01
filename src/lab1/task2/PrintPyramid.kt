@@ -57,19 +57,33 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    println()
-    for (i in 1..level){
-        for(j in 1..level-i){
-            print(" ")
-        }
-        for(j in 1..(2*i-1)){
-            print("*")
-        }
-        println()
+    if (level !in 1..15) {
+        throw IllegalArgumentException("Level must be between 1 and 15 inclusive.")
     }
+    val pyramidBuilder = StringBuilder()
+    val maxWidth = 2 * level - 1
 
+    for (i in 1..level) {
+        val starCount = 2 * i - 1
+        val sideSpaceCount = (maxWidth - starCount) / 2
+        val spaces = " ".repeat(sideSpaceCount)
+        val stars = "*".repeat(starCount)
+        pyramidBuilder.append(spaces).append(stars).append(spaces)
+        if (i < level) {
+            pyramidBuilder.append("\n")
+        }
+    }
+    print(pyramidBuilder.toString())
 }
 
 fun main() {
-    printPyramid(5)
+    try {
+        println("Pyramid with level 5:")
+        printPyramid(5)
+
+        println("\nPyramid with level 3:")
+        printPyramid(3)
+    } catch (e: IllegalArgumentException) {
+        println(e.message)
+    }
 }

@@ -17,8 +17,8 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPair(): Pair<Int, Int> {
-    val list=this.sorted()
-    return Pair(list[this.lastIndex-1], list[this.lastIndex])
+    val list = this.sorted()
+    return Pair(list[this.lastIndex - 1], list[this.lastIndex])
 }
 
 fun main() {

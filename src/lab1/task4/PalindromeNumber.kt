@@ -29,7 +29,7 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    val original=x.toString()
+    val original = x.toString()
     val reversed = original.reversed()
     return original == reversed
 }

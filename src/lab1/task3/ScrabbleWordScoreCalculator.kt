@@ -32,21 +32,22 @@ package lab1.task3
  */
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    var value=0
-    var n=0
-    while(n<word.length){
-        when(word[n].uppercaseChar()){
-            'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T' ->value+=1
-            'D','G'->value+=2
-            'B','C','M','P'->value+=3
-            'F','H','V','W','Y'->value+=4
-            'K'->value+=5
-            'J','X'->value+=8
-            'Q','Z'->value+=9
+    var totalScore = 0
+
+    for (char in word.lowercase()) {
+        totalScore += when (char) {
+            'a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't' -> 1
+            'd', 'g' -> 2
+            'b', 'c', 'm', 'p' -> 3
+            'f', 'h', 'v', 'w', 'y' -> 4
+            'k' -> 5
+            'j', 'x' -> 8
+            'q', 'z' -> 10
+            else -> 0
         }
-        n++
     }
-    return value
+
+    return totalScore
 }
 
 fun main() {

@@ -41,26 +41,35 @@ import java.util.Scanner
 
 internal fun calculateGrade(score: Int): Int {
     return when (score) {
-        in 1..50 ->1
-        in 51..60 -> 6
-        in 61..70 -> 7
-        in 71..80 -> 8
-        in 81..90 -> 9
         in 91..100 -> 10
-        else -> 0
+        in 81..90 -> 9
+        in 71..80 -> 8
+        in 61..70 -> 7
+        in 51..60 -> 6
+        in 0..50 -> 0
+        else -> throw IllegalArgumentException("Invalid score. Please enter a score between 0 and 100.")
     }
 }
 
 
 fun main() {
-    print("Enter student score: ")
     val scanner = Scanner(System.`in`)
-    val score = scanner.nextInt()
+    print("Enter student score: ")
 
-    val grade = calculateGrade(score)
-    if(grade==0){
-        println("Invalid score. Please enter a score between 1 and 100 ")
-    }else
-    {println("Student grade is $grade")}
+    if (scanner.hasNextInt()) {
+        val score = scanner.nextInt()
 
+        try {
+            val grade = calculateGrade(score)
+            if (grade > 0) {
+                println("Grade: $grade")
+            } else {
+                println("Grade: Fail")
+            }
+        } catch (e: IllegalArgumentException) {
+            println("Invalid score. Please enter a score between 0 and 100.")
+        }
+    } else {
+        println("Invalid input. Please enter a whole number.")
+    }
 }
