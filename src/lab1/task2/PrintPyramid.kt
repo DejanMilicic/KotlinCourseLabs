@@ -56,16 +56,15 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    require(level in 1..15)
+    require(level in 1 .. 15)
     {
-        "Invalidan nivo, nivo mora biti izmedju 1 i 15"
+        "Invalid level, it should be between 1 and 15"
     }
     println()
-    for(i in 1..level)
-    {
-        val spaces=" ".repeat(level-i)
-        val stars="*".repeat(2*i-1)
-        println(spaces+stars)
+    for (i in 1 .. level) {
+        val spaces = " ".repeat(level - i)
+        val stars = "*".repeat(2 * i - 1)
+        println(spaces + stars)
     }
 }
 

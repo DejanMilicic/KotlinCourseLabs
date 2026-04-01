@@ -30,16 +30,16 @@ package lab1.task4
 internal fun isPalindrome(x: Int): Boolean {
     if (x <0) return false
 
-    var br=x
-    var ostatakBr=0
+    var num = x
+    var moduleNum = 0
 
-    while (br>0)
+    while (num>0)
     {
-        ostatakBr=ostatakBr*10+br%10
-        br=br/10
+        moduleNum = moduleNum * 10 + num % 10
+        num = num / 10
     }
 
-    return x==ostatakBr
+    return x == moduleNum
 }
 
 fun main() {
