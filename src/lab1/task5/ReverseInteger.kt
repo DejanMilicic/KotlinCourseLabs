@@ -29,7 +29,10 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    if (x !in -1_000_000..1_000_000)
+        throw IllegalArgumentException("Number must be in range -1_000_000..1_000_000")
+    return if (x<0) (x * -1).toString().reversed().toInt() * -1
+    else x.toString().reversed().toInt()
 }
 
 fun main() {
