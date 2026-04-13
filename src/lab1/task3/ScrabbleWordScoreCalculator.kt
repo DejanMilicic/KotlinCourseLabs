@@ -1,5 +1,8 @@
 package lab1.task3
 
+import java.util.Locale
+import java.util.Locale.getDefault
+
 /**
  * Task 3:
  * In Scrabble, each letter has a corresponding point value. To calculate the score of a word,
@@ -30,9 +33,24 @@ package lab1.task3
  * [word]. It is guaranteed that the [word] contains only characters in the range from 'a' to 'z'.
  *
  */
+val points = mapOf<Char, Int>(
+    'A' to 1, 'E' to 1, 'I' to 1, 'O' to 1, 'U' to 1, 'L' to 1, 'N' to 1, 'R' to 1, 'S' to 1, 'T' to 1,
+    'D' to 2, 'G' to 2,
+    'B' to 3, 'C' to 3, 'M' to 3, 'P' to 3,
+    'F' to 4, 'H' to 4, 'V' to 4, 'W' to 4, 'Y' to 4,
+    'K' to 5,
+    'J' to 8, 'X' to 8,
+    'Q' to 10, 'Z' to 10
+
+)
+
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    TODO("Implement me!!!")
+    var result = 0
+    for (c in word.uppercase(getDefault())){
+        result += points.getValue(c)
+    }
+    return result
 }
 
 fun main() {
