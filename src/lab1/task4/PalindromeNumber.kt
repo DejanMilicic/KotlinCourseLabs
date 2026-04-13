@@ -29,7 +29,13 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    if (x !in -1_000_000..1_000_000)
+        throw IllegalArgumentException("Number must be in range -1_000_000..1_000_000")
+    else if (x < 0) return false
+
+    val strX = x.toString()
+    return strX.equals(strX.reversed())
+
 }
 
 fun main() {
