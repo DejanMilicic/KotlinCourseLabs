@@ -1,5 +1,6 @@
 package lab4.task2
 
+import lab4.task1.BankAccount
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -78,6 +79,79 @@ import java.util.*
  *      ```
  */
 
+enum class TransactionType {
+    DEPOSIT, WITHDRAWAL
+}
+
+enum class TransactionStatus {
+    SUCCESS, FAILURE
+}
+
+data class Transaction (
+    val transactionDate: LocalDateTime,
+    val transactionType: TransactionType,
+    val amount: Double,
+    val oldBalance: Double,
+    val newBalance: Double,
+    val transactionStatus: TransactionStatus
+)
+
+class TransactionalBankAccount(accountNumber: String, accountHolderName: String, balance: Double = 0.0): BankAccount(accountNumber, accountHolderName, balance) {
+    private val transactions = mutableListOf<Transaction>()
+
+    override fun deposit(amount: Double) {
+        val oldBalance = getBalance()
+        super.deposit(amount)
+        val newBalance = getBalance()
+        val status = if (amount > 0) TransactionStatus.SUCCESS else TransactionStatus.FAILURE
+
+        transactions.add(Transaction(currentTime, TransactionType.DEPOSIT, amount, oldBalance, newBalance, status))
+    }
+
+    override fun withdraw(amount: Double): Boolean {
+        val oldBalance = getBalance()
+        val success = super.withdraw(amount)
+        val newBalance = getBalance()
+        val status = if (success) TransactionStatus.SUCCESS else TransactionStatus.FAILURE
+
+        transactions.add(Transaction(currentTime, TransactionType.WITHDRAWAL, amount, oldBalance, newBalance, status))
+
+        return success
+    }
+
+    fun getAllTransactions(): List<Transaction> = transactions.sortedByDescending { it.transactionDate }
+    fun getAllTransactionsBy(predicate: (Transaction) -> Boolean): List<Transaction> = transactions.filter(predicate).sortedByDescending { it.transactionDate }
+    fun getTransactionsBetween(startDate: LocalDateTime, endDate: LocalDateTime): List<Transaction> = transactions.filter {it.transactionDate in startDate..endDate}.sortedByDescending { it.transactionDate }
+    fun getAllFailedTransactions() = getAllTransactionsBy { it.transactionStatus == TransactionStatus.FAILURE }
+    fun getAllSuccessfulTransactions() = getAllTransactionsBy { it.transactionStatus == TransactionStatus.SUCCESS }
+    fun getAllFailedDeposits() = getAllTransactionsBy { it.transactionStatus == TransactionStatus.FAILURE && it.transactionType == TransactionType.DEPOSIT }
+    fun getAllFailedWithdrawals() = getAllTransactionsBy { it.transactionStatus == TransactionStatus.FAILURE && it.transactionType == TransactionType.WITHDRAWAL }
+    fun getAllSuccessfulDeposits() = getAllTransactionsBy { it.transactionStatus == TransactionStatus.SUCCESS && it.transactionType == TransactionType.DEPOSIT }
+    fun getAllSuccessfulWithdrawals() = getAllTransactionsBy { it.transactionStatus == TransactionStatus.SUCCESS && it.transactionType == TransactionType.WITHDRAWAL }
+
+    override fun displayAccountInfo() {
+        super.displayAccountInfo()
+        println()
+        println("Transactions:")
+        println()
+
+        if (transactions.isEmpty()) {
+            println("No transactions recorded. ")
+            return
+        }
+
+        for (t in getAllTransactions()) {
+            println("Transaction date: ${t.transactionDate.prettyPrint()}")
+            println("Transaction type: ${t.transactionType}")
+            println("Amount: ${t.amount}")
+            println("Old balance: ${t.oldBalance}")
+            println("New balance: ${t.newBalance}")
+            println("Transaction status: ${t.transactionStatus}")
+            println()
+        }
+    }
+}
+
 private val currentTime: LocalDateTime get() = LocalDateTime.now()
 
 private fun LocalDateTime.prettyPrint(): String {
@@ -88,17 +162,17 @@ private fun LocalDateTime.prettyPrint(): String {
 fun main() {
     println(currentTime.prettyPrint())
     // Create a Transactional Bank Account
-    // val account = TransactionalBankAccount("123456789", "John Doe")
+    val account = TransactionalBankAccount("123456789", "John Doe")
 
     // Display account information
-    // account.displayAccountInfo()
+    account.displayAccountInfo()
 
     // Deposit some money
-    // account.deposit(1000.0)
+    account.deposit(1000.0)
 
     // Withdraw some money
-    // account.withdraw(500.0)
+    account.withdraw(500.0)
 
     // Display updated account information
-    // account.displayAccountInfo()
+    account.displayAccountInfo()
 }
