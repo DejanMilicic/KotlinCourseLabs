@@ -49,12 +49,12 @@ open class BankAccount {
         this.balance = 0.0
     }
 
-    fun deposit(amount: Double) {
+    open fun deposit(amount: Double) {
         if (amount > 0)
             balance += amount
     }
 
-    fun withdraw(amount: Double): Boolean {
+    open fun withdraw(amount: Double): Boolean {
         if (amount > 0 && amount <= balance) {
             balance -= amount
             return true
@@ -63,9 +63,9 @@ open class BankAccount {
         return false
     }
 
-    fun getBalance(): Double = balance
+    open fun getBalance(): Double = balance
 
-    fun displayAccountInfo() {
+    open fun displayAccountInfo() {
         println("Account Holder: $accountHolderName")
         println("Account Number: $accountNumber")
         println("Balance: $balance")
