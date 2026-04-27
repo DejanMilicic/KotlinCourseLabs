@@ -24,7 +24,39 @@ package lab3.task2
  */
 
 internal fun String.splitToBracketsClusters(): List<String> {
-    TODO("Implement me!!!")
+    if (isEmpty())
+        return emptyList()
+
+    val result = mutableListOf<String>()
+    val stack = ArrayDeque<Char>()
+    var start = 0
+    val pairs = mapOf(')' to '(', '}' to '{', ']' to '[')
+
+    for (i in indices) {
+        val char = this[i]
+
+        when (char) {
+            '(', '{', '[' -> stack.addLast(char)
+            ')', '}', ']' -> {
+                if (stack.isEmpty())
+                    return emptyList()
+
+                val last = stack.removeLast()
+                if (pairs[char] != last)
+                    return emptyList()
+            }
+        }
+
+        if (stack.isEmpty()) {
+            result.add(substring(start, i + 1))
+            start = i + 1
+        }
+    }
+
+    if (stack.isNotEmpty())
+        return  emptyList()
+
+    return result
 }
 
 fun main() {
@@ -37,6 +69,8 @@ fun main() {
 
     expressionsToClustersCatalog.forEach { (expression, expectedCluster) ->
         val actualClusters = expression.splitToBracketsClusters()
+        println("Expression: $expression -> $actualClusters")
+
         require(expectedCluster == actualClusters) {
             "Expression $expression should be split to $expression clusters, but actual value was $actualClusters."
         }
