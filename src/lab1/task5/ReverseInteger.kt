@@ -29,7 +29,16 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    var number = abs(x)
+    var reversed = 0
+
+    while (number != 0) {
+        val digit = number % 10
+        reversed = reversed * 10 + digit
+        number /= 10
+    }
+
+    return if (x < 0) -reversed else reversed
 }
 
 fun main() {
