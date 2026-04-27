@@ -29,7 +29,35 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+    val charCount = mutableMapOf<Char, Int>()
+
+    for (c in s)
+        charCount[c] = charCount.getOrDefault(c, 0) + 1
+
+    val freqCount = mutableMapOf<Int, Int>()
+    for (c in charCount.values)
+        freqCount[c] = freqCount.getOrDefault(c, 0) + 1
+
+    if (freqCount.size == 1)
+        return "YES"
+
+    if (freqCount.size > 2)
+        return "NO"
+
+    val (k1, v1, k2, v2) = freqCount.entries
+        .sortedBy { it.key }
+        .flatMap { listOf(it.key, it.value) }
+
+    if (k1 == 1 && v1 == 1)
+        return "YES"
+
+    if (k2 == 1 && v2 == 1)
+        return "YES"
+
+    if (k2 - k1 == 1 && v2 == 1)
+        return "YES"
+
+    return "NO"
 }
 
 fun main() {

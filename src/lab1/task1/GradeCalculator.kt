@@ -40,7 +40,19 @@ import java.util.Scanner
  */
 
 internal fun calculateGrade(score: Int): Int {
-    TODO("Implement me!!!")
+    if (score !in 0..100) {
+        println("Invalid score. Please enter a score between 0 and 100. ")
+        return -1
+    }
+
+    return when(score) {
+        in 91..100 -> 10
+        in 81..90 -> 9
+        in 71..80 -> 8
+        in 61..70 -> 7
+        in 51..60 -> 6
+        else -> 5
+    }
 }
 
 fun main() {
