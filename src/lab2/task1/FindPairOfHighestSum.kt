@@ -37,7 +37,7 @@ internal fun List<Int>.findHighestSumPair(): Pair<Int, Int> {
         }
     }
 
-    return Pair(firstNumberResult, secondNumberResult);
+    return Pair(firstNumberResult, secondNumberResult)
 }
 
 fun main() {
