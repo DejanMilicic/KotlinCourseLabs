@@ -1,6 +1,6 @@
 package lab4.task1
 
-class BankAccount(
+open class BankAccount(
     private var accountNumber: String,
     private var accountHolderName: String,
     private var balance: Double
@@ -8,14 +8,16 @@ class BankAccount(
     constructor(accountNumber: String, accountHolderName: String) : this(accountNumber, accountHolderName, 0.0)
 
     fun deposit(amount: Double): Double {
-        balance += amount;
-        return balance;
+        if (amount <= 0) throw IllegalArgumentException("Amount must be higher than zero")
+        balance += amount
+        return balance
     }
 
     fun withdraw(amount: Double): Boolean {
+        if (amount <= 0) throw IllegalArgumentException("Amount must be higher than zero")
         if (amount > balance) return false
         else {
-            balance -= amount;
+            balance -= amount
             return true
         }
     }
