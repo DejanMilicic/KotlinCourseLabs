@@ -1,5 +1,37 @@
 package lab4.task1
 
+open class BankAccount(
+    private var accountNumber: String,
+    private var accountHolderName: String,
+    private var balance: Double
+) {
+    constructor(accountNumber: String, accountHolderName: String) : this(accountNumber, accountHolderName, 0.0)
+
+    fun deposit(amount: Double): Double {
+        if (amount <= 0) throw IllegalArgumentException("Amount must be higher than zero")
+        balance += amount
+        return balance
+    }
+
+    fun withdraw(amount: Double): Boolean {
+        if (amount <= 0) throw IllegalArgumentException("Amount must be higher than zero")
+        if (amount > balance) return false
+        else {
+            balance -= amount
+            return true
+        }
+    }
+
+    fun getBalance(): Double {
+        return balance
+    }
+
+    fun displayAccountInfo() {
+        println("Account Holder: $accountHolderName \nAccount Number: $accountNumber \nBalance: $balance \n")
+    }
+
+}
+
 /**
  * Bank Account Assignment
  *
@@ -34,19 +66,10 @@ package lab4.task1
 
 
 fun main() {
-    TODO("Uncomment the lines below after the Bank Account class is implemented.")
-    // Create a Bank Account
-    // val account = BankAccount("123456789", "John Doe")
+    val account = BankAccount("123456789", "John Doe")
 
-    // Display account information
-    // account.displayAccountInfo()
-
-    // Deposit some money
-    // account.deposit(1000.0)
-
-    // Withdraw some money
-    // account.withdraw(500.0)
-
-    // Display updated account information
-    // account.displayAccountInfo()
+    account.displayAccountInfo()
+    account.deposit(1000.0)
+    account.withdraw(500.0)
+    account.displayAccountInfo()
 }

@@ -1,8 +1,17 @@
 package lab4.task2
 
+import lab4.task1.BankAccount
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+
+class TransactionalBankAccount(
+    accountNumber: String,
+    accountHolderName: String
+) : BankAccount(accountNumber, accountHolderName) {
+
+    
+}
 
 /**
  * Transactional Bank Account Assignment
