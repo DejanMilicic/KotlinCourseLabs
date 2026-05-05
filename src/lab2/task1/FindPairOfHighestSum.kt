@@ -17,33 +17,32 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPair(): Pair<Int, Int> {
-    if(this.size < 2) throw Exception("Array must have at least two elements")
-    if(this[0] !in -1000..1000 || this[1] !in -1000..1000){
+    if (this.size < 2) throw Exception("Array must have at least two elements")
+    if (this[0] !in -1000..1000 || this[1] !in -1000..1000) {
         throw Exception("All elements must be in range [-1000..1000]")
     }
     var first = 0
     var second = 0
-    if (this[0] > this[1]){
+    if (this[0] > this[1]) {
         first = this[0]
         second = this[1]
-    }else{
+    } else {
         first = this[1]
         second = this[0]
     }
 
-    for(i in 2 until this.size){
-        if(this[i] !in -1000..1000){
+    for (i in 2 until this.size) {
+        if (this[i] !in -1000..1000) {
             throw Exception("All elements must be in range [-1000..1000]")
         }
-        if (this[i] >= first){
+        if (this[i] >= first) {
             second = first
             first = this[i]
-        }
-        else if(this[i] >= second){
+        } else if (this[i] >= second) {
             second = this[i]
         }
     }
-
+    
     return Pair(second, first)
 }
 
