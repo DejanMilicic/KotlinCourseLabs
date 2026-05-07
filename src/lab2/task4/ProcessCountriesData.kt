@@ -59,27 +59,31 @@ internal val countries = listOf(
  */
 
 internal fun List<Country>.findCountryWithBiggestTotalArea(): Country {
-    TODO("Implement me!!!")
+    val maxArea=this.maxByOrNull { it.totalAreaInSquareKilometers }
+    return maxArea!!
 }
 
 internal fun List<Country>.findCountryWithBiggestPopulation(): Country {
-    TODO("Implement me!!!")
+    val maxPopulation=this.maxByOrNull { it.population }
+    return maxPopulation!!
 }
 
 internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country {
-    TODO("Implement me!!!")
+    val highestPopulation=this.maxByOrNull { it.population /it.totalAreaInSquareKilometers}
+    return highestPopulation!!
 }
 
 internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country {
-    TODO("Implement me!!!")
+    val lowestPopulation=this.minByOrNull{ it.population/it.totalAreaInSquareKilometers }
+    return lowestPopulation!!
 }
 
 internal fun List<Country>.findLanguageSpokenInMostCountries(): String {
-    TODO("Implement me!!!")
+    return this.flatMap { it.languages }.groupBy { it }.maxByOrNull { it.value.size }?.key ?: return "Greska"
 }
 
 internal fun List<Country>.filterCountriesThatSpeakLanguage(language: String): List<Country> {
-    TODO("Implement me!!!")
+    return this.filter { it.languages.contains(language) }
 }
 
 
