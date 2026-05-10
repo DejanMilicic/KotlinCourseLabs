@@ -19,7 +19,15 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
-    TODO("Implement me!!")
+    require(size >= 2) { "List must have at least two integers" }
+    require(all { it in -1000..1000 }) { "All items must be in range -1000..1000" }
+
+    return flatMapIndexed { i, a ->
+        drop(i + 1).map { b -> Pair(a, b) }
+    }.fold(this[0] to this[size-1]) { best, pair ->
+        if (pair.first + pair.second >= best.first + best.second) pair else best
+    }
+
 }
 
 fun main() {
