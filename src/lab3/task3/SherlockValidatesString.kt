@@ -29,7 +29,39 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+    if (s.length !in 1..100_000)
+        throw IllegalArgumentException("Invalid sherlock expression")
+
+    for (c in s) {
+        if (c !in 'a'..'z') {
+            throw IllegalArgumentException("Invalid sherlock expression")
+        }
+    }
+
+    val frequencyMap = s.groupingBy { it }.eachCount()
+    val minVal = frequencyMap.minWith { entry1, entry2 -> entry1.value - entry2.value }.value
+    val maxVal = frequencyMap.maxWith { entry1, entry2 -> entry1.value - entry2.value }.value
+
+
+    var maxCnt = 0
+    var minCnt = 0
+    for (f in frequencyMap) {
+        if (f.value == maxVal) {
+            maxCnt++
+        } else if (f.value == minVal) {
+            minCnt++
+        }
+    }
+
+    if (
+        (maxCnt == 1 && maxVal - minVal == 1 && minCnt == frequencyMap.size - 1) ||
+        (minVal == 1 && minCnt == 1 && maxCnt == frequencyMap.size - 1) ||
+        maxVal == minVal
+    ) {
+        return "YES"
+    }
+    return "NO"
+
 }
 
 fun main() {
@@ -40,7 +72,7 @@ fun main() {
         val errorMessageFactory = { answer: String -> if (answer == "YES") "is valid" else "is not valid" }
 
         require(expectedIsValid == actualIsValid) {
-            "String \"$string\" is ${errorMessageFactory(expectedIsValid)}," +
+            "String \"$string\" ${errorMessageFactory(expectedIsValid)}," +
                     " but actual value was ${errorMessageFactory(actualIsValid)}."
         }
     }
