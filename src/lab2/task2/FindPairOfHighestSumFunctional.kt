@@ -1,6 +1,7 @@
 package lab2.task2
 
 import lab2.common.isEqualsTo
+import kotlin.math.absoluteValue
 
 
 /**
@@ -19,7 +20,16 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
-    TODO("Implement me!!")
+    if (this.size < 2) throw IllegalArgumentException("Array must have at least two elements")
+    this.forEach { if (it !in -1000..1000) throw IllegalArgumentException("All elements must be in range [-1000..1000]") }
+    val first = this.max()
+    val firstIdx = this.indexOf(first)
+    var second = Int.MIN_VALUE
+    this.forEachIndexed { index, i ->
+        if (i > second && index != firstIdx) second = i
+    }
+
+    return Pair(first, second)
 }
 
 fun main() {
