@@ -58,19 +58,28 @@ internal val countries = listOf(
  * from Kotlin standard lib.
  */
 
-internal fun List<Country>.findCountryWithBiggestTotalArea(): Country = this.maxBy { it.totalAreaInSquareKilometers }
+internal fun List<Country>.findCountryWithBiggestTotalArea(): Country =
+    this.maxByOrNull { it.totalAreaInSquareKilometers }
+        ?: throw NoSuchElementException("List is empty. ")
 
-internal fun List<Country>.findCountryWithBiggestPopulation(): Country = this.maxBy { it.population }
+internal fun List<Country>.findCountryWithBiggestPopulation(): Country =
+    this.maxByOrNull { it.population }
+        ?: throw NoSuchElementException("List is empty. ")
 
-internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country = this.maxBy { it.population / it.totalAreaInSquareKilometers }
+internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country =
+    this.maxByOrNull { it.population / it.totalAreaInSquareKilometers }
+        ?: throw NoSuchElementException("List is empty. ")
 
-internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country = this.minBy { it.population / it.totalAreaInSquareKilometers }
+internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country =
+    this.minByOrNull { it.population / it.totalAreaInSquareKilometers }
+        ?: throw NoSuchElementException("List is empty. ")
 
 internal fun List<Country>.findLanguageSpokenInMostCountries(): String = this.flatMap{ it.languages }
     .distinct()
     .map { language -> language to this.count { country ->  country.languages.contains(language)} }
-    .maxBy { it.second }
-    .first
+    .maxByOrNull { it.second }
+    ?.first
+    ?: throw NoSuchElementException("No languages found. ")
 
 internal fun List<Country>.filterCountriesThatSpeakLanguage(language: String): List<Country> = this.filter { it.languages.contains(language) }
 
