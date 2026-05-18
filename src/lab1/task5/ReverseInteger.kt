@@ -29,6 +29,10 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
+    require(x in -1_000_000..1_000_000) {
+        "Input must be between -1_000_000 and 1_000_000"
+    }
+
     var number = abs(x)
     var reversed = 0
 
