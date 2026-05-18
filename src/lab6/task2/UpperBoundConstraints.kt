@@ -39,5 +39,7 @@ private data class SetIntersection(val size: Int): CostElement {
  * type.
  */
 private fun <T: CostElement> calculateTreeCost(root: TreeNode<T>): Double {
-    return root.value.cost + (root.left?.let { calculateTreeCost(it) } ?: 0.0) + (root.right?.let { calculateTreeCost(it) } ?: 0.0)
+    return root.value.cost +
+            (root.left?.let { calculateTreeCost(it) } ?: 0.0) +
+            (root.right?.let { calculateTreeCost(it) } ?: 0.0)
 }
