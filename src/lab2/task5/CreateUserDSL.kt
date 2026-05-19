@@ -1,5 +1,7 @@
 package lab2.task5
 
+import kotlin.apply
+
 internal data class User(
     var firstName: String = "",
     var lastName: String = "",
@@ -49,16 +51,11 @@ internal data class Address(
  */
 
 internal fun user(initUser: User.() -> Unit): User {
-    val user = User()
-    user.initUser()
-    return user
+    return User().apply(initUser)
 }
 
 internal fun User.address(initAddress: Address.() -> Unit): User {
-    val address = Address()
-    address.initAddress()
-    this.address = address
-    return this
+    return this.apply { this.address = Address().apply(initAddress) }
 }
 
 fun main() {
