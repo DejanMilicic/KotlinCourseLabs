@@ -20,7 +20,23 @@ internal fun List<Int>.findPairWithBiggestDifference(): Pair<Int, Int> {
     if (this.size < 2) {
         throw IllegalArgumentException("List is too small")
     }
-    return Pair(this.max(), this.min())
+    return this.foldIndexed(this[0] to this[0]) { index, acc: Pair<Int, Int>, i ->
+        if (index == 0) {
+            acc
+        } else {
+            when {
+                i > acc.first && i > acc.second -> {
+                    if (acc.first > acc.second) acc.second to i else acc.first to i
+                }
+
+                i < acc.first && i < acc.second -> {
+                    if (acc.first > acc.second) acc.first to i else acc.second to i
+                }
+
+                else -> acc
+            }
+        }
+    }
 }
 
 fun main() {
