@@ -7,13 +7,13 @@ open class BankAccount(
 ) {
     constructor(accountNumber: String, accountHolderName: String) : this(accountNumber, accountHolderName, 0.0)
 
-    fun deposit(amount: Double): Double {
+    open fun deposit(amount: Double): Double {
         if (amount <= 0) throw IllegalArgumentException("Amount must be higher than zero")
         balance += amount
         return balance
     }
 
-    fun withdraw(amount: Double): Boolean {
+    open fun withdraw(amount: Double): Boolean {
         if (amount <= 0) throw IllegalArgumentException("Amount must be higher than zero")
         if (amount > balance) return false
         else {
@@ -22,11 +22,11 @@ open class BankAccount(
         }
     }
 
-    fun getBalance(): Double {
+    open fun getBalance(): Double {
         return balance
     }
 
-    fun displayAccountInfo() {
+    open fun displayAccountInfo() {
         println("Account Holder: $accountHolderName \nAccount Number: $accountNumber \nBalance: $balance \n")
     }
 
