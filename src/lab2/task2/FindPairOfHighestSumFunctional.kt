@@ -22,14 +22,11 @@ import kotlin.math.absoluteValue
 internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
     if (this.size < 2) throw IllegalArgumentException("Array must have at least two elements")
     this.forEach { if (it !in -1000..1000) throw IllegalArgumentException("All elements must be in range [-1000..1000]") }
-    val first = this.max()
-    val firstIdx = this.indexOf(first)
-    var second = Int.MIN_VALUE
-    this.forEachIndexed { index, i ->
-        if (i > second && index != firstIdx) second = i
-    }
 
-    return Pair(first, second)
+    return this.flatMapIndexed { index, a -> this.drop(index + 1).map { b -> a to b } }
+        .reduce { currentMax, pair ->
+            if ((pair.first + pair.second) >= (currentMax.first + currentMax.second)) pair else currentMax
+        }
 }
 
 fun main() {
