@@ -1,16 +1,11 @@
 package lab2.task5
 
 internal data class User(
-    var firstName: String = "",
-    var lastName: String = "",
-    var age: Int = -1,
-    var address: Address? = null
+    var firstName: String = "", var lastName: String = "", var age: Int = -1, var address: Address? = null
 )
 
 internal data class Address(
-    var street: String = "",
-    var number: Int = -1,
-    var city: String = ""
+    var street: String = "", var number: Int = -1, var city: String = ""
 )
 
 /**
@@ -49,22 +44,22 @@ internal data class Address(
  */
 
 internal fun user(initUser: User.() -> Unit): User {
-    TODO("Implement me!!!")
+    val user = User()
+    user.initUser()
+    return user
 }
 
 internal fun User.address(initAddress: Address.() -> Unit): User {
-    TODO("Implement me!!!")
+    val newAddress = Address()
+    newAddress.initAddress()
+    this.address = newAddress
+    return this
 }
 
 fun main() {
     val expectedUser = User(
-        firstName = "Petar",
-        lastName = "Petrovic",
-        age = 62,
-        address = Address(
-            street = "Bulevar kralja Petra Prvog",
-            number = 33,
-            city = "Novi Sad"
+        firstName = "Petar", lastName = "Petrovic", age = 62, address = Address(
+            street = "Bulevar kralja Petra Prvog", number = 33, city = "Novi Sad"
         )
     )
 
