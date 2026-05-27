@@ -59,19 +59,19 @@ internal val countries = listOf(
  */
 
 internal fun List<Country>.findCountryWithBiggestTotalArea(): Country {
-    return this.maxByOrNull { it.totalAreaInSquareKilometers }!!
+    return this.maxByOrNull { it.totalAreaInSquareKilometers }?:error("Cannot find in an empty list")
 }
 
 internal fun List<Country>.findCountryWithBiggestPopulation(): Country {
-    return this.maxByOrNull { it.population }!!
+    return this.maxByOrNull { it.population }?:error("Cannot find in an empty list")
 }
 
 internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country {
-    return this.maxByOrNull { it.population.toDouble() / it.totalAreaInSquareKilometers }!!
+    return this.maxByOrNull { it.population.toDouble() / it.totalAreaInSquareKilometers }?:error("Cannot find in an empty list")
 }
 
 internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country {
-    return this.minByOrNull { it.population.toDouble() / it.totalAreaInSquareKilometers }!!
+    return this.minByOrNull { it.population.toDouble() / it.totalAreaInSquareKilometers }?:error("Cannot find in an empty list")
 }
 
 internal fun List<Country>.findLanguageSpokenInMostCountries(): String {

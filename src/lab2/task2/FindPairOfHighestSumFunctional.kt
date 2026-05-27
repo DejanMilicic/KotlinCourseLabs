@@ -21,7 +21,7 @@ import lab2.common.isEqualsTo
 internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
     return this.indices.asSequence()
         .flatMap { i ->
-            this.indices.asSequence().drop(i + 1).map { j -> this[i] to this[j] }
+            indices.asSequence().drop(i + 1).map { j -> this[i] to this[j] }
         }.reduce { bestPair, currentPair ->
             val currentSum = currentPair.first + currentPair.second
             val bestSum = bestPair.first + bestPair.second

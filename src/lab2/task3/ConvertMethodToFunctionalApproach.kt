@@ -17,7 +17,7 @@ import kotlin.math.abs
  */
 
 internal fun List<Int>.findPairWithBiggestDifference(): Pair<Int, Int> {
-    return this.indices.asSequence().flatMap { i -> this.indices.asSequence().drop(i + 1).map{j->this[i] to this[j]} }
+    return indices.asSequence().flatMap { i -> indices.asSequence().drop(i + 1).map{j->this[i] to this[j]} }
         .reduce { bestPair, currentPair ->
             val currentDiff = abs(currentPair.first - currentPair.second)
             val bestDiff = abs(bestPair.first - bestPair.second)
