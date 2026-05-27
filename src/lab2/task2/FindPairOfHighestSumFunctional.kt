@@ -19,8 +19,13 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
-    return this.flatMapIndexed { index, num -> this.drop(index + 1).map {otherNum -> num to otherNum} }
-        .maxByOrNull { it.first + it.second }!!
+    return this
+        .flatMapIndexed { index, num ->
+            this.drop(index + 1).map {otherNum -> num to otherNum}
+        }
+        .reversed()
+        .maxByOrNull { it.first + it.second }
+        ?: error("List must contain at least two elements. ")
 }
 
 fun main() {
