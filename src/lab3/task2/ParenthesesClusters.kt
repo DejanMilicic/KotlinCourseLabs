@@ -25,48 +25,28 @@ package lab3.task2
 
 internal fun String.splitToBracketsClusters(): List<String> {
     val stack = ArrayDeque<Char>()
-    var brackets = ""
-    val listOfBrackets = ArrayList<String>()
+    val current = StringBuilder()
+    val pairs = mapOf(')' to '(', ']' to '[', '}' to '{')
+    val result = mutableListOf<String>()
 
-    for (char in this){
-        when(char){
-            '(', '[', '{' -> {
-                stack.add(char)
-            }
-
-            ')' -> {
-                if (stack.isEmpty() || stack.last() != '(') {
-                    return ArrayList<String>()
-                }
-                stack.removeLast()
-            }
-
-            ']' -> {
-                if (stack.isEmpty() || stack.last() != '[') {
-                    return ArrayList<String>()
-                }
-                stack.removeLast()
-            }
-
-            '}' -> {
-                if (stack.isEmpty() || stack.last() != '{') {
-                    return ArrayList<String>()
-                }
-                stack.removeLast()
+    for (char in this) {
+        if (char in pairs.values) {
+            stack.addLast(char)
+        } else {
+            if (stack.isEmpty() || stack.removeLast() != pairs[char]) {
+                return emptyList()
             }
         }
 
-        brackets += char
-        if (stack.isEmpty()){
-            listOfBrackets.add(brackets)
-            brackets = ""
+        current.append(char)
+
+        if (stack.isEmpty()) {
+            result.add(current.toString())
+            current.clear()
         }
     }
 
-    if (stack.isEmpty())
-        return listOfBrackets
-    else
-        return ArrayList<String>()
+    return if (stack.isEmpty()) result else emptyList()
 }
 
 fun main() {
