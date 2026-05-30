@@ -53,7 +53,7 @@ internal fun user(initUser: User.() -> Unit): User {
 }
 
 internal fun User.address(initAddress: Address.() -> Unit): User {
-    this.address = Address().apply(initAddress)
+    address = Address().apply(initAddress)
     return this
 }
 
