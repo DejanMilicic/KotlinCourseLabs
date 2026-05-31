@@ -29,7 +29,19 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+    require(s.length in 1..100000)
+    val map = HashMap<Char, Int>()
+    for (char in s){
+        if (char !in map)
+            map.put(char, 0)
+        map[char] = map.getValue(char) + 1
+    }
+    val max = map.maxByOrNull { it.value }!!.value
+    map.values.forEach {
+        if (!(it == max || it == max - 1))
+            return "NO"
+    }
+    return "YES"
 }
 
 fun main() {
