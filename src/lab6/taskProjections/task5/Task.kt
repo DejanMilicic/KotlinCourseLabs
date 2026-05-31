@@ -12,22 +12,40 @@ package lab6.taskProjections.task5
  * This class cannot produce P and consume T:
  *     - add an abstract "build" function that accepts P and returns T;
  * Create a new class "IntegerBuilder", that implements Builder and can convert String to Int
-**/
+ **/
+
+abstract class Builder<out T, in P>() {
+    abstract fun build(item: P): T
+}
+
+class IntegerBuilder() : Builder<Int, String>() {
+    override fun build(item: String): Int {
+        return item.toInt()
+    }
+
+}
+
+
+class Printer<in T>() {
+    fun <T> print(item: T) {
+        println(item)
+    }
+}
 
 fun main() {
     // [1]
     // TODO: uncomment me
-//    val integerPrinter = Printer<Int>()
-//    val stringPrinter = Printer<String>()
-//
-//    integerPrinter.print(2)
-//    stringPrinter.print("Bla bla bla")
+    val integerPrinter = Printer<Int>()
+    val stringPrinter = Printer<String>()
+
+    integerPrinter.print(2)
+    stringPrinter.print("Bla bla bla")
 
     println("________")
 
     // [2]
     // TODO: uncomment me
-//    val intBuilder = IntegerBuilder()
-//    val x = intBuilder.build("1")
-//    println("We build [ $x ]")
+    val intBuilder = IntegerBuilder()
+    val x = intBuilder.build("1")
+    println("We build [ $x ]")
 }
