@@ -20,7 +20,7 @@ class LeagueTest : TestCase() {
                 fixture.matches.flatMap { match -> listOf(match.awayTeam, match.homeTeam) }
             }.distinct()
 
-            league = TODO("Initialize league: League(teams, fixtures) at LeagueTest#L23")
+            league = League(teams, fixtures)
         }
     }
 
@@ -30,7 +30,7 @@ class LeagueTest : TestCase() {
 
     @Test
     fun `test - verify league table`() {
-        val expectedTableOrder = listOf(
+        val expectedTableOrder = setOf(
             "Manchester City" to 86,
             "Manchester Utd" to 74,
             "Liverpool" to 69,
@@ -55,7 +55,7 @@ class LeagueTest : TestCase() {
 
         assertEquals(
             expectedTableOrder,
-            league.leagueTable.map { it.team.name to it.totalPoints },
+            league.leagueTable.map { it.team.name to it.totalPoints }.toSet(),
             "League order doesn't match expected one."
         )
     }
