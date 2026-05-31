@@ -18,9 +18,11 @@ import lab2.common.isEqualsTo
  *
  */
 
-internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
-    TODO("Implement me!!")
-}
+internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> =
+    sortedDescending()
+        .take(2)
+        .zipWithNext()
+        .first()
 
 fun main() {
     val nums = listOf(743, 284, 677, -753, 995, -934, 102, 903, -83, -760, 77, -420)
