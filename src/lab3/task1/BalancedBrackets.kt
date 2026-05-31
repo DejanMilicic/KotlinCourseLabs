@@ -26,7 +26,17 @@ package lab3.task1
 
 
 internal fun isExpressionBalanced(expression: String): Boolean {
-    TODO("Implement me!!!")
+    val stack = ArrayDeque<Char>()
+    val pairs = mapOf(')' to '(', ']' to '[', '}' to '{')
+
+    for (char in expression) {
+        when {
+            char in pairs.values -> stack.addLast(char)
+            char in pairs.keys -> if (stack.removeLastOrNull() != pairs[char]) return false
+        }
+    }
+
+    return stack.isEmpty()
 }
 
 fun main() {
