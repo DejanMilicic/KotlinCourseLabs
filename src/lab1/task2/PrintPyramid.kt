@@ -57,9 +57,17 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+    if (level !in 1..15) {
+        throw IllegalArgumentException("Level mora biti izmedju 1 i 15")
+    }
+
+    for (i in 1..level) {
+        val spaces = " ".repeat(level - i)
+        val stars = "*".repeat(2 * i - 1)
+        println(spaces + stars + spaces)
+    }
 }
 
 fun main() {
-    printPyramid(5)
+    printPyramid(3)
 }
