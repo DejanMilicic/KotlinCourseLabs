@@ -16,7 +16,7 @@ import kotlin.math.abs
  * @return The pair with the biggest difference between its elements.
  */
 
-internal fun List<Int>.findPairWithBiggestDifference(): Pair<Int, Int> {
+/*internal fun List<Int>.findPairWithBiggestDifference(): Pair<Int, Int> {
     // TODO refactor me to functional approach and make tests pass!!!
     var resultPair: Pair<Int, Int>? = null
     var biggestDifference = Int.MIN_VALUE
@@ -35,7 +35,10 @@ internal fun List<Int>.findPairWithBiggestDifference(): Pair<Int, Int> {
     }
 
     return resultPair!!
-}
+}*/
+
+internal fun List<Int>.findPairWithBiggestDifference(): Pair<Int, Int> =
+    Pair(min(), max())
 
 fun main() {
     val nums = listOf(743, 284, 677, -753, 995, -934, 102, 903, -83, -760, 77, -420)
