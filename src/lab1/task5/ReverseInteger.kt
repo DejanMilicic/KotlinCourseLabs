@@ -30,7 +30,7 @@ import kotlin.math.abs
 
 internal fun reverseInteger(x: Int): Int {
     if (x < -1_000_000 || x > 1_000_000) {
-        throw Exception("Broj $x je van dozvoljenog opsega -1_000_000..1_000_000")
+        throw Exception("Number $x is outside the allowed range -1_000_000..1_000_000")
     }
 
     val sign = if (x < 0) -1 else 1

@@ -44,7 +44,7 @@ internal fun calculateWordScrabbleScore(word: String): Int {
     )
 
     return word.sumOf { letter ->
-        scrabblePoints[letter] ?: 0
+        scrabblePoints[letter.lowercaseChar()] ?: 0
     }
 }
 
