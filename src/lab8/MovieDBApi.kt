@@ -109,4 +109,3 @@ interface MovieDBApi {
      */
     fun getActorsWithMostCostarredMovies(): List<Pair<MovieActor, MovieActor>>
 }
-
