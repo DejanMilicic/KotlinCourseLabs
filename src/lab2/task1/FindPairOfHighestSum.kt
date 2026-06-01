@@ -17,24 +17,25 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPair(): Pair<Int, Int> {
-    var highestSum = Int.MIN_VALUE
-    var highestPair: Pair<Int, Int>? = null
+    require(size >= 2) {
+        "List must contain at least two elements"
+    }
+
+    var highestPair = this[0] to this[1]
+    var highestSum = this[0] + this[1]
 
     for (i in 0 until size - 1) {
         for (j in i + 1 until size) {
-            val a = this[i]
-            val b = this[j]
-            val sum = a + b
-            val currentPair = a to b
+            val sum = this[i] + this[j]
 
-            if (highestPair == null || sum > highestSum || sum == highestSum) {
+            if (sum >= highestSum) {
                 highestSum = sum
-                highestPair = currentPair
+                highestPair = this[i] to this[j]
             }
         }
     }
 
-    return highestPair ?: error("List must contains at least two elements. ")
+    return highestPair
 }
 
 fun main() {
