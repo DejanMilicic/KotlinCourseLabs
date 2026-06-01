@@ -48,17 +48,10 @@ internal data class Address(
  * Make sure to leverage higher-order functions with receivers, and scoped functions.
  */
 
-internal fun user(initUser: User.() -> Unit): User {
-    val user = User()
-    user.initUser()
-    return user
-}
+internal fun user(initUser: User.() -> Unit): User = User().apply(initUser)
 
-internal fun User.address(initAddress: Address.() -> Unit): User {
-    val address = Address()
-    address.initAddress()
-    this.address = address
-    return this
+internal fun User.address(initAddress: Address.() -> Unit): User = apply {
+    address = Address().apply(initAddress)
 }
 
 fun main() {
