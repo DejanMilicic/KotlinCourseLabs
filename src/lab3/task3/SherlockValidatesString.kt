@@ -29,19 +29,26 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    require(s.length in 1..100000)
-    val map = HashMap<Char, Int>()
-    for (char in s){
-        if (char !in map)
-            map.put(char, 0)
-        map[char] = map.getValue(char) + 1
+    val charCount = s.groupingBy { it }.eachCount()
+
+    val freqCount = charCount.values.groupingBy { it }.eachCount()
+
+    if (freqCount.size == 1) return "YES"
+
+    if (freqCount.size > 2) return "NO"
+
+    val (f1, c1) = freqCount.entries.first().let { it.key to it.value }
+    val (f2, c2) = freqCount.entries.last().let { it.key to it.value }
+
+    // Case 1: one frequency occurs once and is 1 → can remove one char
+    if ((f1 == 1 && c1 == 1) || (f2 == 1 && c2 == 1)) return "YES"
+
+    // Case 2: frequencies differ by 1 and higher one appears once
+    if (kotlin.math.abs(f1 - f2) == 1) {
+        if (c1 == 1 || c2 == 1) return "YES"
     }
-    val max = map.maxByOrNull { it.value }!!.value
-    map.values.forEach {
-        if (!(it == max || it == max - 1))
-            return "NO"
-    }
-    return "YES"
+
+    return "NO"
 }
 
 fun main() {
