@@ -103,26 +103,26 @@ class Transaction(
     val transactionStatus: TransactionStatus
 ) {}
 
-class TransactionalBankAccount(override val accountNumber: String, override val accountHolderName: String) :
+class TransactionalBankAccount(accountNumber: String, accountHolderName: String) :
     BankAccount(accountNumber, accountHolderName) {
     val transactions = ArrayList<Transaction>()
 
     override fun deposit(amount: Double): Unit {
-        super.accountBalance += amount
+        super.deposit(amount)
         transactions.add(
             Transaction(
                 LocalDateTime.now(),
                 TransactionType.DEPOSIT,
                 amount,
-                super.accountBalance - amount,
-                super.accountBalance,
+                super.getBalance() - amount,
+                super.getBalance(),
                 TransactionStatus.SUCCESS
             )
         )
     }
 
     override fun withdraw(amount: Double): Boolean {
-        if (super.accountBalance < amount) {
+        if (super.getBalance() < amount) {
             transactions.add(
                 Transaction(
                     LocalDateTime.now(),
@@ -134,7 +134,7 @@ class TransactionalBankAccount(override val accountNumber: String, override val 
             )
             return false
         } else {
-            super.accountBalance -= amount
+            super.withdraw(amount)
             transactions.add(
                 Transaction(
                     LocalDateTime.now(),
