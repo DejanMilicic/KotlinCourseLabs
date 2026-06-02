@@ -3,7 +3,7 @@ package lab4.task2
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-
+import lab4.task1.BankAccount
 /**
  * Transactional Bank Account Assignment
  *
@@ -77,6 +77,15 @@ import java.util.*
  *      No transactions recorded.
  *      ```
  */
+enum class TransactionType{DEPOSIT, WITHDRAWAL}
+enum class TransactionStatus{SUCCESS, FAILURE}
+data class Transaction(val transactionDate: LocalDateTime,
+                       val transactionType: TransactionType,
+                       val amount: Double,
+                       val oldBalance: Double,
+                       val newBalance: Double,
+                       val transactionStatus: TransactionStatus)
+
 
 private val currentTime: LocalDateTime get() = LocalDateTime.now()
 
@@ -85,20 +94,145 @@ private fun LocalDateTime.prettyPrint(): String {
     return this.format(formatter)
 }
 
+class TransactionalBankAccount(
+    accountNumber: String,
+    accountHolderName: String,
+    balance: Double = 0.0,
+    ) : BankAccount(accountNumber, accountHolderName, balance){
+
+    val transactions = ArrayList<Transaction>()
+
+    override fun deposit(ammount: Double): Unit{
+        val oldBalance = balance
+        balance += ammount
+        val transaction = Transaction(currentTime,
+                                      TransactionType.DEPOSIT,
+                                      ammount,
+                                      oldBalance,
+                                      balance,
+                                      TransactionStatus.SUCCESS)
+        transactions.add(transaction)
+    }
+
+    override fun withdraw(ammount: Double): Boolean{
+        if (ammount > balance) {
+            transactions.add(
+                Transaction(
+                currentTime,
+                TransactionType.WITHDRAWAL,
+                ammount,
+                balance,
+                balance,
+                TransactionStatus.FAILURE
+                )
+            )
+            return false
+        }
+
+        val oldBalance = balance
+        balance -= ammount
+
+        transactions.add(
+            Transaction(
+                currentTime,
+                TransactionType.WITHDRAWAL,
+                ammount,
+                oldBalance,
+                balance,
+                TransactionStatus.SUCCESS
+            )
+        )
+
+        return true
+    }
+
+    fun getAllTranactions(): List<Transaction>{
+        return transactions.sortedByDescending { it.transactionDate }
+    }
+    fun getAllTransactionsBy(predicate: (Transaction) -> Boolean): List<Transaction>{
+        return transactions.filter(predicate).sortedByDescending { it.transactionDate }
+    }
+
+    fun getTransactionsBetween(startDate: LocalDateTime, endDate: LocalDateTime): List<Transaction>{
+        return transactions
+            .filter{it.transactionDate.isAfter(startDate)
+                    && it.transactionDate.isBefore(endDate)}
+            .sortedByDescending { it.transactionDate }
+    }
+
+    fun getAllFailedTransactions(): List<Transaction>{
+        return transactions
+            .filter{it.transactionStatus == TransactionStatus.FAILURE}
+            .sortedByDescending { it.transactionDate }
+    }
+
+    fun getAllSuccessfulTransactions(): List<Transaction>{
+        return transactions
+            .filter{it.transactionStatus == TransactionStatus.SUCCESS}
+            .sortedByDescending { it.transactionDate }
+    }
+
+    fun getAllFailedDeposits(): List<Transaction>{
+        return transactions
+            .filter{it.transactionStatus == TransactionStatus.FAILURE
+                    && it.transactionType == TransactionType.DEPOSIT}
+            .sortedByDescending { it.transactionDate }
+    }
+
+    fun getAllFailedWithdrawals(): List<Transaction>{
+        return transactions
+            .filter{it.transactionStatus == TransactionStatus.FAILURE
+                    && it.transactionType == TransactionType.WITHDRAWAL}
+            .sortedByDescending { it.transactionDate }
+    }
+
+    fun getAllSuccessfulDeposits(): List<Transaction>{
+        return transactions
+            .filter{it.transactionStatus == TransactionStatus.SUCCESS
+                    && it.transactionType == TransactionType.DEPOSIT}
+            .sortedByDescending { it.transactionDate }
+    }
+
+    fun getAllSuccessfulWithdrawals(): List<Transaction>{
+        return transactions
+            .filter{it.transactionStatus == TransactionStatus.SUCCESS
+                    && it.transactionType == TransactionType.WITHDRAWAL}
+            .sortedByDescending { it.transactionDate }
+    }
+
+    override fun displayAccountInfo(): Unit{
+        println("Account Holder: [$accountHolderName]\n" +
+                "Account Number: [$accountNumber]\n" +
+                "Balance: [$balance]\n" +
+                "Transactions:\n")
+        if (transactions.size == 0){
+            println("No transactions recorded.\n")
+        } else {
+            getAllTranactions().forEach {
+                println("Transaction Date: [${it.transactionDate.prettyPrint()}]\n" +
+                    " Transaction Type: [${it.transactionType}]\n" +
+                    " Amount: [${it.amount}]\n" +
+                    " Old Balance: [${it.oldBalance}]\n" +
+                    " New Balance: [${it.newBalance}]\n" +
+                    " Status: [${it.transactionStatus}]\n")
+            }
+        }
+    }
+}
 fun main() {
     println(currentTime.prettyPrint())
     // Create a Transactional Bank Account
-    // val account = TransactionalBankAccount("123456789", "John Doe")
+    val account = TransactionalBankAccount("123456789", "John Doe")
 
     // Display account information
-    // account.displayAccountInfo()
+    account.displayAccountInfo()
 
     // Deposit some money
-    // account.deposit(1000.0)
+    account.deposit(1000.0)
 
     // Withdraw some money
-    // account.withdraw(500.0)
+    account.withdraw(500.0)
 
     // Display updated account information
-    // account.displayAccountInfo()
+    account.displayAccountInfo()
 }
