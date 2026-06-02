@@ -74,7 +74,7 @@ class GameBoardImpl(size: Int) : SquareBoardImpl(size), GameBoard {
     val values = mutableMapOf<Cell, String?>()
 
     init {
-        for (i in 0 until 2 * width) {
+        for (i in 0 until width * width) {
             values[cells[i]] = null
         }
     }
