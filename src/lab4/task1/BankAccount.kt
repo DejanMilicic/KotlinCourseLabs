@@ -31,19 +31,17 @@ package lab4.task1
  *    - The second constructor accepts only the account holder name and account holder number.
  *      The initial balance for this constructor should always be set to 0.
  */
-internal class BankAccount(private val accountNumber: String,
-                           private val accountHolderName: String,
-                           private var balance: Double
-                           ){
+open class BankAccount(val accountNumber: String,
+                           val accountHolderName: String,
+                           protected var balance: Double = 0.0
+){
 
-    constructor(accountNumber: String, accountHolderName: String) : this(accountNumber, accountHolderName, 0.0)
-
-    fun deposit(ammount: Double): Unit{
+    open fun deposit(ammount: Double): Unit{
         balance += ammount
     }
 
     fun withdraw(ammount: Double): Boolean {
-        if (ammount >= balance)
+        if (ammount > balance)
             return false
         balance -= ammount
         return true
@@ -52,10 +50,9 @@ internal class BankAccount(private val accountNumber: String,
     fun getBalance(): Double {
         return balance
     }
-
     fun displayAccountInfo(): Unit {
-        println("Account Holder: [$accountNumber]\n" +
-                "Account Number: [$accountHolderName]\n" +
+        println("Account Holder: [$accountHolderName]\n" +
+                "Account Number: [$accountNumber]\n" +
                 "Balance: [$balance]")
     }
 
