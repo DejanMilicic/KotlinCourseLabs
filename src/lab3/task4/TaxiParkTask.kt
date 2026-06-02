@@ -10,8 +10,9 @@ package lab3.task4
  * Find all the drivers who performed no trips.
  */
 internal fun TaxiPark.findFakeDrivers(): Set<Driver> {
+    val activeDrivers = trips.map { it.driver }.toSet()
     return allDrivers.filter { driver ->
-        driver !in trips.map { trip -> trip.driver }
+        driver !in activeDrivers
     }.toSet()
 }
 
@@ -20,8 +21,8 @@ internal fun TaxiPark.findFakeDrivers(): Set<Driver> {
  * Find all the clients who completed at least the given number of trips.
  */
 internal fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
-    return allPassengers.filter { passanger ->
-        trips.count {passanger in it.passengers} >= minTrips
+    return allPassengers.filter { passenger ->
+        trips.count {passenger in it.passengers} >= minTrips
     }.toSet()
 }
 
