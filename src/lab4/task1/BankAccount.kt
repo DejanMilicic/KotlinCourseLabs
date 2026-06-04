@@ -36,10 +36,12 @@ open class BankAccount(val accountNumber: String, val accountHolderName: String,
     constructor(accountNumber: String, accountHolderName: String) : this(accountNumber, accountHolderName, 0.0)
 
     open fun deposit(amount: Double) {
+        require(amount > 0) { "Amount must be positive" }
         balance += amount
     }
 
     open fun withdraw(amount: Double): Boolean {
+        require(amount > 0) { "Amount must be positive" }
         if (balance >= amount) {
             balance -= amount
             return true
