@@ -39,22 +39,15 @@ import java.util.Scanner
  * ```
  */
 internal fun calculateGrade(score: Int): Int {
-    var grade = 0
-    when
-    {
-
-
-        score>=51  && score <61 -> grade = 6
-        score >=61 && score < 71 -> grade = 7
-        score >=71 && score <81  -> grade = 8
-        score >=81 && score< 91 -> grade = 9
-        score >=91 && score<= 100 -> grade = 10
-        else -> throw IllegalArgumentException("Bodovi mogu biti samo od 0 do 100 ")
-
+    return when {
+        score in 51..60 -> 6
+        score in 61..70 -> 7
+        score in 71..80 -> 8
+        score in 81..90 -> 9
+        score in 91..100 -> 10
+        else -> throw IllegalArgumentException("score can only be bettwen  0 and 100")
     }
-    return grade
 }
-
 
 fun main() {
     val scanner = Scanner(System.`in`)
@@ -72,5 +65,3 @@ fun main() {
         }
     }
 }
-
-

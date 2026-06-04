@@ -34,18 +34,18 @@ internal fun reverseInteger(x: Int): Int {
         throw ArithmeticException()
     }
 
-    var i = x
-    var obrunut = 0
+
+    var reversed = 0
     var tmp = x
 
     while (tmp != 0 ) {
         val broj = tmp % 10
-        obrunut = obrunut * 10 + broj
+        reversed = reversed * 10 + broj
         tmp /= 10
 
     }
 
-    return obrunut
+    return reversed
 }
 
 fun main() {
