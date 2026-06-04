@@ -128,7 +128,7 @@ class TransactionalBankAccount(accountNumber: String, accountHolderName: String)
                     LocalDateTime.now(),
                     TransactionType.WITHDRAW, amount,
                     super.getBalance(),
-                    super.getBalance() - amount,
+                    super.getBalance(),
                     TransactionStatus.FAILURE
                 )
             )
@@ -172,12 +172,12 @@ class TransactionalBankAccount(accountNumber: String, accountHolderName: String)
     }
 
     fun getAllFailedDeposits(): List<Transaction> {
-        return transactions.filter { it.transactionStatus == TransactionStatus.FAILURE && it.transactionType == TransactionType.WITHDRAW }
+        return transactions.filter { it.transactionStatus == TransactionStatus.FAILURE && it.transactionType == TransactionType.DEPOSIT }
             .sortedByDescending { it.transactionDate }
     }
 
     fun getAllFailedWithdrawals(): List<Transaction> {
-        return transactions.filter { it.transactionStatus == TransactionStatus.FAILURE && it.transactionType == TransactionType.DEPOSIT }
+        return transactions.filter { it.transactionStatus == TransactionStatus.FAILURE && it.transactionType == TransactionType.WITHDRAW }
             .sortedByDescending { it.transactionDate }
     }
 
