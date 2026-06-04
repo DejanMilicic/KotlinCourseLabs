@@ -36,7 +36,7 @@ private interface CostElement {
  * [lowerBound ... upperBound] range. Null value in the lower-bound stands for "minus infinity", and null
  * value in the upper-bound stands for "plus infinity".
  */
-private interface Range<T: Comparable<T>> {
+private interface Range<T : Comparable<T>> {
     val lowerBound: T?
     val upperBound: T?
 }
@@ -57,7 +57,7 @@ private data class Person(val name: String, val birthYear: Int, val nick: String
 /**
  * Decision objects are supposed to serve as values in a decision tree. The cost is the cost of taking the decision.
  */
-private data class Decision(val question: String, val answerLeft: String, val answerRight: String): CostElement {
+private data class Decision(val question: String, val answerLeft: String, val answerRight: String) : CostElement {
     override var cost: Double = 0.0
 }
 
@@ -70,11 +70,11 @@ private data class Decision(val question: String, val answerLeft: String, val an
  * of two child sets, and the size is the estimated size of the intersection.
  * Upper and lower bounds are generic values that indicate the upper and lower bounds of the entire set.
  */
-private data class SetIntersection<T: Comparable<T>>(
+private data class SetIntersection<T : Comparable<T>>(
     override val size: Int,
     override val lowerBound: T?,
-    override val upperBound: T?)
-    : Measurable, CostElement, Range<T> {
+    override val upperBound: T?
+) : Measurable, CostElement, Range<T> {
 
     override var cost: Double = 0.0
 }
@@ -89,29 +89,27 @@ private data class SetIntersection<T: Comparable<T>>(
  * no intersection at all. If the intersection is likely to be not empty, it estimates the intersection size as the mean
  * of the set sizes.
  */
-private fun <T, S> estimateIntersectionSize(treeNode: TreeNode<T>) : Int {
-    TODO("Uncomment code bellow and make the file compilable")
-//    val leftNode = treeNode.left ?: return treeNode.value.size
-//    val rightNode = treeNode.right ?: return treeNode.value.size
-//
-//    if (leftNode.value.lowerBound == null || rightNode.value.lowerBound == null) {
-//        return 0
-//    }
-//    if (leftNode.value.upperBound == null || rightNode.value.upperBound == null) {
-//        return 0
-//    }
-//
-//    if (leftNode.value.upperBound!! < rightNode.value.lowerBound!! || leftNode.value.lowerBound!! > rightNode.value.upperBound!!) {
-//        return 0
-//    }
-//    return (leftNode.value.size + rightNode.value.size)/2
+private fun <T, S> estimateIntersectionSize(treeNode: TreeNode<T>): Int where T : Measurable, T : Range<S>, S : Comparable<S> {
+    val leftNode = treeNode.left ?: return treeNode.value.size
+    val rightNode = treeNode.right ?: return treeNode.value.size
+
+    if (leftNode.value.lowerBound == null || rightNode.value.lowerBound == null) {
+        return 0
+    }
+    if (leftNode.value.upperBound == null || rightNode.value.upperBound == null) {
+        return 0
+    }
+
+    if (leftNode.value.upperBound!! < rightNode.value.lowerBound!! || leftNode.value.lowerBound!! > rightNode.value.upperBound!!) {
+        return 0
+    }
+    return (leftNode.value.size + rightNode.value.size) / 2
 }
 
-private fun <T> printTree(treeNode: TreeNode<T>) {
-    TODO("Uncomment code bellow and make the file compilable")
-//    println("${treeNode.value} cost:${treeNode.value.cost}")
-//    treeNode.left?.let { printTree(it) }
-//    treeNode.right?.let { printTree(it) }
+private fun <T : CostElement> printTree(treeNode: TreeNode<T>) {
+    println("${treeNode.value} cost:${treeNode.value.cost}")
+    treeNode.left?.let { printTree(it) }
+    treeNode.right?.let { printTree(it) }
 }
 
 /**
@@ -119,7 +117,7 @@ private fun <T> printTree(treeNode: TreeNode<T>) {
  * nodes. This code is not yet compilable, but it will become compilable as soon as you add an upper bound to the generic
  * type.
  */
-private fun <T: CostElement> calculateTreeCost(root: TreeNode<T>): Double {
+private fun <T : CostElement> calculateTreeCost(root: TreeNode<T>): Double {
     // PLEASE DON'T CHANGE THE CODE OF THIS FUNCTION.
     return root.value.cost +
             (root.left?.let { calculateTreeCost(it) } ?: 0.0) +
@@ -148,12 +146,11 @@ private fun run() {
         it.left = leftNode
         it.right = rightNode
     }
-    TODO("Uncomment code bellow and make the file compilable")
-//    val intersectionSize = estimateIntersectionSize(rootNode)
-//    println(intersectionSize)
-//
-//    printTree(rootNode)
-//    printNodes()
+    val intersectionSize = estimateIntersectionSize(rootNode)
+    println(intersectionSize)
+
+    printTree(rootNode)
+    printNodes()
 }
 
 fun main() {
