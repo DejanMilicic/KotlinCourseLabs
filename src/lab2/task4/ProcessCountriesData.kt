@@ -1,5 +1,7 @@
 package lab2.task4
 
+import kotlin.math.max
+
 /**
  * Represents a country with its name, capital city, population, languages spoken, and total area in square kilometers.
  *
@@ -58,29 +60,21 @@ internal val countries = listOf(
  * from Kotlin standard lib.
  */
 
-internal fun List<Country>.findCountryWithBiggestTotalArea(): Country {
-    TODO("Implement me!!!")
-}
+internal fun List<Country>.findCountryWithBiggestTotalArea(): Country = this.maxBy { it.totalAreaInSquareKilometers }
 
-internal fun List<Country>.findCountryWithBiggestPopulation(): Country {
-    TODO("Implement me!!!")
-}
+internal fun List<Country>.findCountryWithBiggestPopulation(): Country = this.maxBy { it.population }
 
-internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country {
-    TODO("Implement me!!!")
-}
+internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country =
+    this.maxBy { it.population / it.totalAreaInSquareKilometers }
 
-internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country {
-    TODO("Implement me!!!")
-}
+internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country =
+    this.minBy { it.population / it.totalAreaInSquareKilometers }
 
-internal fun List<Country>.findLanguageSpokenInMostCountries(): String {
-    TODO("Implement me!!!")
-}
+internal fun List<Country>.findLanguageSpokenInMostCountries(): String =
+    this.flatMap { x -> x.languages }.groupingBy { it }.eachCount().maxBy { it.value }.key
 
-internal fun List<Country>.filterCountriesThatSpeakLanguage(language: String): List<Country> {
-    TODO("Implement me!!!")
-}
+internal fun List<Country>.filterCountriesThatSpeakLanguage(language: String): List<Country> =
+    this.filter { x -> x.languages.contains(language) }
 
 
 fun main() {
