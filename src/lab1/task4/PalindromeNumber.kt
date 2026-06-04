@@ -29,21 +29,21 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-     if (x < 0  ) return false
+     if (x < 0) return false
 
     var i = x
-    var obrunut = 0
+    var reversed = 0
     var tmp = x
 
     while (tmp != 0 ) {
         val broj = tmp % 10
-        obrunut = obrunut * 10 + broj
+        reversed = reversed * 10 + broj
         tmp /= 10
 
     }
 
 
-    if (obrunut == i)
+    if (reversed == i)
     {
         return true
     }

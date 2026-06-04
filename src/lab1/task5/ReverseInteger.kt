@@ -35,17 +35,17 @@ internal fun reverseInteger(x: Int): Int {
     }
 
     var i = x
-    var obrunut = 0
+    var reverse = 0
     var tmp = x
 
     while (tmp != 0 ) {
-        val broj = tmp % 10
-        obrunut = obrunut * 10 + broj
+        val digit = tmp % 10
+        reverse = reverse * 10 + digit
         tmp /= 10
 
     }
 
-    return obrunut
+    return reverse
 }
 
 fun main() {

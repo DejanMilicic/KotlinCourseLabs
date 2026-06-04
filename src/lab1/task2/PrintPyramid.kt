@@ -79,5 +79,5 @@ internal fun printPyramid(level: Int) {
 }
 
 fun main() {
-    printPyramid(3)
+    printPyramid(15)
 }
