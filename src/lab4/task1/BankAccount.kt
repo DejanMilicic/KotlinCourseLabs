@@ -43,10 +43,14 @@ class BankAccount(val accountNumber: String, val accountHolderName: String, priv
     }
 
     fun withdraw(amount: Double): Boolean {
+        if (amount <= 0) return false
+
         return if (amount <= balance) {
             balance -= amount
             true
-        } else false
+        } else {
+            false
+        }
     }
 
     fun getBalance(): Double {

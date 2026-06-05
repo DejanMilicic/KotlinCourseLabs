@@ -12,12 +12,15 @@ open class SquareBoardImpl(override val width: Int) : SquareBoard {
     }
 
     override fun getCellOrNull(i: Int, j: Int): Cell? {
-        if (i !in 1..width || j < 1 || j > width) return null
-        return cells[(i - 1) * width + (j - 1)]
+        return if (i in 1..width && j in 1..width) {
+            cells[(i - 1) * width + (j - 1)]
+        } else {
+            null
+        }
     }
 
     override fun getCell(i: Int, j: Int): Cell {
-        return getCellOrNull(i,j)?:throw IllegalArgumentException("Incorrect values")
+        return getCellOrNull(i, j) ?: throw IllegalArgumentException("Incorrect values")
     }
 
     override fun getAllCells(): Collection<Cell> {
@@ -34,18 +37,18 @@ open class SquareBoardImpl(override val width: Int) : SquareBoard {
 
     override fun Cell.getNeighbour(direction: Direction): Cell? {
         return when (direction) {
-            Direction.UP->getCellOrNull(i-1,j)
-            Direction.DOWN->getCellOrNull(i+1,j)
-            Direction.LEFT->getCellOrNull(i,j-1)
-            Direction.RIGHT->getCellOrNull(i,j+1)
+            Direction.UP -> getCellOrNull(i - 1, j)
+            Direction.DOWN -> getCellOrNull(i + 1, j)
+            Direction.LEFT -> getCellOrNull(i, j - 1)
+            Direction.RIGHT -> getCellOrNull(i, j + 1)
         }
     }
 
 }
 
-class GameBoardImpl(width: Int): SquareBoardImpl(width), GameBoard {
+class GameBoardImpl(width: Int) : SquareBoardImpl(width), GameBoard {
 
-    private val cellValues=mutableMapOf<Cell,String?>()
+    private val cellValues = mutableMapOf<Cell, String?>()
 
     override fun get(cell: Cell): String? {
         return cellValues[cell]

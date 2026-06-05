@@ -19,7 +19,14 @@ internal fun TaxiPark.findFakeDrivers(): Set<Driver> {
  * Find all the clients who completed at least the given number of trips.
  */
 internal fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
-    return allPassengers.filter { p -> trips.count { p in it.passengers } >= minTrips }.toSet()
+    val tripCounts = trips
+        .flatMap { it.passengers }
+        .groupingBy { it }
+        .eachCount()
+
+    return allPassengers
+        .filter { (tripCounts[it] ?: 0) >= minTrips }
+        .toSet()
 }
 
 /**
@@ -27,8 +34,13 @@ internal fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
  * Find all the passengers who were taken by a given driver more than once.
  */
 internal fun TaxiPark.findFrequentPassengers(driver: Driver): Set<Passenger> {
-    return trips.filter { it.driver == driver }.flatMap { it.passengers }.groupingBy { it }.eachCount()
-        .filter { it.value > 1 }.keys
+    return trips
+        .filter { it.driver == driver }
+        .flatMap { it.passengers }
+        .groupingBy { it }
+        .eachCount()
+        .filter { it.value > 1 }
+        .keys
 }
 
 /**

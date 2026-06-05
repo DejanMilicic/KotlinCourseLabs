@@ -27,7 +27,7 @@ import java.util.Stack
 
 
 internal fun isExpressionBalanced(expression: String): Boolean {
-    val stack = Stack<Char>()
+    val stack = ArrayDeque<Char>()
 
     for (char in expression) {
         when (char) {

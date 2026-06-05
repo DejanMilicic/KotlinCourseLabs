@@ -32,10 +32,10 @@ internal fun String.splitToBracketsClusters(): List<String> {
     val stack = Stack<Char>()
     val currentCluster = StringBuilder()
     val pairs = mapOf(')' to '(', ']' to '[', '}' to '{')
-
+    val openers = setOf('(', '{', '[')
     for (char in this) {
         currentCluster.append(char)
-        if (char in listOf('(', '{', '[')) {
+        if (char in openers) {
             stack.addLast(char)
         } else {
             if (stack.isEmpty() || stack.removeLast() != pairs[char]) {
