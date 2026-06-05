@@ -1,5 +1,7 @@
 package lab3.task2
 
+import kotlin.text.iterator
+
 /**
  * Task 2: Split Expression To Parentheses Clusters
  *
@@ -24,7 +26,23 @@ package lab3.task2
  */
 
 internal fun String.splitToBracketsClusters(): List<String> {
-    TODO("Implement me!!!")
+    val stack = mutableListOf<Char>()
+    val result = mutableListOf<String>()
+    val cluster: StringBuilder = StringBuilder()
+    for (c in this) {
+        cluster.append(c)
+        when (c) {
+            '{', '(', '[' -> stack.add(c)
+            '}' -> if (stack.isEmpty() || stack.removeLast() != '{') return emptyList()
+            ')' -> if (stack.isEmpty() || stack.removeLast() != '(') return emptyList()
+            ']' -> if (stack.isEmpty() || stack.removeLast() != '[') return emptyList()
+        }
+        if (stack.isEmpty()) {
+            result.add(cluster.toString())
+            cluster.clear()
+        }
+    }
+    return if (stack.isEmpty()) result else emptyList()
 }
 
 fun main() {
