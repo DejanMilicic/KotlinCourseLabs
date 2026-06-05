@@ -29,7 +29,29 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+    val mapOfOccurrences = s.groupingBy { it }.eachCount()
+    val frequencyOfOccurrences = mapOfOccurrences.values.groupingBy { it }.eachCount()
+    if (frequencyOfOccurrences.size == 1) return "YES"
+    if (frequencyOfOccurrences.size > 2) return "NO"
+
+    val frequencies = frequencyOfOccurrences.keys.toList()
+
+    val minFreq = minOf(frequencies[0], frequencies[1])
+    val maxFreq = maxOf(frequencies[0], frequencies[1])
+
+    val minFreqOccurs = frequencyOfOccurrences[minFreq]
+    val maxFreqOccurs = frequencyOfOccurrences[maxFreq]
+
+    if (minFreq == 1 && minFreqOccurs == 1) {
+        return "YES"
+    }
+
+    if (maxFreq - minFreq == 1 && maxFreqOccurs == 1) {
+        return "YES"
+    }
+
+    return "NO"
+
 }
 
 fun main() {
