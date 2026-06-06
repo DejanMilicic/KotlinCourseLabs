@@ -3,16 +3,27 @@ package lab9
 import common.FileReader
 
 fun parseEmployees(employeesCSVLines: List<String>): List<Employee> {
-    TODO("Implement parsing of employees")
+    return employeesCSVLines
+        .drop(1)
+        .map { line ->
+            val parts = line.split(",")
+            Employee(
+                employeeId = EmployeeID(parts[0].trim()),
+                name = parts[1].trim(),
+                department = Department(parts[2].trim()),
+                salary = parts[3].trim().toInt(),
+                skills = parts[4].trim().split("|").map { it.trim() }
+            )
+        }
 }
 
 fun newEmployeeApi(employees: List<Employee>): EmployeeApi {
-    TODO("Instantiate EmployeeApi")
+    return EmployeesPortal(employees)
 }
 
 fun main() {
-    val employeesCSVLines = FileReader.readFileInResources("exercise9/employees.csv")
+    val employeesCSVLines = FileReader.readFileInResources("lab9/employees.csv")
     val employees = parseEmployees(employeesCSVLines)
 
-    val employeeApi : EmployeeApi = newEmployeeApi(employees)
+    newEmployeeApi(employees)
 }
