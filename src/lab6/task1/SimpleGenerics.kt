@@ -14,9 +14,9 @@ package lab6.task1
 /**
  * A binary tree node that holds some value.
  */
-private data class TreeNode(val value: Any) {
-    var left: TreeNode? = null
-    var right: TreeNode? = null
+private data class TreeNode<T>(val value: T) {
+    var left: TreeNode<T>? = null
+    var right: TreeNode<T>? = null
 }
 
 /**
@@ -38,12 +38,11 @@ private data class Decision(val question: String, val answerLeft: String, val an
 private fun printNodes(): String {
     // PLEASE DON'T CHANGE THE CODE OF THIS FUNCTION.
     val richardI = Person("Richard I", 1157, "The Lionheart")
-    val genealogyTree = TreeNode(richardI)
+    val genealogyTree = TreeNode<Person>(richardI)
 
     val decisionI = Decision("Do you choose a red or a blue pill?", "Red", "Blue")
-    val decisionTree = TreeNode(decisionI)
-    TODO("Uncomment code bellow and make the file compilable")
-//    return "${genealogyTree.value.name} ${decisionTree.value.answerLeft}"
+    val decisionTree = TreeNode<Decision>(decisionI)
+   return "${genealogyTree.value.name} ${decisionTree.value.answerLeft}"
 }
 
 fun main() {
