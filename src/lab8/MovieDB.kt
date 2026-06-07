@@ -1,7 +1,5 @@
 package lab8
 
-import lab3.task4.Trip
-
 /**
  * Task: Write a MovieDB class that implements the MovieDBApi interface.
  *
@@ -62,7 +60,7 @@ class MovieDB(val movies : List<Movie>) : MovieDBApi {
         val actors = actorToMovies.keys.toList()
 
         val pairs = actors.indices.flatMap { i ->
-            (i + 1 until actors.size).map { j ->
+            (i + 1..<actors.size).map { j ->
                     val a = actors[i]
                     val b = actors[j]
                     val common = (actorToMovies[a]!! intersect actorToMovies[b]!!).size
