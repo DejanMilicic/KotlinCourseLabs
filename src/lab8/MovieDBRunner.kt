@@ -2,7 +2,6 @@ package lab8
 
 import common.FileReader
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 
 internal fun parseMovies(moviesLines: List<String>): List<Movie> {
