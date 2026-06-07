@@ -18,11 +18,11 @@ import lab2.common.isEqualsTo
  *
  */
 
-internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> =
-    sortedDescending()
-        .take(2)
-        .zipWithNext()
-        .first()
+internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
+    require(size >= 2) { "List must contain at least two integers, but had $size" }
+    return sortedDescending()
+        .let { Pair(it[0], it[1]) }
+}
 
 fun main() {
     val nums = listOf(743, 284, 677, -753, 995, -934, 102, 903, -83, -760, 77, -420)
