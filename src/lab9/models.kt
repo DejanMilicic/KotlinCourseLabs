@@ -24,13 +24,16 @@ class EmployeesPortal(private val employees: List<Employee>) : EmployeeApi {
     override fun getEmployeesBySalaryRange(salaryRange: IntRange): List<Employee> =
         employees.filter { it.salary in salaryRange }
 
-    override fun calculateAverageSalaryByDepartment(department: Department): Double =
-        getEmployeesByDepartment(department).map { it.salary }.average()
+    override fun calculateAverageSalaryByDepartment(department: Department): Double {
+        val departmentEmployees = getEmployeesByDepartment(department)
+        if (departmentEmployees.isEmpty()) return 0.0
+        return departmentEmployees.map { it.salary }.average()
+    }
 
     override fun findMostCommonSkill(): String =
         employees.flatMap { it.skills }
             .groupingBy { it }
             .eachCount()
-            .maxBy { it.value }
-            .key
+            .maxByOrNull { it.value }
+            ?.key ?: ""
 }
