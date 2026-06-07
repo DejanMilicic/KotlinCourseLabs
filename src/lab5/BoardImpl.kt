@@ -1,12 +1,8 @@
 package lab5
 
-// TODO Instantiate SquareBoard
 fun createSquareBoard(width: Int): SquareBoard = SquareBoardImpl(width)
-
-// TODO Instantiate GameBoard
 fun createGameBoard(width: Int): GameBoard = GameBoardImpl(width)
 
-// TODO Implement SquareBoard Interface
 open class SquareBoardImpl(override val width: Int) : SquareBoard {
 
     private val cells: Array<Array<Cell>> = Array(width) { i ->
@@ -22,11 +18,15 @@ open class SquareBoardImpl(override val width: Int) : SquareBoard {
     override fun getAllCells(): Collection<Cell> =
         cells.flatten()
 
-    override fun getRow(i: Int, jRange: IntProgression): List<Cell> =
-        jRange.filter { it in 1..width }.map { j -> cells[i - 1][j - 1] }
+    override fun getRow(i: Int, jRange: IntProgression): List<Cell> {
+        if (i !in 1..width) return emptyList()
+        return jRange.filter { it in 1..width }.map { j -> cells[i - 1][j - 1] }
+    }
 
-    override fun getColumn(iRange: IntProgression, j: Int): List<Cell> =
-        iRange.filter { it in 1..width }.map { i -> cells[i - 1][j - 1] }
+    override fun getColumn(iRange: IntProgression, j: Int): List<Cell> {
+        if (j !in 1..width) return emptyList()
+        return iRange.filter { it in 1..width }.map { i -> cells[i - 1][j - 1] }
+    }
 
     override fun Cell.getNeighbour(direction: Direction): Cell? = when (direction) {
         Direction.UP    -> getCellOrNull(i - 1, j)
@@ -36,7 +36,6 @@ open class SquareBoardImpl(override val width: Int) : SquareBoard {
     }
 }
 
-// TODO extend SquareBoardImpl and implement GameBoard interface
 class GameBoardImpl(width: Int) : SquareBoardImpl(width), GameBoard {
 
     private val values = mutableMapOf<Cell, String?>()
