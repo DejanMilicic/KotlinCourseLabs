@@ -109,19 +109,30 @@ class TransactionalBankAccount(
 
     override fun deposit(amount: Double) {
         val oldBalance = getBalance()
-        super.deposit(amount)
-        transactions.add(Transaction(currentTime, TransactionType.DEPOSIT, amount, oldBalance, getBalance(), TransactionStatus.SUCCESS))
+        try {
+            super.deposit(amount)
+            transactions.add(Transaction(currentTime, TransactionType.DEPOSIT, amount, oldBalance, getBalance(), TransactionStatus.SUCCESS))
+        } catch (e: IllegalArgumentException) {
+            transactions.add(Transaction(currentTime, TransactionType.DEPOSIT, amount, oldBalance, oldBalance, TransactionStatus.FAILURE))
+        }
     }
+
 
     override fun withdraw(amount: Double): Boolean {
         val oldBalance = getBalance()
-        val success = super.withdraw(amount)
-        transactions.add(Transaction(
-            currentTime, TransactionType.WITHDRAWAL, amount, oldBalance,
-            getBalance(),
-            if (success) TransactionStatus.SUCCESS else TransactionStatus.FAILURE
-        ))
-        return success
+        return try {
+            val success = super.withdraw(amount)
+            val newBalance = if (success) getBalance() else oldBalance
+            transactions.add(Transaction(
+                currentTime, TransactionType.WITHDRAWAL, amount, oldBalance,
+                newBalance,
+                if (success) TransactionStatus.SUCCESS else TransactionStatus.FAILURE
+            ))
+            success
+        } catch (e: IllegalArgumentException) {
+            transactions.add(Transaction(currentTime, TransactionType.WITHDRAWAL, amount, oldBalance, oldBalance, TransactionStatus.FAILURE))
+            false
+        }
     }
 
     fun getAllTranactions(): List<Transaction> =
