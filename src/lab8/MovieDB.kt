@@ -1,14 +1,5 @@
 package lab8
 
-/**
- * Task: Write a MovieDB class that implements the MovieDBApi interface.
- *
- * Define a constructor of MovieDB class which accepts the list of movies as parameter.
- *
- * Implement methods defined by MovieDBApi.
- *
- */
-
 class MovieDB(private val movies: List<Movie>) : MovieDBApi {
 
     override fun getAllMoviesByActor(actor: MovieActor): List<Movie> =
@@ -32,8 +23,8 @@ class MovieDB(private val movies: List<Movie>) : MovieDBApi {
     override fun getDirectorWithMostMoviesDirected(): MovieDirector =
         movies.groupingBy { it.director }
             .eachCount()
-            .maxBy { it.value }
-            .key
+            .maxByOrNull { it.value }
+            ?.key ?: throw NoSuchElementException("No movies found")
 
     override fun getActorsWithMostCostarredMovies(): List<Pair<MovieActor, MovieActor>> {
         val costarCount = mutableMapOf<Pair<MovieActor, MovieActor>, Int>()
@@ -42,7 +33,7 @@ class MovieDB(private val movies: List<Movie>) : MovieDBApi {
             val actors = movie.actors
             for (i in actors.indices) {
                 for (j in i + 1 until actors.size) {
-                    // Uvek stavi aktore u abecednom redu unutar para
+                    // Always put actors in alphabetical order within the pair
                     val a = actors[i]
                     val b = actors[j]
                     val pair = if (a.name < b.name) Pair(a, b) else Pair(b, a)
