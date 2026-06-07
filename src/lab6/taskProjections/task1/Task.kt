@@ -43,17 +43,17 @@ open class Postcard(open val origin: String) : Delivery
 data class ExpressPostcard(val priceEuro: Int, override val origin: String) : Postcard(origin)
 
 fun main() {
+    val expressPostcardStorage: Sender<Postcard> = MailBox<ExpressPostcard>() as Sender<Postcard>
     val postcardStorage = MailBox<Postcard>()
-    val expressPostcardStorage = MailBox<ExpressPostcard>()
 
     val expressPostcard = ExpressPostcard(15, "Serbia")
     val postcard = Postcard("Germany")
 
-    // može samo ExpressPostcard
-    val topRatedPostman = Postman<ExpressPostcard>(listOf(expressPostcardStorage))
+    // Only ExpressPostcard
+    val topRatedPostman = Postman<ExpressPostcard>(listOf(MailBox<ExpressPostcard>()))
 
-    // može i Postcard i ExpressPostcard (jer je ExpressPostcard podtip Postcard-a)
-    val juniorPostman = Postman<Postcard>(listOf(postcardStorage, expressPostcardStorage as Sender<Postcard>))
+    // Both Postcard and ExpressPostcard
+    val juniorPostman = Postman<Postcard>(listOf(postcardStorage, expressPostcardStorage))
 
     topRatedPostman.send(expressPostcard)
     juniorPostman.send(postcard)

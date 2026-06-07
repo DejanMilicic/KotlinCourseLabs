@@ -10,7 +10,7 @@ open class A
 class B : A()
 class C : A() { fun consume(other: A): C = this }
 
-fun <T : S, S : R, R> funny(
+fun <T : R, R> funny(
     source: Iterator<T>,
     target: MutableCollection<R>,
     base: R,

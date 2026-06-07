@@ -25,7 +25,7 @@ abstract class Builder<out T, in P> {
 }
 
 class IntegerBuilder : Builder<Int, String>() {
-    override fun build(param: String): Int = param.toInt()
+    override fun build(param: String): Int = param.toIntOrNull() ?: 0
 }
 
 fun main() {
