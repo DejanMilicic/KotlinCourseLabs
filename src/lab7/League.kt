@@ -164,7 +164,10 @@ internal class League(
             val conceded = homeMatches.sumOf { it.awayTeamScore } + awayMatches.sumOf { it.homeTeamScore }
 
             LeagueTableEntry(team, wins + loses + draws, wins, loses, draws, scored, conceded)
-        }.sortedWith(compareByDescending<LeagueTableEntry> { it.totalPoints }.thenByDescending { it.totalScoredGoals - it.totalConcededGoals })
+        }.sortedWith(
+            compareByDescending<LeagueTableEntry> { it.totalPoints }
+                .thenByDescending { it.totalScoredGoals - it.totalConcededGoals }
+        )
     }
 
     override val leagueTable: List<LeagueTableEntry> get() = buildLeagueTable(fixtures)
