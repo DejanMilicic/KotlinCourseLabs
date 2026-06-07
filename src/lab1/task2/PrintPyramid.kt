@@ -58,7 +58,7 @@ package lab1.task2
 
 internal fun printPyramid(level: Int) {
     if (level !in 1..15) {
-        throw IllegalArgumentException("Level mora biti izmedju 1 i 15")
+        throw IllegalArgumentException("Level must be between 1 and 15")
     }
 
     for (i in 1..level) {
