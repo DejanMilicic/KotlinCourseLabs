@@ -10,9 +10,9 @@ package lab6.taskProjections.task2
  * If you did everything correct, you could not create a method create which accepts nothing and returns T
  **/
 
-class Programmer<in T : ProgrammingLanguage>() {
+class Programmer<in T : ProgrammingLanguage> {
     fun learn(language: T) {
-        print("I learned ${language.name}!")
+        println("I learned ${language.name}!")
     }
 //    THIS IS NOT POSSIBLE BECAUSE OF CONTRAVARIANT
 //    fun create(): T{
