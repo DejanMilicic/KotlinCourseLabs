@@ -5,14 +5,14 @@ package lab6.taskProjections.task3
  *
  * You have a hierarchy of classes here.
  * You need to initialize parsersHashMap in the right way to make the code compilable.
-**/
+ **/
 
 abstract class ProgrammingLanguage
 
 class JvmLanguage : ProgrammingLanguage()
 class BlockBasedLanguage : ProgrammingLanguage()
 
-interface LanguageParser<T: ProgrammingLanguage> {
+interface LanguageParser<T : ProgrammingLanguage> {
     @Suppress("UNCHECKED_CAST")
     fun parse(language: ProgrammingLanguage) {
         val tmpLang = language as? T
@@ -36,11 +36,11 @@ class BlockBasedLanguageParser : LanguageParser<BlockBasedLanguage> {
 }
 
 fun main() {
-    TODO("Create a new HashMap and uncomment code bellow")
-//    parsersHashMap[JvmLanguage::class.java] = JvmLanguageParser()
-//    parsersHashMap[BlockBasedLanguage::class.java] = BlockBasedLanguageParser()
-//
-//    val scratch = BlockBasedLanguage()
-//    val foundParser = parsersHashMap[scratch.javaClass]
-//    foundParser?.parse(scratch)
+    val parsersHashMap = HashMap<Class<out ProgrammingLanguage>, LanguageParser<*>>()
+    parsersHashMap[JvmLanguage::class.java] = JvmLanguageParser()
+    parsersHashMap[BlockBasedLanguage::class.java] = BlockBasedLanguageParser()
+
+    val scratch = BlockBasedLanguage()
+    val foundParser = parsersHashMap[scratch.javaClass]
+    foundParser?.parse(scratch)
 }
