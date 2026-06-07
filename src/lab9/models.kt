@@ -14,7 +14,11 @@ data class Employee(
 )
 
 class EmployeesPortal(val employees: List<Employee>) : EmployeeApi {
-    override fun findHighestPaidEmployee(): Employee? {
+    init {
+        require(employees.isNotEmpty()) { throw IllegalArgumentException("Employees can not be empty") }
+    }
+
+    override fun findHighestPaidEmployee(): Employee {
         return employees.maxBy { it.salary }
     }
 
@@ -31,7 +35,12 @@ class EmployeesPortal(val employees: List<Employee>) : EmployeeApi {
     }
 
     override fun findMostCommonSkill(): String {
-        return employees.flatMap { it.skills }.groupBy { it }.mapValues { it.value.size }.maxBy { it.value }.key
+        val skills = employees.flatMap { employee -> employee.skills.filter { it.isNotEmpty() } }
+        return if (skills.isNotEmpty())
+            skills.groupBy { it }.mapValues { it.value.size }
+                .maxBy { it.value }.key
+        else
+            "No skills available"
     }
 
 }
