@@ -41,7 +41,8 @@ class MovieDB(val movies: List<Movie>) : MovieDBApi {
     override fun getActorsWithMostCostarredMovies(): List<Pair<MovieActor, MovieActor>> {
         val costarredMovies = movies.flatMap { movie ->
             movie.actors.flatMapIndexed { index, actor1 ->
-                movie.actors.drop(index + 1).map { actor2 -> actor1 to actor2 }
+                movie.actors.drop(index + 1)
+                    .map { actor2 -> if (actor1.name < actor2.name) actor1 to actor2 else actor2 to actor1 }
             }
         }
             .groupBy { it }

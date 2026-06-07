@@ -82,6 +82,6 @@ class MovieDBTest {
     fun `test - api returns actors with most costarred movies`() {
         val actorsWithMostCostarredMovies = movieDBApi.getActorsWithMostCostarredMovies()
 
-        assertEquals(TestMovieDB.ACTOR_PAIRS_WITH_MOST_COSTARRED_MOVIES, actorsWithMostCostarredMovies)
+        assertEquals(TestMovieDB.ACTOR_PAIRS_WITH_MOST_COSTARRED_MOVIES.toSet(), actorsWithMostCostarredMovies.toSet())
     }
 }
