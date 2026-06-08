@@ -103,15 +103,17 @@ class TransactionalBankAccount(
     val transactions = ArrayList<Transaction>()
 
     override fun deposit(ammount: Double): Unit{
-        val oldBalance = balance
-        balance += ammount
-        val transaction = Transaction(currentTime,
-                                      TransactionType.DEPOSIT,
-                                      ammount,
-                                      oldBalance,
-                                      balance,
-                                      TransactionStatus.SUCCESS)
-        transactions.add(transaction)
+        if(ammount > 0.0){
+            val oldBalance = balance
+            balance += ammount
+            val transaction = Transaction(currentTime,
+                TransactionType.DEPOSIT,
+                ammount,
+                oldBalance,
+                balance,
+                TransactionStatus.SUCCESS)
+            transactions.add(transaction)
+        }
     }
 
     override fun withdraw(ammount: Double): Boolean{
@@ -146,17 +148,16 @@ class TransactionalBankAccount(
         return true
     }
 
-    fun getAllTranactions(): List<Transaction>{
+    fun getAllTransactions(): List<Transaction>{
         return transactions.sortedByDescending { it.transactionDate }
     }
     fun getAllTransactionsBy(predicate: (Transaction) -> Boolean): List<Transaction>{
         return transactions.filter(predicate).sortedByDescending { it.transactionDate }
     }
 
-    fun getTransactionsBetween(startDate: LocalDateTime, endDate: LocalDateTime): List<Transaction>{
+    fun getTransactionsBetween(startDate: LocalDateTime, endDate: LocalDateTime): List<Transaction> {
         return transactions
-            .filter{it.transactionDate.isAfter(startDate)
-                    && it.transactionDate.isBefore(endDate)}
+            .filter { !it.transactionDate.isBefore(startDate) && !it.transactionDate.isAfter(endDate) }
             .sortedByDescending { it.transactionDate }
     }
 
@@ -205,10 +206,10 @@ class TransactionalBankAccount(
                 "Account Number: [$accountNumber]\n" +
                 "Balance: [$balance]\n" +
                 "Transactions:\n")
-        if (transactions.size == 0){
+        if (transactions.isEmpty()){
             println("No transactions recorded.\n")
         } else {
-            getAllTranactions().forEach {
+            getAllTransactions().forEach {
                 println("Transaction Date: [${it.transactionDate.prettyPrint()}]\n" +
                     " Transaction Type: [${it.transactionType}]\n" +
                     " Amount: [${it.amount}]\n" +
