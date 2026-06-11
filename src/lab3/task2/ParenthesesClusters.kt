@@ -1,4 +1,5 @@
 package lab3.task2
+import lab3.task1.isExpressionBalanced
 
 /**
  * Task 2: Split Expression To Parentheses Clusters
@@ -24,7 +25,24 @@ package lab3.task2
  */
 
 internal fun String.splitToBracketsClusters(): List<String> {
-    TODO("Implement me!!!")
+    if (!isExpressionBalanced(this)) return emptyList()
+
+    val clusters = mutableListOf<String>()
+    var depth = 0
+    var start = 0
+
+    for (i in indices) {
+        when (this[i]) {
+            '(', '[', '{' -> depth++
+            ')', ']', '}' -> depth--
+        }
+        if (depth == 0) {
+            clusters.add(substring(start, i + 1))
+            start = i + 1
+        }
+    }
+
+    return clusters
 }
 
 fun main() {
