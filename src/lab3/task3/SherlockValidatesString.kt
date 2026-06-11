@@ -29,7 +29,29 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+    val freqs = s.groupingBy { it }.eachCount()
+    val freqCounts = freqs.values.groupingBy { it }.eachCount()
+
+    if (freqCounts.size == 1) return "YES"
+
+    if (freqCounts.size == 2) {
+        val (freq1, count1) = freqCounts.entries.first()
+        val (freq2, count2) = freqCounts.entries.last()
+
+
+        if (count1 == 1 && freq1 == freq2 + 1) return "YES"
+        if (count2 == 1 && freq2 == freq1 + 1) return "YES"
+
+
+        if (count1 == 1 && freq1 == 1) return "YES"
+        if (count2 == 1 && freq2 == 1) return "YES"
+
+
+        if (count1 == 1 && freq2 == 1 && freq1 == freq2 + 1) return "YES"
+        if (count2 == 1 && freq1 == 1 && freq2 == freq1 + 1) return "YES"
+    }
+
+    return "NO"
 }
 
 fun main() {
@@ -40,8 +62,11 @@ fun main() {
         val errorMessageFactory = { answer: String -> if (answer == "YES") "is valid" else "is not valid" }
 
         require(expectedIsValid == actualIsValid) {
-            "String \"$string\" is ${errorMessageFactory(expectedIsValid)}," +
-                    " but actual value was ${errorMessageFactory(actualIsValid)}."
+            "String \"$string\" is ${errorMessageFactory(expectedIsValid)}," + " but actual value was ${
+                errorMessageFactory(
+                    actualIsValid
+                )
+            }."
         }
     }
 }
