@@ -30,7 +30,6 @@ interface SquareBoard {
 }
 
 interface GameBoard : SquareBoard {
-
     operator fun get(cell: Cell): String?
     operator fun set(cell: Cell, value: String?)
 
