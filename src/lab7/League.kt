@@ -184,8 +184,8 @@ class League(
                         team,
                         totalGamesPlayed,
                         wins,
-                        draws,
                         loses,
+                        draws,
                         totalScoredGoals,
                         totalConcededGoals
                     )
@@ -290,7 +290,8 @@ class League(
             )
         }
         println("P | Team name | Games Played | Wins | Draws | Loses | GS | GC | Total Points")
-        val league = leagueTable.sortedByDescending { it.totalPoints }
+        val league =
+            leagueTable.sortedWith { entry1, entry2 -> if (entry1.totalPoints == entry2.totalPoints) (entry2.totalScoredGoals - entry2.totalConcededGoals) - (entry1.totalScoredGoals - entry1.totalConcededGoals) else entry2.totalPoints - entry1.totalPoints }
         for (i in 0 until league.size) {
             println("${i + 1}. ${league[i].team.name} ${league[i].wins + league[i].draws + league[i].loses} ${league[i].wins} ${league[i].draws} ${league[i].loses} ${league[i].totalScoredGoals} ${league[i].totalConcededGoals} ${league[i].totalPoints}")
         }
