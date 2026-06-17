@@ -34,7 +34,7 @@ data class Movie(
     val budget: Long,
     val revenue: Long,
     val releaseDate: LocalDate,
-    val runtimeInMinutes: Int,
+    val runtimeInMinutes: Double,
     val director: MovieDirector,
     val genres: List<String>,
     val actors: List<MovieActor>,

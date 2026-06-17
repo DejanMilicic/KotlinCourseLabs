@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 
 class MovieDBTest {
-    private val movieDBApi: MovieDBApi = TODO("Instantiate object as follows: MovieDB(parseMovies(FileReader.readFileInResources(\"exercise8/movies.csv\")))")
+    private val movieDBApi: MovieDBApi = MovieDB(parseMovies(FileReader.readFileInResources("lab8/movies.csv")))
 
     @Test
     fun `test - api returns all movies by actor`() {
@@ -82,6 +82,6 @@ class MovieDBTest {
     fun `test - api returns actors with most costarred movies`() {
         val actorsWithMostCostarredMovies = movieDBApi.getActorsWithMostCostarredMovies()
 
-        assertEquals(TestMovieDB.ACTOR_PAIRS_WITH_MOST_COSTARRED_MOVIES, actorsWithMostCostarredMovies)
+        assertEquals(TestMovieDB.ACTOR_PAIRS_WITH_MOST_COSTARRED_MOVIES.toSet(), actorsWithMostCostarredMovies.toSet())
     }
 }
