@@ -20,8 +20,16 @@ import lab2.common.isEqualsTo
 
 internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
     require(size >= 2) { "List must contain at least two integers, but had $size" }
-    return sortedDescending()
-        .let { Pair(it[0], it[1]) }
+
+    val maxSum = indices.flatMap { i ->
+        (i + 1 until size).map { j -> this[i] + this[j] }
+    }.max()
+
+    return indices.flatMap { i ->
+        (i + 1 until size).map { j -> Pair(i, j) }
+    }
+        .last { (i, j) -> this[i] + this[j] == maxSum }
+        .let { (i, j) -> Pair(this[i], this[j]) }
 }
 
 fun main() {
