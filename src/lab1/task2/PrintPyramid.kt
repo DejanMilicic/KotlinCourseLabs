@@ -62,10 +62,12 @@ internal fun printPyramid(level: Int) {
     }
 
     var count = 1
-    for(i in 0 ..<level) {
-        print(" ".repeat(level - count / 2 - 1) +
-              "*".repeat(count) +
-              " ".repeat(level - count / 2 - 1) + "\n")
+    repeat(level) {
+        print(
+            " ".repeat(level - count / 2 - 1) +
+                    "*".repeat(count) +
+                    " ".repeat(level - count / 2 - 1) + "\n"
+        )
         count += 2
     }
 }
