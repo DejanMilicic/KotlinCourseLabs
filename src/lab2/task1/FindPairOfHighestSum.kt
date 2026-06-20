@@ -17,7 +17,18 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPair(): Pair<Int, Int> {
-    TODO("Implement me!!")
+    var max1 = -1001;
+    var max2 = -1001;
+    for (num in this) {
+        if (num > max1) {
+            max2 = max1;
+            max1 = num;
+        } else if (num > max2) {
+            max2 = num;
+        }
+    }
+
+    return Pair(max1, max2);
 }
 
 fun main() {
