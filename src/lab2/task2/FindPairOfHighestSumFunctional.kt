@@ -1,7 +1,6 @@
 package lab2.task2
 
 import lab2.common.isEqualsTo
-import lab2.task1.findHighestSumPair
 
 
 /**
