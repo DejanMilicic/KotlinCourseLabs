@@ -30,17 +30,17 @@ import java.util.Stack
 internal fun isExpressionBalanced(expression: String): Boolean {
     val stack = Stack<Char>()
 
-    for(char in expression) {
-        when(char) {
+    for (char in expression) {
+        when (char) {
             '(', '[', '{' -> stack.push(char)
             ')', ']', '}' -> {
-                val expected = when(char) {
+                val expected = when (char) {
                     ')' -> '('
                     ']' -> '['
                     '}' -> '{'
                     else -> return false
                 }
-                if(stack.isEmpty() || stack.pop() != expected) {
+                if (stack.isEmpty() || stack.pop() != expected) {
                     return false;
                 }
             }
