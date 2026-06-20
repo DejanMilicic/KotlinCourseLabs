@@ -29,7 +29,7 @@ private interface CostElement {
  * The node is a set intersection if its left and right children are not null. Otherwise, it is
  * just a set of some values. The cost is an estimated cost of calculating the intersection.
  */
-private data class SetIntersection(val size: Int): CostElement {
+private data class SetIntersection(val size: Int) : CostElement {
     override var cost: Double = size.toDouble()
 }
 
@@ -38,9 +38,8 @@ private data class SetIntersection(val size: Int): CostElement {
  * nodes. This code is not yet compilable, but it will become compilable as soon as you add an upper bound to the generic
  * type.
  */
-private fun <T> calculateTreeCost(root: TreeNode<T>): Double {
-    TODO("Uncomment code bellow and make the file compilable")
-//    return root.value.cost +
-//            (root.left?.let { calculateTreeCost(it) } ?: 0.0) +
-//            (root.right?.let { calculateTreeCost(it) } ?: 0.0)
+private fun <T : CostElement> calculateTreeCost(root: TreeNode<T>): Double {
+    return root.value.cost +
+            (root.left?.let { calculateTreeCost(it) } ?: 0.0) +
+            (root.right?.let { calculateTreeCost(it) } ?: 0.0)
 }
