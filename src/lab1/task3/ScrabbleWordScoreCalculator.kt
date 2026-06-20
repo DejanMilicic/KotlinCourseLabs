@@ -31,7 +31,7 @@ package lab1.task3
  *
  */
 
-internal fun getLetterScore(letter : Char): Int {
+internal fun getLetterScore(letter: Char): Int {
     return when (letter) {
         'a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't' -> 1
         'd', 'g' -> 2
@@ -46,7 +46,7 @@ internal fun getLetterScore(letter : Char): Int {
 
 internal fun calculateWordScrabbleScore(word: String): Int {
     var score = 0
-    for(letter in word) {
+    for (letter in word) {
         score += getLetterScore(letter)
     }
     return score
