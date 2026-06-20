@@ -156,11 +156,11 @@ internal class League(
     private fun calculateTable(fixturesToProcess: List<Fixture>): List<LeagueTableEntry> {
         val matches = fixturesToProcess.flatMap { it.matches }
         return teams.map { team ->
-            var played = 0;
-            var wins = 0;
-            var loses = 0;
-            var draws = 0;
-            var gs = 0;
+            var played = 0
+            var wins = 0
+            var loses = 0
+            var draws = 0
+            var gs = 0
             var gc = 0
 
             matches.forEach { m ->
