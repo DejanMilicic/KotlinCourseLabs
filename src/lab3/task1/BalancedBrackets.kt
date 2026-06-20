@@ -37,11 +37,10 @@ internal fun isExpressionBalanced(expression: String): Boolean {
                 val expected = when (char) {
                     ')' -> '('
                     ']' -> '['
-                    '}' -> '{'
-                    else -> return false
+                    else -> '{'
                 }
                 if (stack.isEmpty() || stack.pop() != expected) {
-                    return false;
+                    return false
                 }
             }
         }
