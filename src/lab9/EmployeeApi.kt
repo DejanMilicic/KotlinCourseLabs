@@ -38,3 +38,31 @@ interface EmployeeApi {
      */
     fun findMostCommonSkill(): String
 }
+
+internal class EmployeePortal(private val employees: List<Employee>) : EmployeeApi {
+
+    override fun getEmployeesByDepartment(department: Department): List<Employee> {
+        return employees.filter { department == it.department }
+    }
+
+    override fun findHighestPaidEmployee(): Employee? {
+        return employees.maxByOrNull { it.salary }
+    }
+
+    override fun getEmployeesBySalaryRange(salaryRange: IntRange): List<Employee> {
+        return employees.filter { it.salary in salaryRange }
+    }
+
+    override fun calculateAverageSalaryByDepartment(department: Department): Double {
+        return employees.filter { it.department == department }
+            .map { it.salary }
+            .average()
+    }
+
+    override fun findMostCommonSkill(): String {
+        return employees.flatMap { it.skills }
+            .groupingBy { it }
+            .eachCount()
+            .maxBy { it.value }.key
+    }
+}
