@@ -12,9 +12,9 @@ fun parseMovies(moviesLines: List<String>): List<Movie> {
     val listOfMovie = mutableListOf<Movie>()
 
     dataLines.forEach {
-        val data = it.split(";")
+        val data = it.split(";").map { it.trim() }
         val budget = data[0].toLong()
-        val genres = data[1].split(",")
+        val genres = data[1].split(",").map { it.trim() }
         val title = data[2]
         val rating = data[3].toDouble()
         val releaseDate = LocalDate.parse(data[4])
