@@ -49,6 +49,7 @@ internal open class BankAccount(
     }
 
     open fun withdraw(amount: Double): Boolean {
+        require(amount > 0) { "Withdraw must be positive." }
         if (balance >= amount) {
             balance -= amount
             return true
