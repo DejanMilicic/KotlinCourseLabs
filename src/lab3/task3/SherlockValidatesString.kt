@@ -1,5 +1,6 @@
 package lab3.task3
 
+
 /**
  * Task 3: Sherlock Validates the Words
  *
@@ -29,7 +30,38 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+    val map = hashMapOf<Char, Int>()
+    val mapNumber = hashMapOf<Int, Int>()
+
+    for (char in s) {
+        map[char] = map.getOrDefault(char, 0) + 1
+    }
+
+    for (num in map.values) {
+        mapNumber[num] = mapNumber.getOrDefault(num, 0) + 1
+        if (mapNumber.size > 2) {
+            return "NO"
+        }
+    }
+
+    if (mapNumber.size <= 1) {
+        return "YES"
+    }
+
+    val n1 = mapNumber.entries.first()
+    val n2 = mapNumber.entries.last()
+
+    if ((n1.key == 1 && n1.value == 1) || (n2.key == 1 && n2.value == 1)) {
+        return "YES"
+    }
+    if (n1.key == n2.key + 1 && n1.value == 1) {
+        return "YES"
+    }
+    if (n2.key == n1.key + 1 && n2.value == 1) {
+        return "YES"
+    }
+
+    return "NO"
 }
 
 fun main() {
