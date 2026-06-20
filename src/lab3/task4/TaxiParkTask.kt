@@ -9,24 +9,15 @@ package lab3.task4
  * Subtask 1:
  * Find all the drivers who performed no trips.
  */
-internal fun TaxiPark.findFakeDrivers(): Set<Driver> {
-    val drivers = mutableSetOf<Driver>()
 
-    for (driver in this.allDrivers) {
-        drivers.add(driver)
-    }
-
-    for (trip in this.trips) {
-        drivers.remove(trip.driver)
-    }
-
-    return drivers
-}
+internal fun TaxiPark.findFakeDrivers(): Set<Driver> =
+    allDrivers - trips.map { it.driver }.toSet()
 
 /**
  * Subtask 2:
  * Find all the clients who completed at least the given number of trips.
  */
+
 internal fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
     val result = mutableSetOf<Passenger>()
     val passengers = hashMapOf<Passenger, Int>()
