@@ -9,19 +9,19 @@ open class SquareBoardImpl(size: Int) : SquareBoard {
     override val width = size
     private val cells = Array(width) { Array(width) { Cell(0, 0) } }
 
-    init{
-        for(i in 0..< width) {
-            for(j in 0..< width) {
+    init {
+        for (i in 0..<width) {
+            for (j in 0..<width) {
                 cells[i][j] = Cell(i + 1, j + 1)
             }
         }
     }
 
-    override fun getCellOrNull(i : Int, j : Int): Cell? {
-        return if(i in 1.. width && j in 1..width) cells[i - 1][j - 1] else null
+    override fun getCellOrNull(i: Int, j: Int): Cell? {
+        return if (i in 1..width && j in 1..width) cells[i - 1][j - 1] else null
     }
 
-    override fun getCell(i : Int, j : Int): Cell {
+    override fun getCell(i: Int, j: Int): Cell {
         return getCellOrNull(i, j) ?: throw IllegalArgumentException("Values out i and j out of range.")
     }
 
@@ -31,7 +31,7 @@ open class SquareBoardImpl(size: Int) : SquareBoard {
 
     override fun getRow(i: Int, jRange: IntProgression): List<Cell> {
         val row = mutableListOf<Cell>()
-        for(j in jRange) {
+        for (j in jRange) {
             getCellOrNull(i, j)?.let { row.add(it) }
         }
         return row
@@ -39,7 +39,7 @@ open class SquareBoardImpl(size: Int) : SquareBoard {
 
     override fun getColumn(iRange: IntProgression, j: Int): List<Cell> {
         val column = mutableListOf<Cell>()
-        for(i in iRange) {
+        for (i in iRange) {
             getCellOrNull(i, j)?.let { column.add(it) }
         }
         return column
@@ -49,7 +49,7 @@ open class SquareBoardImpl(size: Int) : SquareBoard {
         when (direction) {
             Direction.UP -> getCellOrNull(i - 1, j)
             Direction.DOWN -> getCellOrNull(i + 1, j)
-            Direction.LEFT -> getCellOrNull(i, j - 1 )
+            Direction.LEFT -> getCellOrNull(i, j - 1)
             Direction.RIGHT -> getCellOrNull(i, j + 1)
         }
 }
@@ -58,12 +58,12 @@ class GameBoardImpl(size: Int) : SquareBoardImpl(size), GameBoard {
 
     val info = hashMapOf<Cell, String>()
 
-    override fun get(cell: Cell) : String? {
+    override fun get(cell: Cell): String? {
         return info[cell]
     }
 
     override fun set(cell: Cell, value: String?) {
-        if(value == null) {
+        if (value == null) {
             info.remove(cell)
         } else {
             info[cell] = value
