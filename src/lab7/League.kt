@@ -7,6 +7,7 @@ internal interface LeagueApi {
      * @property teams The list of teams.
      */
     val teams: List<Team>
+
     /**
      * Returns the list of [LeagueTableEntry] where every team result of the season is aggregated.
      * The League table is sorted by points descending. If more than one team has the same number of points,
@@ -133,4 +134,138 @@ internal interface LeagueApi {
  * and [teams] are all mentioned in the [fixtures] list.
  */
 
-// TODO Implement League class that implements LeagueApi interface.
+
+internal class LeagueApiImpl(override val teams: List<Team>, private val fixtures: List<Fixture>) : LeagueApi {
+
+    override val leagueTable: List<LeagueTableEntry> by lazy {
+        teams.map { team ->
+            val matches = fixtures.flatMap { it.matches }
+                .filter { it.homeTeam == team || it.awayTeam == team }
+
+            var wins = 0
+            var draws = 0
+            var losses = 0
+            var scored = 0
+            var conceded = 0
+
+            for (m in matches) {
+                val isHome = m.homeTeam == team
+
+                val goalsFor = if (isHome) m.homeTeamScore else m.awayTeamScore
+                val goalsAgainst = if (isHome) m.awayTeamScore else m.homeTeamScore
+
+                scored += goalsFor
+                conceded += goalsAgainst
+
+                when {
+                    goalsFor > goalsAgainst -> wins++
+                    goalsFor < goalsAgainst -> losses++
+                    else -> draws++
+                }
+            }
+
+            LeagueTableEntry(
+                team = team,
+                totalGamesPlayed = matches.size,
+                wins = wins,
+                loses = losses,
+                draws = draws,
+                totalScoredGoals = scored,
+                totalConcededGoals = conceded
+            )
+        }.sortedWith(
+            compareByDescending<LeagueTableEntry> { it.totalPoints }
+                .thenByDescending { it.totalScoredGoals - it.totalConcededGoals }
+                .thenBy { it.team.name }
+        )
+    }
+
+    override val leagueWinner: Team
+        get() =
+            leagueTable
+                .sortedWith(
+                    compareByDescending<LeagueTableEntry> { it.totalPoints }
+                        .thenByDescending { it.totalScoredGoals - it.totalConcededGoals }
+                )
+                .first()
+                .team
+
+    override val teamWithMostWins: Team
+        get() = leagueTable.maxBy { it.wins }.team
+
+    override val teamWithMostDraws: Team
+        get() = leagueTable.maxBy { it.draws }.team
+
+    override val teamWithMostLoses: Team
+        get() = leagueTable.maxBy { it.loses }.team
+
+    override val teamWithBestGoalDifference: Team
+        get() =
+            leagueTable.maxBy {
+                it.totalScoredGoals - it.totalConcededGoals
+            }.team
+
+    override fun teamsWithBestDefence(numOfTeams: Int): List<Team> {
+        return leagueTable.sortedBy { it.totalConcededGoals }
+            .take(numOfTeams)
+            .map { it.team }
+    }
+
+    override fun teamsWithBestOffense(numOfTeams: Int): List<Team> {
+        return leagueTable.sortedByDescending { it.totalScoredGoals }
+            .take(numOfTeams)
+            .map { it.team }
+    }
+
+    override fun numOfGoalsTeamScoredAgainst(scorerTeam: Team, against: Team): Int {
+        return fixtures.flatMap { it.matches }
+            .sumOf { m ->
+                when {
+                    m.homeTeam == scorerTeam && m.awayTeam == against -> m.homeTeamScore
+                    m.awayTeam == scorerTeam && m.homeTeam == against -> m.awayTeamScore
+                    else -> 0
+                }
+            }
+    }
+
+    override fun numOfGoalsTeamConcededAgainst(concededTeam: Team, against: Team): Int {
+        return fixtures.flatMap { it.matches }
+            .sumOf { m ->
+                when {
+                    m.homeTeam == concededTeam && m.awayTeam == against -> m.awayTeamScore
+                    m.awayTeam == concededTeam && m.homeTeam == against -> m.homeTeamScore
+                    else -> 0
+                }
+            }
+    }
+
+    override fun displayLeagueTableAtFixture(fixtureId: Int) {
+        val filteredFixtures = fixtures.filter { it.fixtureId <= fixtureId }
+
+        val tempLeague = LeagueApiImpl(teams, filteredFixtures)
+        tempLeague.displayLeagueTable()
+    }
+
+    override fun displayLeagueTable() {
+        println("P | Team name | Games Played | Wins | Draws | Loses | GS | GC | Total Points")
+
+        leagueTable
+            .sortedWith(
+                compareByDescending<LeagueTableEntry> { it.totalPoints }
+                    .thenByDescending { it.totalScoredGoals - it.totalConcededGoals }
+            )
+            .forEachIndexed { index, entry ->
+                println(
+                    "${index + 1}. ${entry.team.name} " +
+                            "${entry.totalGamesPlayed} " +
+                            "${entry.wins} " +
+                            "${entry.draws} " +
+                            "${entry.loses} " +
+                            "${entry.totalScoredGoals} " +
+                            "${entry.totalConcededGoals} " +
+                            "${entry.totalPoints}"
+                )
+            }
+    }
+
+}
