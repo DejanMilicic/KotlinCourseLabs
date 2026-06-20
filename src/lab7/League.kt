@@ -135,7 +135,22 @@ internal interface LeagueApi {
  */
 
 
-internal class LeagueApiImpl(override val teams: List<Team>, private val fixtures: List<Fixture>) : LeagueApi {
+internal class League(override val teams: List<Team>, private val fixtures: List<Fixture>) : LeagueApi {
+
+    init {
+        val teamsInFixtures = fixtures
+            .flatMap { it.matches }
+            .flatMap { listOf(it.homeTeam, it.awayTeam) }
+            .toSet()
+
+        require(teamsInFixtures.all { it in teams }) {
+            "All teams in fixtures must exist in the teams list"
+        }
+
+        require(teams.all { it in teamsInFixtures }) {
+            "Every team from the teams list must appear in at least one fixture"
+        }
+    }
 
     override val leagueTable: List<LeagueTableEntry> by lazy {
         teams.map { team ->
@@ -242,7 +257,7 @@ internal class LeagueApiImpl(override val teams: List<Team>, private val fixture
     override fun displayLeagueTableAtFixture(fixtureId: Int) {
         val filteredFixtures = fixtures.filter { it.fixtureId <= fixtureId }
 
-        val tempLeague = LeagueApiImpl(teams, filteredFixtures)
+        val tempLeague = League(teams, filteredFixtures)
         tempLeague.displayLeagueTable()
     }
 

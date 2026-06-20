@@ -36,7 +36,7 @@ fun main() {
         .distinct()
 
     // Create league object
-    val league: LeagueApi = LeagueApiImpl(teams, fixtures)
+    val league: LeagueApi = League(teams, fixtures)
     league.displayLeagueTable()
 
     league.displayLeagueTableAtFixture(13)

@@ -20,7 +20,7 @@ class LeagueTest : TestCase() {
                 fixture.matches.flatMap { match -> listOf(match.awayTeam, match.homeTeam) }
             }.distinct()
 
-            league = LeagueApiImpl(teams, fixtures)
+            league = League(teams, fixtures)
         }
     }
 
