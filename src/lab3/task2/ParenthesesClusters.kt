@@ -28,36 +28,37 @@ import java.util.Stack
 internal fun String.splitToBracketsClusters(): List<String> {
     val result = mutableListOf<String>()
     val stack = Stack<Char>()
-    var string = ""
+    val current = StringBuilder()
 
     for (char in this) {
-        string += char
+        current.append(char)
+
         when (char) {
-            '(', '[', '{' -> {
-                stack.push(char)
-            }
+            '(', '[', '{' -> stack.push(char)
 
             ')', ']', '}' -> {
                 val expected = when (char) {
                     ')' -> '('
                     ']' -> '['
-                    '}' -> '{'
-                    else -> return mutableListOf<String>()
+                    else -> '{'
                 }
+
                 if (stack.isEmpty() || stack.pop() != expected) {
-                    return mutableListOf()
+                    return emptyList()
                 }
+
                 if (stack.isEmpty()) {
-                    result.add(string)
-                    string = ""
+                    result.add(current.toString())
+                    current.clear()
                 }
             }
         }
     }
 
-    if (!stack.isEmpty()) {
-        return mutableListOf()
+    if (stack.isNotEmpty()) {
+        return emptyList()
     }
+
     return result
 }
 
