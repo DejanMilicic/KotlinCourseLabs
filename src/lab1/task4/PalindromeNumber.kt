@@ -29,7 +29,20 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    if (x !in -1_000_000..1_000_000) {
+        throw IllegalArgumentException("Invalid number. Must be between -1_000_000 and 1_000_000.")
+    }
+
+    if (x < 0 || (x % 10 == 0 && x != 0)) return false
+
+    var firstHalf = x
+    var reversedHalf = 0
+    while (firstHalf > reversedHalf) {
+        reversedHalf = reversedHalf * 10 + firstHalf % 10
+        firstHalf /= 10
+    }
+
+    return firstHalf == reversedHalf || firstHalf == reversedHalf / 10
 }
 
 fun main() {
