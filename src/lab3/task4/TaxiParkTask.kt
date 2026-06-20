@@ -10,7 +10,17 @@ package lab3.task4
  * Find all the drivers who performed no trips.
  */
 internal fun TaxiPark.findFakeDrivers(): Set<Driver> {
-    TODO("Implement me!!!")
+    val drivers = mutableSetOf<Driver>()
+
+    for (driver in this.allDrivers) {
+        drivers.add(driver)
+    }
+
+    for (trip in this.trips) {
+        drivers.remove(trip.driver)
+    }
+
+    return drivers
 }
 
 /**
@@ -18,7 +28,26 @@ internal fun TaxiPark.findFakeDrivers(): Set<Driver> {
  * Find all the clients who completed at least the given number of trips.
  */
 internal fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
-    TODO("Implement me!!!")
+    val result = mutableSetOf<Passenger>()
+    val passengers = hashMapOf<Passenger, Int>()
+
+    for (passenger in this.allPassengers) {
+        passengers[passenger] = 0
+    }
+
+    for (trip in this.trips) {
+        for (passenger in trip.passengers) {
+            passengers[passenger] = passengers.getOrDefault(passenger, 0) + 1
+        }
+    }
+
+    for (passenger in passengers) {
+        if (passenger.value >= minTrips) {
+            result.add(passenger.key)
+        }
+    }
+
+    return result
 }
 
 /**
@@ -26,7 +55,22 @@ internal fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
  * Find all the passengers who were taken by a given driver more than once.
  */
 internal fun TaxiPark.findFrequentPassengers(driver: Driver): Set<Passenger> {
-    TODO("Implement me!!!")
+    val passengers = mutableSetOf<Passenger>()
+    val result = mutableSetOf<Passenger>()
+
+    for (trip in this.trips) {
+        if (trip.driver == driver) {
+            for (passenger in trip.passengers) {
+                if (!passengers.contains(passenger)) {
+                    passengers.add(passenger)
+                } else {
+                    result.add(passenger)
+                }
+            }
+        }
+    }
+
+    return result
 }
 
 /**
@@ -34,5 +78,24 @@ internal fun TaxiPark.findFrequentPassengers(driver: Driver): Set<Passenger> {
  * Find the passengers who had a discount for the majority of their trips.
  */
 internal fun TaxiPark.findSmartPassengers(): Set<Passenger> {
-    TODO("Implement me!!!")
+    val passengers = hashMapOf<Passenger, Int>()
+    val result = mutableSetOf<Passenger>()
+
+    for (trip in this.trips) {
+        for (passenger in trip.passengers) {
+            if (trip.discount == null || trip.discount == .0) {
+                passengers[passenger] = passengers.getOrDefault(passenger, 0) - 1
+            } else {
+                passengers[passenger] = passengers.getOrDefault(passenger, 0) + 1
+            }
+        }
+    }
+
+    for (passenger in passengers) {
+        if (passenger.value > 0) {
+            result.add(passenger.key)
+        }
+    }
+
+    return result
 }
