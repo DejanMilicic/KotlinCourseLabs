@@ -29,7 +29,17 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    if (x !in -1_000_000..1_000_000) {
+        throw IllegalArgumentException("Invalid number. Must be between -1_000_000 and 1_000_000.")
+    }
+
+    var number = x
+    var reversed = 0
+    while (number != 0) {
+        reversed = reversed * 10 + number % 10
+        number /= 10
+    }
+    return reversed
 }
 
 fun main() {
