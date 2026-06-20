@@ -58,35 +58,28 @@ internal val countries = listOf(
  * from Kotlin standard lib.
  */
 
-internal fun List<Country>.findCountryWithBiggestTotalArea(): Country {
-    return this.maxByOrNull { it.totalAreaInSquareKilometers } ?: throw Exception("No countries in list")
-}
+internal fun List<Country>.findCountryWithBiggestTotalArea(): Country =
+    this.maxByOrNull { it.totalAreaInSquareKilometers } ?: throw Exception("No countries in list")
 
-internal fun List<Country>.findCountryWithBiggestPopulation(): Country {
-    return this.maxByOrNull { it.population } ?: throw Exception("No countries in list")
-}
 
-internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country {
-    return this.maxByOrNull { it.population / it.totalAreaInSquareKilometers }
-        ?: throw Exception("No countries in list")
-}
+internal fun List<Country>.findCountryWithBiggestPopulation(): Country =
+    this.maxByOrNull { it.population } ?: throw Exception("No countries in list")
 
-internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country {
-    return this.minByOrNull { it.population / it.totalAreaInSquareKilometers }
-        ?: throw Exception("No countries in list")
-}
+internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country =
+    this.maxByOrNull { it.population / it.totalAreaInSquareKilometers } ?: throw Exception("No countries in list")
 
-internal fun List<Country>.findLanguageSpokenInMostCountries(): String {
-    return this.flatMap { it.languages }
+internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country =
+    this.minByOrNull { it.population / it.totalAreaInSquareKilometers } ?: throw Exception("No countries in list")
+
+internal fun List<Country>.findLanguageSpokenInMostCountries(): String =
+    this.flatMap { it.languages }
         .groupingBy { it }
         .eachCount()
         .maxByOrNull { it.value }
         ?.key ?: throw Exception("No countries in list")
-}
 
-internal fun List<Country>.filterCountriesThatSpeakLanguage(language: String): List<Country> {
-    return this.filter { language in it.languages }
-}
+internal fun List<Country>.filterCountriesThatSpeakLanguage(language: String): List<Country> =
+    this.filter { language in it.languages }
 
 
 fun main() {
