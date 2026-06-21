@@ -17,7 +17,7 @@ class JvmLanguage(override val name: String) : ProgrammingLanguage
 
 class BlockBasedLanguage(override val name: String) : ProgrammingLanguage
 
-class Programmer<T: ProgrammingLanguage> {
+class Programmer<in T: ProgrammingLanguage> {
     fun learn(language: T) {
         println("I learned ${language.name}")
     }
