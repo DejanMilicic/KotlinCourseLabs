@@ -14,17 +14,17 @@ package lab6.taskProjections.task5
  * Create a new class "IntegerBuilder", that implements Builder and can convert String to Int
 **/
 
-class Printer<T> {
+class Printer<in T> {
     fun print(item: T) {
         println(item)
     }
 }
 
-abstract class Builder<T, P> {
+abstract class Builder<in P, out T> {
     abstract fun build(param: P): T
 }
 
-class IntegerBuilder: Builder<Int, String>() {
+class IntegerBuilder: Builder<String, Int>() {
     override fun build(param: String): Int {
         return param.toInt()
     }
