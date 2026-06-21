@@ -8,15 +8,17 @@ package lab6.taskProjections.task6
 
 open class A
 class B : A()
-class C : A() { fun consume(other: A): C = this }
+class C : A() {
+    fun consume(other: A): C = this
+}
 
-fun <T: A> funny(
+fun <T, S: R, R> funny(
     source: Iterator<T>,
-    target: MutableCollection<A>,
-    base: C,
-    how: (C, T) -> C
+    target: MutableCollection<in S>,
+    base: R,
+    how: (R, T) -> S
 ) {
-    var result: C = base
+    var result: R = base
     for (value in source) {
         result = how(result, value)
         target.add(result)
