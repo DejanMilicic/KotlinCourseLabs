@@ -24,7 +24,25 @@ package lab3.task2
  */
 
 internal fun String.splitToBracketsClusters(): List<String> {
-    TODO("Implement me!!!")
+    val stack = ArrayDeque<Char>()
+    val clusters: MutableList<String> = mutableListOf()
+    val pairs = mapOf(')' to '(', ']' to '[', '}' to '{')
+    var start = 0
+
+    for (i in indices) {
+        when (this[i]) {
+            '(', '[', '{' -> stack.addLast(this[i])
+            ')', ']', '}' -> {
+                if (stack.removeLastOrNull() != pairs[this[i]]) return emptyList()
+            }
+        }
+        if (stack.isEmpty()) {
+            clusters.add(substring(start, i + 1))
+            start = i + 1
+        }
+    }
+
+    return if (stack.isEmpty()) clusters else emptyList()
 }
 
 fun main() {

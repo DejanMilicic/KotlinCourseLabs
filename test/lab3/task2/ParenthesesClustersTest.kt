@@ -24,6 +24,14 @@ class ParenthesesClustersTest {
         assertClustersValidity("()(())((()))", listOf("()", "(())", "((()))"))
         assertClustersValidity("()()()((()))", listOf("()", "()", "()", "((()))"))
         assertClustersValidity("(()())", listOf("(()())"))
+        assertClustersValidity("{}[]()", listOf("{}", "[]", "()"))
+        assertClustersValidity("{[()]}", listOf("{[()]}"))
+        assertClustersValidity("{[()]}[{}](())", listOf("{[()]}", "[{}]", "(())"))
+        assertClustersValidity("{(])}", emptyList())
+        assertClustersValidity("([)]", emptyList())
+        assertClustersValidity("{}{[]}[()()]", listOf("{}", "{[]}", "[()()]"))
+        assertClustersValidity("[[[", emptyList())
+        assertClustersValidity("{{}}[[]]", listOf("{{}}", "[[]]"))
     }
 
     private fun assertClustersValidity(input: String, expectedCluster: List<String>) {
