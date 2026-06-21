@@ -18,7 +18,7 @@ class SherlockValidatesStringTest {
         assertStringValidity("YES", "aabbc")
         assertStringValidity("YES", "aaabbbcccdddeeefffggghhhiiijjj")
 
-        assertStringValidity("YES","a")
+        assertStringValidity("YES", "a")
         assertStringValidity("YES", "aaabbbcccdddeeefffggghhhiiijjjk")
         assertStringValidity("NO", "aaabbbcccdddeeefffggghhhiiijjjkk")
         assertStringValidity("NO", "aabbcddd")
@@ -38,6 +38,9 @@ class SherlockValidatesStringTest {
         assertStringValidity("YES", "aabbbccddeeff")
         assertStringValidity("NO", "abcdefghiaa")
         assertStringValidity("YES", "abcdefghijk")
+        assertStringValidity("YES", "a".repeat(50000) + "b".repeat(50000))
+        assertStringValidity("YES", ('a'..'z').joinToString("") { it.toString().repeat(3) })
+        assertStringValidity("NO", ('a' until 'z').joinToString("") { it.toString().repeat(2) } + "z".repeat(4))
     }
 
     private fun assertStringValidity(expectedValidity: String, stringToValidate: String) {
