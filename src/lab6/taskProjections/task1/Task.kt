@@ -15,10 +15,8 @@ interface Sender<in T> {
     fun send(item: T)
 }
 
-class MailBox<T>: Sender<T> {
-    private var box: T? = null
-
-    override fun send(item: T) {
+class MailBox<T>(private var box: T? = null): Sender<T> {
+   override fun send(item: T) {
         printCurrentBoxState()
         println("Sending the box: $item!")
         box = item
@@ -48,18 +46,14 @@ data class ExpressPostcard(val priceEuro: Int, override val origin: String) : Po
 
 fun main() {
     val postcardStorage = MailBox<Postcard>()
-   val expressPostcardStorage = MailBox<Postcard>()
+    val expressPostcardStorage = MailBox<ExpressPostcard>()
 
     val expressPostcard = ExpressPostcard(15, "Serbia")
     val postcard = Postcard("Germany")
 
-    val topRatedPostman = Postman<ExpressPostcard>(
-        listOf(expressPostcardStorage)
-    )
+    val topRatedPostman = Postman(listOf(expressPostcardStorage))
 
-    val juniorPostman = Postman<Postcard>(
-        listOf(postcardStorage, expressPostcardStorage)
-    )
+    val juniorPostman = Postman(listOf(postcardStorage))
 
     topRatedPostman.send(expressPostcard)
     juniorPostman.send(postcard)
