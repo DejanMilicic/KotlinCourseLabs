@@ -38,20 +38,20 @@ open class BankAccount {
 
     val accountNumber : String
     val accountHolderName : String
-    var balance : Double
+    var balance : Int
 
-    constructor(accountNumber : String,accountHolderName: String,balance : Double) {
+    constructor(accountNumber : String,accountHolderName: String,balance : Int) {
         this.accountHolderName = accountHolderName
         this.accountNumber = accountNumber
         this.balance = balance
     }
-    constructor(accountNumber : String, accountHolderName : String) : this(accountNumber, accountHolderName, 0.0)
+    constructor(accountNumber : String, accountHolderName : String) : this(accountNumber, accountHolderName, 0)
 
-    open fun deposit(amount: Double){
+    open fun deposit(amount: Int){
 		balance += amount
     }
 
-    open fun withdraw(amount: Double) : Boolean{
+    open fun withdraw(amount: Int) : Boolean{
         if (balance >= amount) {
             balance -= amount
             return true
@@ -60,7 +60,7 @@ open class BankAccount {
             return false
     }
 
-    open fun getCurrentBalance() : Double {
+    open fun getCurrentBalance() : Int {
         return balance
     }
 
@@ -81,10 +81,10 @@ fun main() {
      account.displayAccountInfo()
 
     // Deposit some money
-     account.deposit(1000.0)
+     account.deposit(1000)
 
     // Withdraw some money
-     account.withdraw(500.0)
+     account.withdraw(500)
 
     // Display updated account information
      account.displayAccountInfo()
