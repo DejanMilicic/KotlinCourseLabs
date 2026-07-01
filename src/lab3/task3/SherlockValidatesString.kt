@@ -29,7 +29,19 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+
+    val charCount = s.groupingBy { it }.eachCount()
+    val frequencyCount = charCount.values.groupingBy { it }.eachCount()
+
+    if (frequencyCount.size == 1) return "YES"
+
+    val (frequency1, count1) = frequencyCount.entries.first()
+    val (frequency2, count2) = frequencyCount.entries.last()
+
+    if (count1 == 1 && (frequency1 == 1 || frequency1 - 1 == frequency2)) return "YES"
+    if (count2 == 1 && (frequency2 == 1 || frequency2 - 1 == frequency1)) return "YES"
+
+    return "NO"
 }
 
 fun main() {
