@@ -1,5 +1,8 @@
 package lab7
 
+import jdk.javadoc.internal.doclets.formats.html.Table
+import kotlin.coroutines.coroutineContext
+
 internal interface LeagueApi {
     /**
      * Represents a list of teams participating in a league.
@@ -133,4 +136,126 @@ internal interface LeagueApi {
  * and [teams] are all mentioned in the [fixtures] list.
  */
 
-// TODO Implement League class that implements LeagueApi interface.
+internal class League(override val teams: List<Team>, val fixtures: List<Fixture>) : LeagueApi {
+    init {
+        val teamsInRound = fixtures
+                .flatMap { it.matches }
+                .flatMap { listOf(it.homeTeam, it.awayTeam) }
+                .distinct()
+
+        val providedTeams = teams.toSet()
+
+        require(providedTeams == teamsInRound) {
+            "Teams in schedule must be in the list"
+        }
+    }
+
+    private fun buildTable(fixtures: List<Fixture>): List<LeagueTableEntry> {
+        val allMatches = fixtures.flatMap { it.matches }
+
+        return teams.map { team ->
+            val teamMatches = allMatches.filter {
+                it.homeTeam == team || it.awayTeam == team
+            }
+
+            val wins = teamMatches.count { match ->
+                val scored = if (match.homeTeam == team) match.homeTeamScore else match.awayTeamScore
+                val conceded = if (match.homeTeam == team) match.awayTeamScore else match.homeTeamScore
+                scored > conceded
+            }
+            val loses = teamMatches.count { match ->
+                val scored = if (match.homeTeam == team) match.homeTeamScore else match.awayTeamScore
+                val conceded = if (match.homeTeam == team) match.awayTeamScore else match.homeTeamScore
+                scored < conceded
+            }
+            val draws = teamMatches.count { match ->
+                val scored = if (match.homeTeam == team) match.homeTeamScore else match.awayTeamScore
+                val conceded = if (match.homeTeam == team) match.awayTeamScore else match.homeTeamScore
+                scored == conceded
+            }
+            val totalScoredGoals = teamMatches.sumOf { match ->
+                if (match.homeTeam == team) match.homeTeamScore else match.awayTeamScore
+            }
+            val totalConcededGoals = teamMatches.sumOf { match ->
+                if (match.homeTeam == team) match.awayTeamScore else match.homeTeamScore
+            }
+            LeagueTableEntry(
+                    team = team,
+                    totalGamesPlayed = teamMatches.size,
+                    wins = wins,
+                    draws = draws,
+                    loses = loses,
+                    totalScoredGoals = totalScoredGoals,
+                    totalConcededGoals = totalConcededGoals
+            )
+        }.sortedWith(compareByDescending<LeagueTableEntry> { it.totalPoints }
+                .thenByDescending { it.totalScoredGoals - it.totalConcededGoals })
+    }
+
+    override val leagueTable: List<LeagueTableEntry> get() = buildTable(fixtures)
+
+    override val leagueWinner: Team
+        get() = leagueTable
+                .groupBy { it.totalPoints }
+                .maxBy { it.key }
+                .value
+                .maxBy { it.totalScoredGoals - it.totalConcededGoals }
+                .team
+
+    override val teamWithMostWins: Team get() = leagueTable.maxBy { it.wins }.team
+    override val teamWithMostDraws: Team get() = leagueTable.maxBy { it.draws }.team
+    override val teamWithMostLoses: Team get() = leagueTable.maxBy { it.loses }.team
+    override val teamWithBestGoalDifference: Team
+        get() = leagueTable
+                .maxBy { it.totalScoredGoals - it.totalConcededGoals }.team
+
+    override fun teamsWithBestDefence(numOfTeams: Int): List<Team> {
+        return leagueTable.sortedBy { it.totalConcededGoals }
+                .take(numOfTeams)
+                .map { it.team }
+    }
+
+    override fun teamsWithBestOffense(numOfTeams: Int): List<Team> {
+        return leagueTable.sortedByDescending { it.totalScoredGoals }
+                .take(numOfTeams)
+                .map { it.team }
+    }
+
+    override fun numOfGoalsTeamScoredAgainst(scorerTeam: Team, against: Team): Int {
+        return fixtures.flatMap { it.matches }
+                .filter { match ->
+                    (match.homeTeam == scorerTeam && match.awayTeam == against) || (match.awayTeam == scorerTeam && match.homeTeam == against)
+                }
+                .sumOf { match ->
+                    if (match.homeTeam == scorerTeam) match.homeTeamScore
+                    else match.awayTeamScore
+                }
+    }
+
+    override fun numOfGoalsTeamConcededAgainst(concededTeam: Team, against: Team): Int {
+        return fixtures.flatMap { it.matches }
+                .filter { match ->
+                    (match.homeTeam == concededTeam && match.awayTeam == against) || (match.awayTeam == concededTeam && match.homeTeam == against)
+                }
+                .sumOf { match ->
+                    if (match.homeTeam == concededTeam) match.awayTeamScore
+                    else match.homeTeamScore
+                }
+    }
+
+    override fun displayLeagueTableAtFixture(fixtureId: Int) {
+        val tableAfterFixture=buildTable(fixtures.filter { it.fixtureId<=fixtureId })
+        println("P | Team name | Games Played | Wins | Draws | Loses | GS | GC | Total Points")
+        tableAfterFixture.forEachIndexed { index,entry ->
+            println("${index + 1 }. ${entry.team.name} ${entry.totalGamesPlayed} ${entry.wins} ${entry.draws} ${entry.loses} ${entry.totalScoredGoals} ${entry.totalConcededGoals} ${entry.totalPoints}")
+        }
+    }
+
+
+    override fun displayLeagueTable() {
+        println("P | Team name | Games Played | Wins | Draws | Loses | GS | GC | Total Points")
+        leagueTable.forEachIndexed { index,entry ->
+            println("${index + 1 }. ${entry.team.name} ${entry.totalGamesPlayed} ${entry.wins} ${entry.draws} ${entry.loses} ${entry.totalScoredGoals} ${entry.totalConcededGoals} ${entry.totalPoints}")
+        }
+    }
+}
