@@ -20,7 +20,7 @@ internal fun TaxiPark.findFakeDrivers(): Set<Driver> {
  * Find all the clients who completed at least the given number of trips.
  */
 internal fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
-    TODO("Implement me!!!")
+    return allPassengers.filter { passenger -> trips.count { passenger in it.passengers } >= minTrips }.toSet()
 }
 
 /**
