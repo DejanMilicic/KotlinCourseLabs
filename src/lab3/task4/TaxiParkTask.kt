@@ -1,5 +1,7 @@
 package lab3.task4
 
+import kotlin.math.min
+
 /**
  * Task 4: Taxi park
  *
@@ -10,7 +12,7 @@ package lab3.task4
  * Find all the drivers who performed no trips.
  */
 internal fun TaxiPark.findFakeDrivers(): Set<Driver> {
-    TODO("Implement me!!!")
+    return allDrivers.filter { driver -> trips.none { it.driver == driver } }.toSet()
 }
 
 /**

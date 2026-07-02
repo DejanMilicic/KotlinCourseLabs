@@ -12,13 +12,25 @@ internal fun passengers(range: IntRange) = passengers(range.toList())
 internal fun passengers(vararg indices: Int) = passengers(indices.toList())
 
 internal fun taxiPark(driverIndexes: IntRange, passengerIndexes: IntRange, vararg trips: Trip) =
-        TaxiPark(drivers(driverIndexes), passengers(passengerIndexes), trips.toList())
+    TaxiPark(drivers(driverIndexes), passengers(passengerIndexes), trips.toList())
 
-internal fun trip(driverIndex: Int, passengerIndexes: List<Int>, duration: Int = 10, distance: Double = 3.0, discount: Double? = null) =
-        Trip(driver(driverIndex), passengers(passengerIndexes), duration, distance, discount)
+internal fun trip(
+    driverIndex: Int,
+    passengerIndexes: List<Int>,
+    duration: Int = 10,
+    distance: Double = 3.0,
+    discount: Double? = null
+) =
+    Trip(driver(driverIndex), passengers(passengerIndexes), duration, distance, discount)
 
-internal fun trip(driverIndex: Int, passenger: Int, duration: Int = 10, distance: Double = 3.0, discount: Double? = null) =
-        Trip(driver(driverIndex), passengers(passenger), duration, distance, discount)
+internal fun trip(
+    driverIndex: Int,
+    passenger: Int,
+    duration: Int = 10,
+    distance: Double = 3.0,
+    discount: Double? = null
+) =
+    Trip(driver(driverIndex), passengers(passenger), duration, distance, discount)
 
 internal fun TaxiPark.display() = buildString {
     appendLine()
