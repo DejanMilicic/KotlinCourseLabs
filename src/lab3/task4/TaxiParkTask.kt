@@ -28,7 +28,7 @@ internal fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
  * Find all the passengers who were taken by a given driver more than once.
  */
 internal fun TaxiPark.findFrequentPassengers(driver: Driver): Set<Passenger> {
-    return allPassengers.filter { passenger -> trips.count{ passenger in it.passengers && it.driver == driver } > 1}.toSet()
+    return allPassengers.filter { passenger -> trips.count { passenger in it.passengers && it.driver == driver } > 1 }.toSet()
 }
 
 /**
@@ -36,5 +36,8 @@ internal fun TaxiPark.findFrequentPassengers(driver: Driver): Set<Passenger> {
  * Find the passengers who had a discount for the majority of their trips.
  */
 internal fun TaxiPark.findSmartPassengers(): Set<Passenger> {
-    TODO("Implement me!!!")
+    return allPassengers.filter { passenger ->
+        val (discounted, fullPrice) = trips.filter { passenger in it.passengers }.partition { it.discount != null }
+        discounted.size > fullPrice.size
+    }.toSet()
 }
