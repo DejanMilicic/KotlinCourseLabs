@@ -29,24 +29,35 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
+    require(s.length in 1..100_000) { "Invalid sherlock expression" }
+    require(s.all { it in 'a'..'z' }) { "Invalid sherlock expression" }
+
     val charCount = s.groupingBy { it }.eachCount()
 
     val freqCount = charCount.values.groupingBy { it }.eachCount()
 
-    if (freqCount.size == 1) return "YES"
+    if (freqCount.size == 1)
+        return "YES"
 
-    if (freqCount.size > 2) return "NO"
+    if (freqCount.size > 2)
+        return "NO"
 
-    val (f1, c1) = freqCount.entries.first().let { it.key to it.value }
-    val (f2, c2) = freqCount.entries.last().let { it.key to it.value }
 
-    // Case 1: one frequency occurs once and is 1 → can remove one char
-    if ((f1 == 1 && c1 == 1) || (f2 == 1 && c2 == 1)) return "YES"
+    val frequencies = freqCount.entries.sortedBy { it.key }
 
-    // Case 2: frequencies differ by 1 and higher one appears once
-    if (kotlin.math.abs(f1 - f2) == 1) {
-        if (c1 == 1 || c2 == 1) return "YES"
-    }
+    val lowFreq = frequencies[0].key
+    val lowCount = frequencies[0].value
+
+    val highFreq = frequencies[1].key
+    val highCount = frequencies[1].value
+
+    if (lowFreq == 1 && lowCount == 1)
+        return "YES"
+
+
+    if (highFreq - lowFreq == 1 && highCount == 1)
+        return "YES"
+
 
     return "NO"
 }
