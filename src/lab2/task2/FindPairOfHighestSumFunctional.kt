@@ -19,9 +19,20 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
-    TODO("Implement me!!")
+    return indices
+        .flatMap { firstIndex ->
+            (firstIndex + 1 until size).map { secondIndex ->
+                this[firstIndex] to this[secondIndex]
+            }
+        }
+        .reduce { bestPair, currentPair ->
+            if (currentPair.first + currentPair.second >= bestPair.first + bestPair.second) {
+                currentPair
+            } else {
+                bestPair
+            }
+        }
 }
-
 fun main() {
     val nums = listOf(743, 284, 677, -753, 995, -934, 102, 903, -83, -760, 77, -420)
     val expectedPair = Pair(995, 903)
