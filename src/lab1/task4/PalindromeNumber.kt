@@ -29,7 +29,22 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    require(x in -1_000_000..1_000_000) { "x must be in the range -1_000_000..1_000_000" }
+
+    if (x < 0) {
+        return false
+    }
+
+    var remainingNumber = x
+    var reversedNumber = 0
+
+    while (remainingNumber > 0) {
+        val digit = remainingNumber % 10
+        reversedNumber = reversedNumber * 10 + digit
+        remainingNumber /= 10
+    }
+
+    return x == reversedNumber
 }
 
 fun main() {
