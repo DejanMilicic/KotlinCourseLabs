@@ -29,10 +29,28 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    require(x in -1_000_000..1_000_000) {
+        "x must be in range -1_000_000..1_000_000"
+    }
+
+    var tmp = x
+    var reversed = 0
+
+    while (tmp != 0) {
+        val digit = tmp % 10
+        tmp /= 10
+        reversed = reversed * 10 + digit
+    }
+
+    return reversed
 }
+
 
 fun main() {
     val integer = -321
     println("Reverse integer of number $integer is ${reverseInteger(integer)}")
+
+//    val reverseInteger = integer.toString().reversed()
+//    println("Reverse integer of number $integer is $reverseInteger")
+
 }
