@@ -48,8 +48,8 @@ data class LeagueTableEntry(
     val team: Team,
     val totalGamesPlayed: Int,
     val wins: Int,
-    val loses: Int,
     val draws: Int,
+    val loses: Int,
     val totalScoredGoals: Int,
     val totalConcededGoals: Int,
 ) {

@@ -184,8 +184,8 @@ class League(
                         team,
                         totalGamesPlayed,
                         wins,
-                        loses,
                         draws,
+                        loses,
                         totalScoredGoals,
                         totalConcededGoals
                     )
