@@ -53,10 +53,17 @@ internal fun calculateGrade(score: Int): Int {
 }
 
 fun main() {
-    print("Enter student score: ")
     val scanner = Scanner(System.`in`)
-    val score = scanner.nextInt()
 
-    val grade = calculateGrade(score)
-    println("Student grade is $grade")
+    while (true) {
+        print("Enter student score: ")
+        val score = scanner.next().toIntOrNull()
+
+        if (score != null && score in 0..100) {
+            println("Grade: ${calculateGrade(score)}")
+            break
+        }
+
+        println("Invalid score. Please enter a score between 0 and 100.")
+    }
 }
