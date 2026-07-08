@@ -32,16 +32,34 @@ package lab1.task3
  */
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    TODO("Implement me!!!")
+    var totalScore = 0
+
+    for (letter in word) {
+        val letterScore = when (letter) {
+            'a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't' -> 1
+            'd', 'g' -> 2
+            'b', 'c', 'm', 'p' -> 3
+            'f', 'h', 'v', 'w', 'y' -> 4
+            'k' -> 5
+            'j', 'x' -> 8
+            'q', 'z' -> 10
+            else -> 0
+        }
+
+        totalScore += letterScore
+    }
+
+    return totalScore
 }
 
 fun main() {
-    val word = "faculty"
+    val word = "word111111"
     val actualScore = calculateWordScrabbleScore(word)
-    val expectedScore = 15
+    val expectedScore = 8
+
     if (actualScore == expectedScore) {
         println("Well done!")
     } else {
-        println("Score for a given word $word is $actualScore, but it should be 15")
+        println("Score for a given word $word is $actualScore, but it should be $expectedScore")
     }
 }
