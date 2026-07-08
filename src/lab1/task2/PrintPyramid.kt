@@ -57,7 +57,13 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+    require(level in 1..15) { "Level must be in range 1..15." }
+
+    for (currentLevel in 1..level) {
+        val sidePadding = " ".repeat(level - currentLevel)
+        val stars = "*".repeat(2 * currentLevel - 1)
+        println(sidePadding + stars + sidePadding)
+    }
 }
 
 fun main() {
