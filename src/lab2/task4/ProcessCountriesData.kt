@@ -54,32 +54,37 @@ internal val countries = listOf(
  * Task 4:
  *
  * Implement functions that process countries' data and provide analyzed results.
- * Implement them using functional approach, by applying a map, flatmap, filter, maxBy, minBy and other useful functions
+ * Implement them using functional approach, by applying a map, flatmap, filter, maxByOrNull, minByOrNull and other useful functions
  * from Kotlin standard lib.
  */
 
 internal fun List<Country>.findCountryWithBiggestTotalArea(): Country {
-    return maxBy { it.totalAreaInSquareKilometers }
+    return maxByOrNull { it.totalAreaInSquareKilometers }
+        ?: throw NoSuchElementException("Cannot find country with biggest total area in an empty list.")
 }
 
 internal fun List<Country>.findCountryWithBiggestPopulation(): Country {
-    return maxBy { it.population }
+    return maxByOrNull { it.population }
+        ?: throw NoSuchElementException("Cannot find country with biggest population in an empty list.")
 }
 
 internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country {
-    return maxBy { it.population / it.totalAreaInSquareKilometers }
+    return maxByOrNull { it.population / it.totalAreaInSquareKilometers }
+        ?: throw NoSuchElementException("Cannot find country with highest population density in an empty list.")
 }
 
 internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country {
-    return minBy { it.population / it.totalAreaInSquareKilometers }
+    return minByOrNull { it.population / it.totalAreaInSquareKilometers }
+        ?: throw NoSuchElementException("Cannot find country with lowest population density in an empty list.")
 }
 
 internal fun List<Country>.findLanguageSpokenInMostCountries(): String {
     return flatMap { it.languages }
         .groupingBy { it }
         .eachCount()
-        .maxBy { it.value }
-        .key
+        .maxByOrNull { it.value }
+        ?.key
+        ?: throw NoSuchElementException("Cannot find language spoken in most countries in an empty list.")
 }
 
 internal fun List<Country>.filterCountriesThatSpeakLanguage(language: String): List<Country> {
