@@ -38,17 +38,11 @@ internal fun isSherlockValid(s: String): String {
         val (freq1, count1) = freqCounts.entries.first()
         val (freq2, count2) = freqCounts.entries.last()
 
-
         if (count1 == 1 && freq1 == freq2 + 1) return "YES"
         if (count2 == 1 && freq2 == freq1 + 1) return "YES"
 
-
         if (count1 == 1 && freq1 == 1) return "YES"
         if (count2 == 1 && freq2 == 1) return "YES"
-
-
-        if (count1 == 1 && freq2 == 1 && freq1 == freq2 + 1) return "YES"
-        if (count2 == 1 && freq1 == 1 && freq2 == freq1 + 1) return "YES"
     }
 
     return "NO"
