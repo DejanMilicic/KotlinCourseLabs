@@ -135,13 +135,11 @@ class TransactionalBankAccount(accountHolderName: String, accountNumber: String,
         return transactions.sortedByDescending { it.transactionDate }
     }
 
-    fun getAllTransactionsBy(predicate: (Transaction) -> Boolean): List<Transaction> {
-        return transactions.filter(predicate).sortedByDescending { it.transactionDate }
-    }
+    fun getAllTransactionsBy(predicate: (Transaction) -> Boolean): List<Transaction> =
+         transactions.filter(predicate).sortedByDescending { it.transactionDate }
 
-    fun getTransactionsBetween(startDate: LocalDateTime, endDate: LocalDateTime) {
+    fun getTransactionsBetween(startDate: LocalDateTime, endDate: LocalDateTime):List<Transaction> =
         getAllTransactionsBy { it.transactionDate in startDate .. endDate }
-    }
 
     fun getAllFailedTransactions(): List<Transaction> {
         return getAllTransactionsBy { it.transactionStatus == TransactionStatus.FAILURE }
@@ -200,7 +198,7 @@ private fun LocalDateTime.prettyPrint(): String {
 fun main() {
     println(currentTime.prettyPrint())
     // Create a Transactional Bank Account
-    val account = TransactionalBankAccount("123456789", "John Doe",0)
+    val account = TransactionalBankAccount( "John Doe","123456789",0)
 
     // Display account information
     account.displayAccountInfo()
