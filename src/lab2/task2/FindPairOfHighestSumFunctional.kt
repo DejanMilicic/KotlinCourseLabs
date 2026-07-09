@@ -19,7 +19,9 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPairFunctional(): Pair<Int, Int> {
-    TODO("Implement me!!")
+        return this.sortedDescending()
+            .take(2)
+            .let { (a,b) -> a to b }
 }
 
 fun main() {
