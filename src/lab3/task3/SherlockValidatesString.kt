@@ -29,7 +29,21 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+    val freq = s.groupingBy { it }.eachCount()
+    val counts = freq.values.groupingBy { it }.eachCount()
+
+    if (counts.size == 1) return "YES"
+
+    if (counts.size > 2) return "NO"
+
+    val (f1, c1) = counts.entries.first()
+    val (f2, c2) = counts.entries.last()
+
+    if((f1 == 1 && c1 == 1) || (f2 == 1 && c2 == 1)) return "YES"
+
+    if((kotlin.math.abs(f1-f2) == 1) && (c1 ==1 || c2 == 1)) return "YES"
+
+    return "NO"
 }
 
 fun main() {
