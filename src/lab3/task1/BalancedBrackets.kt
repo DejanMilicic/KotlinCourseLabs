@@ -1,5 +1,7 @@
 package lab3.task1
 
+import java.util.Stack
+
 /**
  * Task1: Balanced Brackets (Parentheses) Problem
  *
@@ -26,7 +28,19 @@ package lab3.task1
 
 
 internal fun isExpressionBalanced(expression: String): Boolean {
-    TODO("Implement me!!!")
+    val stack = ArrayDeque<Char>()
+
+    for(char in expression) {
+        when(char) {
+            '(','{','[' -> stack.addLast(char)
+
+            ')' -> if(stack.isEmpty() || stack.removeLast() != '(') return false
+            '}' -> if(stack.isEmpty() || stack.removeLast() != '{') return false
+            ']' -> if(stack.isEmpty() || stack.removeLast() != '[') return false
+        }
+    }
+
+    return stack.isEmpty()
 }
 
 fun main() {
