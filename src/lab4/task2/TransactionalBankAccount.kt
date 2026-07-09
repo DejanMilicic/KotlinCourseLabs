@@ -3,6 +3,7 @@ package lab4.task2
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import lab4.task1.BankAccount
 
 /**
  * Transactional Bank Account Assignment
@@ -85,20 +86,63 @@ private fun LocalDateTime.prettyPrint(): String {
     return this.format(formatter)
 }
 
+enum class ttype{
+    DEPOSIT,
+    WITHDRAWAL,
+}
+
+enum class tstatus {
+    SUCCESS,
+    FAILURE
+}
+data class Transaction(
+    val transactionDate: LocalDateTime,
+    val transactionType: ttype,
+    val amount: Double,
+    val oldBalance: Double,
+    val newBalance: Double,
+    val transactionStatus: tstatus
+)
+
+internal class TransactionalBankAccount(accountNumber: String, accountHolderName : String) : BankAccount(accountNumber, accountHolderName) {
+        private var transactions = mutableListOf<Transaction>()
+        override fun displayAccountInfo() {
+            println("Account Holder: $accountHolderName")
+            println("Account Number: $accountNumber")
+            println("Balance: $balance")
+            println()
+            println("Transactions:")
+            println()
+            if (transactions.isEmpty()) {
+                println("No transactions recorded")
+            } else {
+                transactions.forEach { t ->
+                    println("Transaction Date: ${t.transactionDate}")
+                    println("Transaction Type: ${t.transactionType}")
+                    println("Amount: ${t.amount}")
+                    println("Old Balance: ${t.oldBalance}")
+                    println("New Balance: ${t.newBalance}")
+                    println("Status: ${t.transactionStatus}")
+                    println()
+                }
+            }
+        }
+    }
+
 fun main() {
     println(currentTime.prettyPrint())
     // Create a Transactional Bank Account
-    // val account = TransactionalBankAccount("123456789", "John Doe")
+     val account = TransactionalBankAccount("123456789", "John Doe")
 
     // Display account information
-    // account.displayAccountInfo()
+     account.displayAccountInfo()
 
     // Deposit some money
-    // account.deposit(1000.0)
+     account.deposit(1000.0)
 
     // Withdraw some money
-    // account.withdraw(500.0)
+     account.withdraw(500.0)
 
     // Display updated account information
-    // account.displayAccountInfo()
+     account.displayAccountInfo()
 }
