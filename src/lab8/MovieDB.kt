@@ -58,7 +58,27 @@ class MovieDB(private val movies: List<Movie>) : MovieDBApi {
 	}
 
 	override fun getActorsWithMostCostarredMovies(): List<Pair<MovieActor, MovieActor>> {
-		TODO("Not yet implemented")
-	}
+		val pairCounts = mutableMapOf<Pair<MovieActor, MovieActor>, Int>()
 
+		movies.forEach { movie ->
+			val actors = movie.actors
+			for (i in actors.indices) {
+				for (j in i + 1 until actors.size) {
+					val a1 = actors[i]
+					val a2 = actors[j]
+
+					val sortedPair = if (a1.name < a2.name) Pair(a1, a2) else Pair(a2, a1)
+
+					pairCounts[sortedPair] = (pairCounts[sortedPair] ?: 0) + 1
+				}
+			}
+		}
+
+		val maxCostarredMovies = pairCounts.values.maxOrNull() ?: return emptyList()
+
+		return pairCounts
+				.filter { it.value == maxCostarredMovies }
+				.keys
+				.sortedWith(compareBy({ it.first.name }, { it.second.name }))
+	}
 }

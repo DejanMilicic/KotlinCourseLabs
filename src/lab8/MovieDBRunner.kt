@@ -12,7 +12,7 @@ import java.time.LocalDate
                 val parts=line.split(";")
                 Movie(
                         budget = parts[0].trim().toLong(),
-                        genres = parts[1].trim().split(","),
+                        genres = parts[1].trim().split(",").map{it.trim()},
                         title=parts[2].trim(),
                         rating = parts[3].trim().toDouble(),
                         releaseDate = LocalDate.parse(parts[4].trim()),
