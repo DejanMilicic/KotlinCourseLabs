@@ -23,5 +23,5 @@ fun main() {
     val employeesCSVLines = FileReader.readFileInResources("lab9/employees.csv")
     val employees = parseEmployees(employeesCSVLines)
 
-//    val employeeApi: EmployeeApi = newEmployeeApi(employees)
+    val employeeApi: EmployeeApi = newEmployeeApi(employees)
 }
