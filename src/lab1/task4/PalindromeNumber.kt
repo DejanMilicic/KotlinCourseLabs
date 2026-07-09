@@ -28,13 +28,12 @@ package lab1.task4
  * ```
  */
 internal fun isPalindrome(x: Int): Boolean {
-    if (x <0) return false
+    if (x < 0) return false
 
     var num = x
     var moduleNum = 0
 
-    while (num>0)
-    {
+    while (num > 0) {
         moduleNum = moduleNum * 10 + num % 10
         num = num / 10
     }
