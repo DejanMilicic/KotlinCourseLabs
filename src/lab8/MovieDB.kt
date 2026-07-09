@@ -8,3 +8,41 @@ package lab8
  * Implement methods defined by MovieDBApi.
  *
  */
+
+class MovieDB(private val movies: List<Movie>) : MovieDBApi {
+
+    override fun getAllMoviesByActor(actor: MovieActor): List<Movie> = movies.filter { actor in it.actors }
+
+    override fun getMoviesWithBiggestProfit(numOfMovies: Int): List<Movie> =
+        movies.sortedByDescending { it.revenue - it.budget }.take(numOfMovies)
+
+    override fun getBestRatedMovieByActor(actor: MovieActor): Movie? =
+        movies.filter { actor in it.actors }.maxByOrNull { it.rating }
+
+    override fun getAllMoviesByYear(year: Int): List<Movie> = movies.filter { it.releaseDate.year == year }
+
+    override fun getAllMoviesByGenre(genre: String): List<Movie> = movies.filter { genre in it.genres }
+
+    override fun getBestRatedMovies(numOfMovies: Int): List<Movie> =
+        movies.sortedByDescending { it.rating }.take(numOfMovies)
+
+    override fun getDirectorWithMostMoviesDirected(): MovieDirector =
+        movies.groupingBy { it.director }.eachCount().maxBy { it.value }.key
+
+    override fun getActorsWithMostCostarredMovies(): List<Pair<MovieActor, MovieActor>> {
+        val costarCounts = movies.flatMap { movie ->
+            movie.actors.flatMapIndexed { i, actor ->
+                movie.actors.drop(i + 1).map { other ->
+                    if (actor.name <= other.name) Pair(actor, other) else Pair(other, actor)
+                }
+            }
+        }.groupingBy { it }.eachCount()
+
+        val maxCount = costarCounts.values.maxOrNull() ?: return emptyList()
+        return costarCounts.filter { it.value == maxCount }.keys.sortedWith(
+            compareBy(
+                { it.first.name },
+                { it.second.name })
+        )
+    }
+}
