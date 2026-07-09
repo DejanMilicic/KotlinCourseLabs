@@ -41,7 +41,7 @@ internal open class BankAccount(
     constructor(accountNumber: String, accountHolderName: String)
             : this(accountNumber, accountHolderName, 0.0)
 
-    fun deposit(amount: Double): Unit {
+    fun deposit(amount: Double) {
         balance += amount
     }
 
@@ -53,11 +53,11 @@ internal open class BankAccount(
         return false
     }
 
-//    fun getBalance(): Double {
+//   fun getBalance(): Double {
 //        return balance;
 //    }
 
-    open fun displayAccountInfo(): Unit {
+    open fun displayAccountInfo() {
         println(
             "Account Holder: $accountHolderName\n" +
                     "Account Number: $accountNumber\n" +
@@ -68,8 +68,6 @@ internal open class BankAccount(
 
 
 fun main() {
-//    TODO("Uncomment the lines below after the Bank Account class is implemented.")
-//     Create a Bank Account
     val account = BankAccount("123456789", "John Doe")
 
 //     Display account information
