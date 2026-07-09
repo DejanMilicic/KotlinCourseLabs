@@ -33,20 +33,54 @@ package lab4.task1
  */
 
 
+internal open class BankAccount(
+    protected val accountNumber: String,
+    protected val accountHolderName: String,
+    protected var balance: Double,
+) {
+    constructor(accountNumber: String, accountHolderName: String)
+            : this(accountNumber, accountHolderName, 0.0)
+
+    fun deposit(amount: Double): Unit {
+        balance += amount
+    }
+
+    fun withdraw(amount: Double): Boolean {
+        if (balance >= amount) {
+            balance -= amount
+            return true
+        }
+        return false
+    }
+
+//    fun getBalance(): Double {
+//        return balance;
+//    }
+
+    open fun displayAccountInfo(): Unit {
+        println(
+            "Account Holder: $accountHolderName\n" +
+                    "Account Number: $accountNumber\n" +
+                    "Balance: $balance"
+        )
+    }
+}
+
+
 fun main() {
-    TODO("Uncomment the lines below after the Bank Account class is implemented.")
-    // Create a Bank Account
-    // val account = BankAccount("123456789", "John Doe")
+//    TODO("Uncomment the lines below after the Bank Account class is implemented.")
+//     Create a Bank Account
+    val account = BankAccount("123456789", "John Doe")
 
-    // Display account information
-    // account.displayAccountInfo()
+//     Display account information
+    account.displayAccountInfo()
 
-    // Deposit some money
-    // account.deposit(1000.0)
+//     Deposit some money
+    account.deposit(1000.0)
 
-    // Withdraw some money
-    // account.withdraw(500.0)
+//     Withdraw some money
+    account.withdraw(500.0)
 
-    // Display updated account information
-    // account.displayAccountInfo()
+//     Display updated account information
+    account.displayAccountInfo()
 }
