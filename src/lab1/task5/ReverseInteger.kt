@@ -39,8 +39,8 @@ internal fun reverseInteger(x: Int): Int {
     var tmp = x
 
     while (tmp != 0 ) {
-        val broj = tmp % 10
-        reversed = reversed * 10 + broj
+        val number = tmp % 10
+        reversed = reversed * 10 + number
         tmp /= 10
 
     }

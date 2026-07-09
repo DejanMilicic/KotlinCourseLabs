@@ -73,7 +73,6 @@ internal fun printPyramid(level: Int) {
         for (j in 1..(level - i)) {
             print(" ")
         }
-
         println()
     }
 }
