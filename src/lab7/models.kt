@@ -57,5 +57,10 @@ internal data class LeagueTableEntry(
      * The total number of points earned by a team.
      * The Team earns 3 points for every win, 1 point for a draw, and zero points for a loss.
      */
-    val totalPoints: Int get() = TODO("Calculate total points")
+    val totalPoints: Int get() = wins * 3 + draws
+
+    /**
+     * Goal difference: goals scored minus goals conceded.
+     */
+    val goalDifference: Int get() = totalScoredGoals - totalConcededGoals
 }

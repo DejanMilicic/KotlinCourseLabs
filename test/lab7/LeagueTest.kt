@@ -14,13 +14,13 @@ class LeagueTest : TestCase() {
         @JvmStatic
         @BeforeAll
         fun setup() {
-            val fixturesText = FileReader.readFileInResources("/lab7/fixtures.csv")
+            val fixturesText = FileReader.readFileInResources("resources/lab7/fixtures.csv")
             val fixtures = parseFixtures(fixturesText)
             val teams = fixtures.flatMap { fixture ->
                 fixture.matches.flatMap { match -> listOf(match.awayTeam, match.homeTeam) }
             }.distinct()
 
-            league = TODO("Initialize league: League(teams, fixtures) at LeagueTest#L23")
+            league = League(teams, fixtures)
         }
     }
 
