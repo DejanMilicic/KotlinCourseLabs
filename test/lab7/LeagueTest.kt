@@ -1,5 +1,4 @@
 package lab7
-
 import common.FileReader
 import common.TestCase
 import org.junit.jupiter.api.Assertions.assertEquals
