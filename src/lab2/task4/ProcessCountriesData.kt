@@ -37,10 +37,18 @@ internal val countries = listOf(
     Country("Australia", "Canberra", 26_439_111, listOf("English"), 7_741_220.0),
     Country("Russia", "Moscow", 144_444_359, listOf("Russian"), 17_098_246.0),
     Country(
-        "South Africa", "Pretoria, Bloemfontein, Cape Town", 59308690,
-        listOf(
-            "Afrikaans", "English", "Zulu", "Xhosa", "Southern Sotho",
-            "Tswana", "Northern Sotho", "Venda", "Tsonga", "Swati", "Ndebele"
+        "South Africa", "Pretoria, Bloemfontein, Cape Town", 59308690, listOf(
+            "Afrikaans",
+            "English",
+            "Zulu",
+            "Xhosa",
+            "Southern Sotho",
+            "Tswana",
+            "Northern Sotho",
+            "Venda",
+            "Tsonga",
+            "Swati",
+            "Ndebele"
         ), 1_219_090.0
     ),
     Country("Argentina", "Buenos Aires", 45195774, listOf("Spanish"), 2_780_400.0),
@@ -59,14 +67,11 @@ internal val countries = listOf(
  */
 
 internal fun List<Country>.findCountryWithBiggestTotalArea(): Country {
-    return countries.map { it }.maxByOrNull { it.totalAreaInSquareKilometers }
-        ?: throw NoSuchElementException("List is empty")
-
+    return this.maxByOrNull { it.totalAreaInSquareKilometers } ?: throw NoSuchElementException("List is empty")
 }
 
 internal fun List<Country>.findCountryWithBiggestPopulation(): Country {
-    return countries.map { it }.maxByOrNull { it.population } ?: throw NoSuchElementException("List is empty")
-
+    return this.maxByOrNull { it.population } ?: throw NoSuchElementException("List is empty")
 }
 
 internal fun List<Country>.findCountryWithHighestPopulationDensity(): Country {
@@ -81,11 +86,7 @@ internal fun List<Country>.findCountryWithLowestPopulationDensity(): Country {
 }
 
 internal fun List<Country>.findLanguageSpokenInMostCountries(): String {
-    return this.flatMap { it.languages }
-        .groupingBy { it }
-        .eachCount()
-        .maxByOrNull { it.value }
-        ?.key
+    return this.flatMap { it.languages }.groupingBy { it }.eachCount().maxByOrNull { it.value }?.key
         ?: throw NoSuchElementException("List is empty")
 }
 
