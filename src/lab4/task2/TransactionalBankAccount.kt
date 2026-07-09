@@ -1,5 +1,6 @@
 package lab4.task2
 
+import lab4.task1.BankAccount
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -85,20 +86,91 @@ private fun LocalDateTime.prettyPrint(): String {
     return this.format(formatter)
 }
 
+enum class TransactionType {
+    DEPOSIT, WITHDRAWAL
+}
+
+enum class TransactionStatus {
+    SUCCESS, FAILURE
+}
+
+data class Transaction(
+    val transactionDate: LocalDateTime,
+    val transactionType: TransactionType,
+    val amount: Double,
+    val oldBalance: Double,
+    val newBalance: Double,
+    val transactionStatus: TransactionStatus,
+    )
+
+class TransactionalBankAccount(accountNumber: String,
+                               accountHolder: String): BankAccount(accountNumber,
+                                                    accountHolder) {
+
+    private val transactions = mutableListOf<Transaction>()
+
+    override fun deposit(amount: Double) {
+        val oldBalance = accountBalance
+
+        super.deposit(amount)
+
+        transactions.add(Transaction(
+            transactionDate = LocalDateTime.now(),
+            transactionType = TransactionType.DEPOSIT,
+            amount = amount,
+            oldBalance = oldBalance,
+            newBalance = accountBalance,
+            transactionStatus = TransactionStatus.SUCCESS
+        ))
+    }
+
+    override fun withdraw(amount: Double): Boolean {
+        val oldBalance = accountBalance
+
+        val success = super.withdraw(amount)
+
+        transactions.add(Transaction(
+            transactionDate = LocalDateTime.now(),
+            transactionType = TransactionType.WITHDRAWAL,
+            amount = amount,
+            oldBalance = oldBalance,
+            newBalance = accountBalance,
+            transactionStatus = if(success) TransactionStatus.SUCCESS else TransactionStatus.FAILURE
+        ))
+        return success
+    }
+
+    fun getAllTransactions(): List<Transaction> {
+        return transactions.sortedBy { it.transactionDate }
+    }
+
+    override fun displayAccountInfo() {
+        getAllTransactions().forEach { transaction ->
+            println("Transaction Date ${transaction.transactionDate.prettyPrint()}")
+            println("Transaction Type ${transaction.transactionType}")
+            println("Amount ${transaction.amount}")
+            println("Old balance ${transaction.oldBalance}")
+            println("New balance ${transaction.newBalance}")
+            println("Transaction Status ${transaction.transactionStatus}")
+            println()
+        }
+    }
+}
+
 fun main() {
     println(currentTime.prettyPrint())
     // Create a Transactional Bank Account
-    // val account = TransactionalBankAccount("123456789", "John Doe")
+     val account = TransactionalBankAccount("123456789", "John Doe")
 
     // Display account information
-    // account.displayAccountInfo()
+     account.displayAccountInfo()
 
     // Deposit some money
-    // account.deposit(1000.0)
+     account.deposit(1000.0)
 
     // Withdraw some money
-    // account.withdraw(500.0)
+     account.withdraw(500.0)
 
     // Display updated account information
-    // account.displayAccountInfo()
+     account.displayAccountInfo()
 }
