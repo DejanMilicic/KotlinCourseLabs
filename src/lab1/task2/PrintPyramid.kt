@@ -57,7 +57,16 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+    if (level !in 1..15) {
+        throw IllegalArgumentException("Invalid level $level")
+    }
+    for(x in 1..level) {
+        val spaces = level - x
+        val counter = 2 * x - 1
+        print(" ".repeat(spaces))
+        print("*".repeat(counter))
+        println()
+    }
 }
 
 fun main() {
