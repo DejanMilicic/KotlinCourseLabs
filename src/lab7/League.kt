@@ -1,8 +1,5 @@
 package lab7
 
-import jdk.javadoc.internal.doclets.formats.html.Table
-import kotlin.coroutines.coroutineContext
-
 internal interface LeagueApi {
     /**
      * Represents a list of teams participating in a league.
@@ -141,7 +138,7 @@ internal class League(override val teams: List<Team>, val fixtures: List<Fixture
         val teamsInRound = fixtures
                 .flatMap { it.matches }
                 .flatMap { listOf(it.homeTeam, it.awayTeam) }
-                .distinct()
+                .toSet()
 
         val providedTeams = teams.toSet()
 
