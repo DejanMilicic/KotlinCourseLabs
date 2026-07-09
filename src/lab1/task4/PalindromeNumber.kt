@@ -1,5 +1,7 @@
 package lab1.task4
 
+import kotlin.math.pow
+
 /**
  * Task 4: Given an integer x, return true if x is a palindrome, and false otherwise.
  *
@@ -29,7 +31,14 @@ package lab1.task4
  */
 
 internal fun isPalindrome(x: Int): Boolean {
-    TODO("Implement me!!!")
+    if (x<0) return false
+
+    val numberString = x.toString()
+    val reverseStringNumber = numberString.reversed()
+
+    return if (numberString == reverseStringNumber) true else false
+
+
 }
 
 fun main() {
