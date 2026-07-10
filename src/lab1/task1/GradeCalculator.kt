@@ -40,14 +40,27 @@ import java.util.Scanner
  */
 
 internal fun calculateGrade(score: Int): Int {
-    TODO("Implement me!!!")
+    if ((score < 0) or (score > 100)) {
+        throw IllegalArgumentException("Score must be between 0 and 100")
+    }
+    val grade: Int
+    if(score < 51){
+        println("Student didn't pass!")
+        return 0
+    }
+    if(score % 10 >0){
+        grade = (score / 10) + 1
+    }else grade = score/10
+    return grade
 }
 
 fun main() {
-    print("Enter student score: ")
-    val scanner = Scanner(System.`in`)
-    val score = scanner.nextInt()
-
-    val grade = calculateGrade(score)
-    println("Student grade is $grade")
+    val score : Int = -5
+    while((score < 0) or (score > 100)){
+        print("Enter student score: ")
+        val scanner = Scanner(System.`in`)
+        val score = scanner.nextInt()
+        val grade = calculateGrade(score)
+        println("Student grade is $grade")
+    }
 }

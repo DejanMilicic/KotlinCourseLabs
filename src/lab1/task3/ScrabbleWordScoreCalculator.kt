@@ -32,7 +32,40 @@ package lab1.task3
  */
 
 internal fun calculateWordScrabbleScore(word: String): Int {
-    TODO("Implement me!!!")
+    var i: Int = 0
+    val one: String = "AEIOULNRST"
+    val two:String = "DG"
+    val three:String = "BCMP"
+    val four:String = "FHVWY"
+    val five:String = "K"
+    val eight:String = "JX"
+    val ten:String = "QZ"
+    var score:Int = 0
+    while(i < word.length) {
+        if(word[i].uppercaseChar() in one){
+            score += 1;
+        }
+        if(word[i].uppercaseChar() in two){
+            score += 2;
+        }
+        if(word[i].uppercaseChar() in three){
+            score += 3;
+        }
+        if(word[i].uppercaseChar() in four){
+            score += 4;
+        }
+        if(word[i].uppercaseChar() in five){
+            score += 5;
+        }
+        if(word[i].uppercaseChar() in eight){
+            score += 8;
+        }
+        if(word[i].uppercaseChar() in ten) {
+            score += 10;
+        }
+        i++
+    }
+    return score
 }
 
 fun main() {

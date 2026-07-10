@@ -57,7 +57,22 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    TODO("Implement me!!!")
+    var prog = level
+    var deg:Int = 0
+    for(i in 0 until level){
+        for(j in 0 until prog-1){
+            print(" ")
+        }
+        for(k in 0 .. deg){
+            print("*")
+        }
+        for(j in 0 until prog-1){
+            print(" ")
+        }
+        prog--
+        deg+=2
+        println()
+    }
 }
 
 fun main() {

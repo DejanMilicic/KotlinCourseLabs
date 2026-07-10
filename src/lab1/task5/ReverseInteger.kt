@@ -1,6 +1,8 @@
 package lab1.task5
 
 import kotlin.math.abs
+import kotlin.math.pow
+
 
 /**
  * Task 5: Given an integer x, return x with its digits reversed.
@@ -29,7 +31,20 @@ import kotlin.math.abs
  */
 
 internal fun reverseInteger(x: Int): Int {
-    TODO("Implement me!!!")
+    if((x<-1000000) or (x>1000000)) {
+        throw IllegalArgumentException("Number out of problem declared range!")
+    }
+    var result = 0
+    var number:Int = abs(x)
+    val len = abs(x).toString().length
+    var i: Int = 10.00.pow(len-1).toInt()
+    while(number > 0){
+        val digit = number % 10
+        if(x < 0){ result -= digit*i} else result += digit*i
+        number /= 10
+        i/=10
+    }
+    return result
 }
 
 fun main() {
