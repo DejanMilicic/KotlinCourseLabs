@@ -8,7 +8,7 @@ fun parseMovies(moviesLines: List<String>): List<Movie> {
     return moviesLines.drop(1).map { line ->
         val parts = line.split(";")
         val budget = parts[0].toLong()
-        val genres = parts[1].split(",")
+        val genres = parts[1].split(",").map { it.trim() }
         val title = parts[2]
         val rating = parts[3].toDouble()
         val releaseDate = LocalDate.parse(parts[4])

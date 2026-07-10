@@ -9,17 +9,17 @@ package lab8
  *
  */
 
-internal class MovieDB(private val movies: List<Movie>) : MovieDBApi{
+internal class MovieDB(private val movies: List<Movie>) : MovieDBApi {
     override fun getAllMoviesByActor(actor: MovieActor): List<Movie> {
-        return movies.filter { m -> actor in m.actors };
+        return movies.filter { m -> actor in m.actors }
     }
 
     override fun getMoviesWithBiggestProfit(numOfMovies: Int): List<Movie> {
-        return movies.sortedByDescending { movie -> movie.revenue - movie.budget }.take(numOfMovies);
+        return movies.sortedByDescending { movie -> movie.revenue - movie.budget }.take(numOfMovies)
     }
 
     override fun getBestRatedMovieByActor(actor: MovieActor): Movie? {
-        return movies.sortedByDescending { m -> m.rating }.filter{m -> actor in m.actors}.firstOrNull()
+        return movies.sortedByDescending { m -> m.rating }.filter { m -> actor in m.actors }.firstOrNull()
     }
 
     override fun getAllMoviesByYear(year: Int): List<Movie> {
@@ -39,7 +39,18 @@ internal class MovieDB(private val movies: List<Movie>) : MovieDBApi{
     }
 
     override fun getActorsWithMostCostarredMovies(): List<Pair<MovieActor, MovieActor>> {
-        TODO("Not yet implemented")
+        val pairCounts = mutableMapOf<Pair<MovieActor, MovieActor>, Int>()
+        for (movie in movies) {
+            val actors = movie.actors.sortedBy { it.name }
+            for (i in actors.indices) {
+                for (j in (i + 1) until actors.size) {
+                    val pair = actors[i] to actors[j]
+                    pairCounts[pair] = (pairCounts[pair] ?: 0) + 1
+                }
+            }
+        }
+        val maxCount = pairCounts.values.maxOrNull() ?: return emptyList()
+        return pairCounts.filter { it.value == maxCount }.keys.toList()
     }
 
 }
