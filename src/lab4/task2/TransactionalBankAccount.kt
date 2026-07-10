@@ -116,6 +116,7 @@ class TransactionalBankAccount(
     private val transactions = mutableListOf<Transaction>()
 
     override fun deposit(amount: Double) {
+        require(amount > 0) { "Deposit amount must be positive" }
         val oldBalance = _balance
         _balance += amount
         transactions.add(
@@ -133,7 +134,7 @@ class TransactionalBankAccount(
     override fun withdraw(amount: Double): Boolean {
         val oldBalance = _balance
         val success = amount <= _balance
-
+        require(amount > 0) { "Deposit amount must be positive" }
         if (success) {
             _balance -= amount
         }

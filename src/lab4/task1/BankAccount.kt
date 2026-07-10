@@ -33,10 +33,12 @@ package lab4.task1
  */
 open class BankAccount(val accountNumber: String, val accountHolderName: String, protected var _balance: Double = 0.0) {
    open fun deposit(amount: Double) {
+       require(amount > 0) { "Deposit amount must be positive" }
         _balance += amount
     }
 
     open fun withdraw(amount: Double): Boolean {
+        require(amount > 0) { "Deposit amount must be positive" }
         if (amount <= _balance) {
             _balance -= amount
             return true
