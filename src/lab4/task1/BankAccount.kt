@@ -42,10 +42,12 @@ internal open class BankAccount(
             : this(accountNumber, accountHolderName, 0.0)
 
     fun deposit(amount: Double) {
+        require(amount > 0) { "Amount must be positive" }
         balance += amount
     }
 
     fun withdraw(amount: Double): Boolean {
+        require(amount > 0) { "Amount must be positive" }
         if (balance >= amount) {
             balance -= amount
             return true
@@ -75,6 +77,8 @@ fun main() {
 
 //     Deposit some money
     account.deposit(1000.0)
+
+//    account.deposit(-10.0)
 
 //     Withdraw some money
     account.withdraw(500.0)
