@@ -24,7 +24,28 @@ package lab3.task2
  */
 
 internal fun String.splitToBracketsClusters(): List<String> {
-    TODO("Implement me!!!")
+    if (isEmpty()) return emptyList()
+
+    val result = mutableListOf<String>()
+    val stack = mutableListOf<Char>()
+    val closingToOpening = mapOf(')' to '(', ']' to '[', '}' to '{')
+    var startIndex = 0
+
+    forEachIndexed { index, char ->
+        if (char == '(' || char == '[' || char == '{') {
+            stack.add(char)
+        } else {
+            if (stack.isEmpty() || stack.removeAt(stack.lastIndex) != closingToOpening[char]) {
+                return emptyList()
+            }
+            if (stack.isEmpty()) {
+                result.add(substring(startIndex, index + 1))
+                startIndex = index + 1
+            }
+        }
+    }
+
+    return if (stack.isEmpty() && startIndex == length) result else emptyList()
 }
 
 fun main() {

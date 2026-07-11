@@ -17,7 +17,21 @@ import lab2.common.isEqualsTo
  */
 
 internal fun List<Int>.findHighestSumPair(): Pair<Int, Int> {
-    TODO("Implement me!!")
+    var bestPair = Pair(this[0], this[1])
+    var bestSum = this[0] + this[1]
+
+    for (i in indices) {
+        for (j in i + 1 until size) {
+            val currentPair = Pair(this[i], this[j])
+            val currentSum = currentPair.first + currentPair.second
+            if (currentSum >= bestSum) {
+                bestSum = currentSum
+                bestPair = currentPair
+            }
+        }
+    }
+
+    return bestPair
 }
 
 fun main() {

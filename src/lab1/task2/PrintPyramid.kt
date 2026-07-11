@@ -57,18 +57,18 @@ package lab1.task2
  */
 
 internal fun printPyramid(level: Int) {
-    if(level < 3 || level > 15)
+    if (level < 1 || level > 15) {
         throw IllegalArgumentException("Invalid level $level")
-    println()
-    for (i in 1..level){
-        for (j in 1..(2*level-1)){
-            if (j <= (level - i) || j >= (level + i)){
-                print(' ')
-            }
-            else {
-                print('*')
-            }
-        }
+    }
+
+    val width = level * 2 - 1
+
+    for (i in 1..level) {
+        val stars = i * 2 - 1
+        val spaces = (width - stars) / 2
+        repeat(spaces) { print(' ') }
+        repeat(stars) { print('*') }
+        repeat(spaces) { print(' ') }
         println()
     }
 }

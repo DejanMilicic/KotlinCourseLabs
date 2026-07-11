@@ -29,7 +29,24 @@ package lab3.task3
  */
 
 internal fun isSherlockValid(s: String): String {
-    TODO("Implement me!!!")
+    val counts = s.groupingBy { it }.eachCount().values
+    val grouped = counts.groupingBy { it }.eachCount()
+
+    if (grouped.size == 1) return "YES"
+    if (grouped.size > 2) return "NO"
+
+    val first = grouped.entries.first()
+    val second = grouped.entries.last()
+    val low = if (first.key < second.key) first else second
+    val high = if (first.key < second.key) second else first
+
+    return if (low.key == 1 && low.value == 1) {
+        "YES"
+    } else if (high.key - low.key == 1 && high.value == 1) {
+        "YES"
+    } else {
+        "NO"
+    }
 }
 
 fun main() {

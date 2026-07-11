@@ -26,7 +26,20 @@ package lab3.task1
 
 
 internal fun isExpressionBalanced(expression: String): Boolean {
-    TODO("Implement me!!!")
+    val stack = mutableListOf<Char>()
+    val closingToOpening = mapOf(')' to '(', ']' to '[', '}' to '{')
+
+    for (char in expression) {
+        if (char == '(' || char == '[' || char == '{') {
+            stack.add(char)
+        } else {
+            if (stack.isEmpty() || stack.removeAt(stack.lastIndex) != closingToOpening[char]) {
+                return false
+            }
+        }
+    }
+
+    return stack.isEmpty()
 }
 
 fun main() {
